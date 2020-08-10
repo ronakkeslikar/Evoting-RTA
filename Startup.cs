@@ -32,6 +32,7 @@ namespace evoting
            
             
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITestingService, TestingServices>();
 
             
         }

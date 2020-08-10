@@ -32,8 +32,8 @@ namespace evoting.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             //var result = await _userService.GetUserDataAsync();
-            var result = await _userService.RenameUsers();
-            return Ok( JsonConvert.SerializeObject(result));
+            //var result = await _userService.RenameUsers();
+            return Ok( JsonConvert.SerializeObject(""));
         }
 
         
