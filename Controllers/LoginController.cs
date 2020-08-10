@@ -28,7 +28,6 @@ namespace evoting.Controllers
 
         [HttpPost]
         public async Task<IActionResult> LoginUser(FJC_LoginRequest fJC_Login)
-       // public async Task<IActionResult> LoginUser()
 
         {
             //var result = await _userService.GetUserDataAsync(); 
