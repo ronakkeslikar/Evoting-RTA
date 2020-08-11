@@ -9,7 +9,42 @@ namespace evoting.Domain.Models
     {
         public String RTA_ID { get; set;}
         public int REG_TYPE_ID { get; set;}
-        public string NAME { get; set;}
+        public string NAME { get; set;}              
+
+        public string SetNAME(string value)
+        {
+            if(value != null)
+            {
+                //..throw exception if validation failed
+                Validate_Login validateString=new Validate_Login();
+                bool isString_UserID;
+                try
+                {
+                    isString_UserID = validateString.CheckOnlyAlphabetString(value);
+                if (isString_UserID)
+                    {
+                        UserID = value;
+                        return "Ok";
+                    }
+                    else
+                    {
+                        return "Please Enter Valid Name";
+
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                return "Please Enter Name";
+            }
+           
+        }
+
         public string REG_NO { get; set;}
         public string REG_ADD1 { get; set;}
         public string REG_ADD2 { get; set;}
@@ -26,7 +61,7 @@ namespace evoting.Domain.Models
         public String CORRES_PINCODE { get; set;}
         public String CORRES_STATE_ID { get; set;}
         public string CORRES_COUNTRY { get; set;}
-        public string PCS_NO { get;a set;}
+        public string PCS_NO { get; set;}
         public string CS_NAME { get; set;}
         public string CS_EMAIL_ID { get; set;}
         public string CS_ALT_EMAIL_ID { get; set;}
