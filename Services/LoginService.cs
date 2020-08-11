@@ -18,7 +18,7 @@ namespace evoting.Services
 {
     public interface ILoginService
     {     
-        
+        Task<DataTable> LoginDataUser(FJC_LoginRequest fJC_Login); 
         Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd);
         Task<DataTable> ForgotPasswordData(FJC_ForgotPassword fJC_forgot);
         Task<DataTable> ForgotPassword_DOB_Data(FJC_ForgotPassword fJC_forgot);
@@ -35,6 +35,25 @@ namespace evoting.Services
         {
             _context = context;
         } 
+         public async Task<DataTable> LoginDataUser(FJC_LoginRequest fJC_Login)
+        {
+            try
+            {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>();                
+                dictLogin.Add("@Password", fJC_Login.encrypt_Password);
+                dictLogin.Add("@DPIIDCLID", fJC_Login.UserID);
+                dictLogin.Add("@IP_Address", fJC_Login.system_ip);
+                // dictLogin.Add("@TokenId", TokenId);
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
+                return ds.Tables[0];
+                //return await AppDBCalls.GetDataSet("Evote_LoginSession_Detai=awals", dictLogin);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public async Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd)
         {
             try
