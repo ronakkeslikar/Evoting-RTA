@@ -20,7 +20,7 @@ namespace evoting.Domain.Models
                 bool isString_UserID;
                 try
                 {
-                    isString_UserID = validateString.CheckOnlyAlphabetString(value);
+                    isString_UserID = validateString.CheckString(value);
                 if (isString_UserID)
                     {
                         UserID = value;
