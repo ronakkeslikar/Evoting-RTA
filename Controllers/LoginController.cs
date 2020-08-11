@@ -20,11 +20,11 @@ namespace evoting.Controllers
      
     public class LoginController : ControllerBase
     {
-        private readonly IUserService _loginService;
+        private readonly ILoginService _loginService;
 
-        public LoginController(IUserService userService)
+        public LoginController(ILoginService loginService)
         {
-            _loginService = userService;
+            _loginService = loginService;
         }
 
         [HttpPost]
