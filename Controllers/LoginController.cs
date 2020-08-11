@@ -15,6 +15,7 @@ using evoting.Domain.Models;
 namespace evoting.Controllers
 {
     [Route("api/LoginReq")]
+    [Produces("application/json")]
     [ApiController]
      
     public class LoginController : ControllerBase
