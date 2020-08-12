@@ -20,6 +20,7 @@ namespace evoting.Services
     {     
         Task<DataTable> Registration_InsertData(FJC_Registration fJC_Registration);
         Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration);
+        Task<DataTable> GetRegistrationIDData(FJC_Registration fJC_Registration);
         
     }
 
@@ -112,6 +113,21 @@ namespace evoting.Services
 
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
+                return ds.Tables[0];               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+         public async Task<DataTable> GetRegistrationIDData(FJC_Registration fJC_Registration)
+        {
+            try
+            {
+                Dictionary<string, object> dictRegis = new Dictionary<string, object>();               
+                dictRegis.Add("@RTAID", fJC_Registration.RTA_ID);               
+                DataSet ds = new DataSet();
+                ds = await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);
                 return ds.Tables[0];               
             }
             catch (Exception ex)
