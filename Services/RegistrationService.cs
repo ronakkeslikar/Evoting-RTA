@@ -1,140 +1,126 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace evoting.Domain.Models
+using evoting.Persistence.Contexts;
+using evoting.Persistence.Contexts.Sp_SQL_Objects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
+using static evoting.Persistence.Contexts.Sp_SQL_Objects.SP_objectParam;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using evoting.Domain.Models;
+using evoting.Utility;
+
+namespace evoting.Services
 {
-    public class FJC_Registration
+    public interface IRegistrationService
+    {     
+        Task<DataTable> Registration_InsertData(FJC_Registration fJC_Registration);
+        Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration);
+        
+    }
+
+    public class RegistrationService : IRegistrationService
     {
-        public String RTA_ID { get; set;}
-        public int REG_TYPE_ID { get; set;}
-        public string NAME { get; set;}              
-
-        public string SetNAME(string value)
+        //db context here
+        protected readonly AppDbContext _context;
+        public RegistrationService(AppDbContext context)
         {
-            if(value != null)
+            _context = context;
+        } 
+         public async Task<DataTable> Registration_InsertData(FJC_Registration fJC_Registration)
+        {
+            try
             {
-                //..throw exception if validation failed
-                Validate_Login validateString=new Validate_Login();
-                bool isString_NAME;
-                try
-                {
-                    isString_NAME = validateString.CheckString(value);
-                if (isString_NAME)
-                    {
-                        NAME = value;
-                        return "Ok";
-                    }
-                    else
-                    {
-                        return "Please Enter Valid Name";
+                Dictionary<string, object> dictRegis = new Dictionary<string, object>();
+                //dictRegis.Add("@Mode", "I");                
+                dictRegis.Add("@RTA_ID", "0");
+                dictRegis.Add("@REG_TYPE_ID",fJC_Registration.REG_TYPE_ID);
+                dictRegis.Add("@NAME", fJC_Registration.NAME); 
+                dictRegis.Add("@REG_NO", fJC_Registration.REG_NO);
+                dictRegis.Add("@REG_ADD1",fJC_Registration.REG_ADD1);
+                dictRegis.Add("@REG_ADD2", fJC_Registration.REG_ADD2);               
+                dictRegis.Add("@REG_ADD3", fJC_Registration.REG_ADD3);
+                dictRegis.Add("@REG_CITY", fJC_Registration.REG_CITY);
+                dictRegis.Add("@REG_PINCODE", fJC_Registration.REG_PINCODE);
+                dictRegis.Add("@REG_STATE_ID",fJC_Registration.REG_STATE_ID);  
+                dictRegis.Add("@REG_COUNTRY", fJC_Registration.REG_COUNTRY);
+                dictRegis.Add("@SCRUTNIZER_ID",fJC_Registration.SCRUTNIZER_ID);
+                dictRegis.Add("@CORRES_ADD1", fJC_Registration.CORRES_ADD1);  
+                dictRegis.Add("@CORRES_ADD2",fJC_Registration.CORRES_ADD2);
+                dictRegis.Add("@CORRES_ADD3",fJC_Registration.CORRES_ADD3);
+                dictRegis.Add("@CORRES_CITY", fJC_Registration.CORRES_CITY);  
+                dictRegis.Add("@CORRES_PINCODE", fJC_Registration.CORRES_PINCODE);
+                dictRegis.Add("@CORRES_STATE_ID", fJC_Registration.CORRES_STATE_ID);
+                dictRegis.Add("@CORRES_COUNTRY", fJC_Registration.CORRES_COUNTRY);  
+                dictRegis.Add("@PCS_NO", fJC_Registration.PCS_NO);
+                dictRegis.Add("@CS_NAME",fJC_Registration.CS_NAME);
+                dictRegis.Add("@CS_EMAIL_ID",fJC_Registration.CS_EMAIL_ID);  
+                dictRegis.Add("@CS_ALT_EMAIL_ID", fJC_Registration.CS_ALT_EMAIL_ID);
+                dictRegis.Add("@CS_TEL_NO", fJC_Registration.CS_TEL_NO);
+                dictRegis.Add("@CS_FAX_NO", fJC_Registration.CS_FAX_NO); 
+                dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.CS_MOBILE_NO);
+                dictRegis.Add("@CREATED_DATE", fJC_Registration.CREATED_DATE);
+                dictRegis.Add("@MODIFIED_DATE", fJC_Registration.MODIFIED_DATE);                 
 
-                    }
-
-                }
-                catch(Exception ex)
-                {
-                    throw ex;
-                }
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
+                return ds.Tables[0];               
             }
-            else
+            catch (Exception ex)
             {
-                return "Please Enter Name";
+                throw ex;
             }
-           
         }
-
-        public string REG_NO { get; set;}
-        public string SetREG_NO(string value)
+         public async Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration)
+        {
+            try
             {
-                if(value != null)
-                {
-                    //..throw exception if validation failed
-                    Validate_Login validateString=new Validate_Login();
-                    bool isString_REG_NO;
-                    try
-                    {
-                        isString_REG_NO = validateString.CheckString(value);
-                    if (isString_UserID)
-                        {
-                            REG_NO = value;
-                            return "Ok";
-                        }
-                        else
-                        {
-                            return "Please Enter Valid Reg. No / CIN";
+                Dictionary<string, object> dictRegis = new Dictionary<string, object>();   
+                // dictRegis.Add("@Mode", "U");               
+                dictRegis.Add("@RTA_ID", fJC_Registration.RTA_ID);
+                dictRegis.Add("@REG_TYPE_ID",fJC_Registration.REG_TYPE_ID);
+                dictRegis.Add("@NAME", fJC_Registration.NAME); 
+                dictRegis.Add("@REG_NO", fJC_Registration.REG_NO);
+                dictRegis.Add("@REG_ADD1",fJC_Registration.REG_ADD1);
+                dictRegis.Add("@REG_ADD2", fJC_Registration.REG_ADD2);               
+                dictRegis.Add("@REG_ADD3", fJC_Registration.REG_ADD3);
+                dictRegis.Add("@REG_CITY", fJC_Registration.REG_CITY);
+                dictRegis.Add("@REG_PINCODE", fJC_Registration.REG_PINCODE);
+                dictRegis.Add("@REG_STATE_ID",fJC_Registration.REG_STATE_ID);  
+                dictRegis.Add("@REG_COUNTRY", fJC_Registration.REG_COUNTRY);
+                dictRegis.Add("@SCRUTNIZER_ID",fJC_Registration.SCRUTNIZER_ID);
+                dictRegis.Add("@CORRES_ADD1", fJC_Registration.CORRES_ADD1);  
+                dictRegis.Add("@CORRES_ADD2",fJC_Registration.CORRES_ADD2);
+                dictRegis.Add("@CORRES_ADD3",fJC_Registration.CORRES_ADD3);
+                dictRegis.Add("@CORRES_CITY", fJC_Registration.CORRES_CITY);  
+                dictRegis.Add("@CORRES_PINCODE", fJC_Registration.CORRES_PINCODE);
+                dictRegis.Add("@CORRES_STATE_ID", fJC_Registration.CORRES_STATE_ID);
+                dictRegis.Add("@CORRES_COUNTRY", fJC_Registration.CORRES_COUNTRY);  
+                dictRegis.Add("@PCS_NO", fJC_Registration.PCS_NO);
+                dictRegis.Add("@CS_NAME",fJC_Registration.CS_NAME);
+                dictRegis.Add("@CS_EMAIL_ID",fJC_Registration.CS_EMAIL_ID);  
+                dictRegis.Add("@CS_ALT_EMAIL_ID", fJC_Registration.CS_ALT_EMAIL_ID);
+                dictRegis.Add("@CS_TEL_NO", fJC_Registration.CS_TEL_NO);
+                dictRegis.Add("@CS_FAX_NO", fJC_Registration.CS_FAX_NO); 
+                dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.CS_MOBILE_NO);
+                dictRegis.Add("@CREATED_DATE", fJC_Registration.CREATED_DATE);
+                dictRegis.Add("@MODIFIED_DATE", fJC_Registration.MODIFIED_DATE);                 
 
-                        }
-
-                    }
-                    catch(Exception ex)
-                    {
-                        throw ex;
-                    }
-                }
-                else
-                {
-                    return "Please Enter Reg. No / CIN";
-                }
-            
-            }        
-        public string REG_ADD1 { get; set;}
-        public string SetREG_ADD1(string value)
-            {
-                if(value != null)
-                {
-                    //..throw exception if validation failed
-                    Validate_Login validateString=new Validate_Login();
-                    bool isString_REG_ADD1;
-                    try
-                    {
-                        isString_REG_ADD1 = validateString.CheckString(value);
-                    if (isString_REG_ADD1)
-                        {
-                            REG_ADD1 = value;
-                            return "Ok";
-                        }
-                        else
-                        {
-                            return "Please Enter Valid Address";
-                        }
-
-                    }
-                    catch(Exception ex)
-                    {
-                        throw ex;
-                    }
-                }
-                else
-                {
-                    return "Please Enter Address";
-                }
-            
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
+                return ds.Tables[0];               
             }
-        public string REG_ADD2 { get; set;}
-        public string REG_ADD3 { get; set;}
-        public string REG_CITY { get; set;}
-        public String REG_PINCODE { get; set;}
-        public String REG_STATE_ID { get; set;}
-        public string REG_COUNTRY { get; set;}
-        public string SCRUTNIZER_ID { get; set;}
-        public string CORRES_ADD1 { get; set;}
-        public string CORRES_ADD2 { get; set;}
-        public string CORRES_ADD3 { get; set;}
-        public string CORRES_CITY { get; set;}
-        public String CORRES_PINCODE { get; set;}
-        public String CORRES_STATE_ID { get; set;}
-        public string CORRES_COUNTRY { get; set;}
-        public string PCS_NO { get; set;}
-        public string CS_NAME { get; set;}
-        public string CS_EMAIL_ID { get; set;}
-        public string CS_ALT_EMAIL_ID { get; set;}
-        public string CS_TEL_NO { get; set;}
-        public string CS_FAX_NO { get; set;}
-        public string CS_MOBILE_NO { get; set;}
-        public DateTime CREATED_DATE { get; set;}
-        public DateTime MODIFIED_DATE { get; set;}
-    }  
-     
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        
+    }
 }
+ 

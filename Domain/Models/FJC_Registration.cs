@@ -17,13 +17,13 @@ namespace evoting.Domain.Models
             {
                 //..throw exception if validation failed
                 Validate_Login validateString=new Validate_Login();
-                bool isString_UserID;
+                bool isString_NAME;
                 try
                 {
-                    isString_UserID = validateString.CheckString(value);
-                if (isString_UserID)
+                    isString_NAME = validateString.CheckString(value);
+                if (isString_NAME)
                     {
-                        UserID = value;
+                        NAME = value;
                         return "Ok";
                     }
                     else
@@ -46,7 +46,72 @@ namespace evoting.Domain.Models
         }
 
         public string REG_NO { get; set;}
+        public string SetREG_NO(string value)
+            {
+                if(value != null)
+                {
+                    //..throw exception if validation failed
+                    Validate_Login validateString=new Validate_Login();
+                    bool isString_REG_NO;
+                    try
+                    {
+                        isString_REG_NO = validateString.CheckString(value);
+                    if (isString_UserID)
+                        {
+                            REG_NO = value;
+                            return "Ok";
+                        }
+                        else
+                        {
+                            return "Please Enter Valid Reg. No / CIN";
+
+                        }
+
+                    }
+                    catch(Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    return "Please Enter Reg. No / CIN";
+                }
+            
+            }        
         public string REG_ADD1 { get; set;}
+        public string SetREG_ADD1(string value)
+            {
+                if(value != null)
+                {
+                    //..throw exception if validation failed
+                    Validate_Login validateString=new Validate_Login();
+                    bool isString_REG_ADD1;
+                    try
+                    {
+                        isString_REG_ADD1 = validateString.CheckString(value);
+                    if (isString_REG_ADD1)
+                        {
+                            REG_ADD1 = value;
+                            return "Ok";
+                        }
+                        else
+                        {
+                            return "Please Enter Valid Address";
+                        }
+
+                    }
+                    catch(Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    return "Please Enter Address";
+                }
+            
+            }
         public string REG_ADD2 { get; set;}
         public string REG_ADD3 { get; set;}
         public string REG_CITY { get; set;}

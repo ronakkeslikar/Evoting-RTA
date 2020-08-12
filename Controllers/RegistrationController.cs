@@ -30,14 +30,30 @@ namespace evoting.Controllers
         [HttpPost]
         public async Task<IActionResult> RegistrationSave(FJC_Registration fJC_Registration)
         { 
-            var result = await _registrationService.Registration_InsertData(fJC_Registration);
-            return Ok(JsonConvert.SerializeObject(result));
+            try
+            {
+                var result = await _registrationService.Registration_InsertData(fJC_Registration);
+                return Ok(JsonConvert.SerializeObject(result));
+            }
+            catch(Exception ex)
+            {
+
+                throw ex.Message;
+            }
+           
         }
         [HttpPut]
         public async Task<IActionResult> RegistrationUpdate(FJC_Registration fJC_Registration)
         { 
-            var result = await _registrationService.Registration_UpdateData(fJC_Registration);
-            return Ok(JsonConvert.SerializeObject(result));
+            try
+            {
+                var result = await _registrationService.Registration_UpdateData(fJC_Registration);
+                return Ok(JsonConvert.SerializeObject(result));
+             }
+            catch(Exception ex)
+            {
+                throw ex.Message;
+            }
         }
          [HttpGet]
         public async Task<IActionResult> GetRegistrationID(FJC_Registration fJC_Registration)
