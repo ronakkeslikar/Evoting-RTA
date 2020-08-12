@@ -14,7 +14,7 @@ using evoting.Domain.Models;
 
 namespace evoting.Controllers
 {
-    [Route("api/LoginReq")]
+    [Route("api/Registration")]
     [Produces("application/json")]
     [ApiController]
      
@@ -38,6 +38,20 @@ namespace evoting.Controllers
         { 
             var result = await _registrationService.Registration_UpdateData(fJC_Registration);
             return Ok(JsonConvert.SerializeObject(result));
+        }
+         [HttpGet]
+        public async Task<IActionResult> GetRegistrationID(FJC_Registration fJC_Registration)
+        {
+            try
+            {
+                var result = await _registrationService.GetRegistrationIDData(fJC_Registration);
+                return Ok(JsonConvert.SerializeObject(result));
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            
         }
     }
 }

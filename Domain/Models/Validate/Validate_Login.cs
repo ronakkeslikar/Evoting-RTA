@@ -17,9 +17,13 @@ namespace evoting.Domain.Models.Validate
         public bool CheckOnlyAlphabetString(string inputString)
         {
             var regexItem = new Regex("^[a-zA-Z]*$"); //returns false if contains special character
-            return regexItem.IsMatch(inputString);
-           // Console.WriteLine(Regex.IsMatch("sdfdff@sdfs", @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase));
+            return regexItem.IsMatch(inputString); 
+        }
 
+         public bool IsValidEmailId(string inputString)
+        {
+            var regexItem = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z");
+            return regexItem.IsMatch(inputString,RegexOptions.IgnoreCase);
         }
 
 
