@@ -29,11 +29,11 @@ namespace evoting.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAllAsync()
+        public string GetAllAsync()
         {
             //var result = await _userService.GetUserDataAsync();
             //var result = await _userService.RenameUsers();
-            return Ok( JsonConvert.SerializeObject(""));
+            return   JsonConvert.SerializeObject("");
         }
 
         
