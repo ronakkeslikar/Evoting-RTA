@@ -8,11 +8,11 @@ namespace evoting.Domain.Models
 {
     public class FJC_ChangePassword
     {
-        [Required(ErroreMessage ="Enter User ID"),RegularExpression(@"^[a-zA-Z0-9]*$")]  
+        [Required(ErrorMessage ="Enter User ID"),RegularExpression(@"^[a-zA-Z0-9]*$")]  
         public string UserID { get; set; }
-         [Required(ErroreMessage ="Enter Old Password")]
+         [Required(ErrorMessage ="Enter Old Password")]
         public string encrypt_OldPassword { get; set; }
-          [Required(ErroreMessage ="Enter New Password")]
+          [Required(ErrorMessage ="Enter New Password")]
         public string encrypt_NewPassword { get; set; }
        
     }

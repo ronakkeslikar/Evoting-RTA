@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using evoting.Domain.Models.Validate;
-using System.ComponentModel.DataAnnotation;
+using System.ComponentModel.DataAnnotations;
 
 namespace evoting.Domain.Models
 {
@@ -12,7 +12,7 @@ namespace evoting.Domain.Models
     {
         //private string _userid;
         //public string UserID { get { return _userid; } set { _userid = (Validate_Login.CheckString(_userid) ? _userid : ""); } }         
-          [Required(ErroreMessage ="Enter User ID")]                
+          [Required(ErrorMessage ="Enter User ID")]                
           public string UserID { get; set; }
         public string encrypt_OldPassword { get; set; }
         public string encrypt_NewPassword { get; set; }
