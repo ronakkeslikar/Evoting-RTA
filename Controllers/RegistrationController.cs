@@ -38,7 +38,7 @@ namespace evoting.Controllers
             catch(Exception ex)
             {
 
-                throw ex.Message.ToString();
+                throw ex;
             }
            
         }
@@ -52,7 +52,7 @@ namespace evoting.Controllers
              }
             catch(Exception ex)
             {
-                throw ex.Message.ToString();
+                throw ex;
             }
         }
          [HttpGet]
@@ -63,9 +63,9 @@ namespace evoting.Controllers
                 var result = await _registrationService.GetRegistrationIDData(fJC_Registration);
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw e;
+                throw ex;
             }
             
         }

@@ -31,9 +31,16 @@ namespace evoting.Controllers
         public async Task<IActionResult> LoginUser(FJC_LoginRequest fJC_Login)
 
         {
-            //var result = await _userService.GetUserDataAsync(); 
-            var result = await _loginService.LoginDataUser(fJC_Login);
-            return Ok(JsonConvert.SerializeObject(result));
+            try
+            {
+                var result = await _loginService.LoginDataUser(fJC_Login);
+                return Ok(JsonConvert.SerializeObject(result));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
         }
     }
 }

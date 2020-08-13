@@ -30,9 +30,16 @@ namespace evoting.Controllers
         public async Task<IActionResult> ForgotPassword(FJC_ChangePassword fJC_changePwd)
 
         {
-            //var result = await _userService.GetUserDataAsync(); 
+          try
+          {
             var result = await _loginService.ChangePasswordData(fJC_changePwd);
             return Ok(JsonConvert.SerializeObject(result));
+          }
+          catch(Exception ex)
+          {
+              throw ex;
+          }
+            
         }
     }
 }

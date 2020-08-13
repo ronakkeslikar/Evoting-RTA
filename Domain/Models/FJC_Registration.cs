@@ -57,7 +57,7 @@ namespace evoting.Domain.Models
                     try
                     {
                         isString_REG_NO = validateString.CheckString(value);
-                    if (isString_UserID)
+                    if (isString_REG_NO)
                         {
                             REG_NO = value;
                             return "Ok";

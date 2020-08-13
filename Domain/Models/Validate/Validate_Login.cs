@@ -23,7 +23,7 @@ namespace evoting.Domain.Models.Validate
          public bool IsValidEmailId(string inputString)
         {
             var regexItem = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z");
-            return regexItem.IsMatch(inputString,RegexOptions.IgnoreCase);
+            return regexItem.IsMatch(inputString);
         }
 
 
