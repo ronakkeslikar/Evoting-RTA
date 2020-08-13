@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using evoting.Domain.Models.Validate;
 
@@ -8,28 +9,8 @@ namespace evoting.Domain.Models
 {
     public class FJC_ForgotPassword
     {
-        public string UserID { get; private set; }         
-
-        public void SetUserID(string value)
-        {
-            //..throw exception if validation failed
-            Validate_Login validateString=new Validate_Login();
-            bool isString_UserID;
-            try
-            {
-                isString_UserID = validateString.CheckString(value);
-               if (isString_UserID)
-                {
-                    UserID = value;
-                }
-
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-           
-        }
+        private string _userid;
+        public string UserID { get { return _userid; } set { _userid = (Validate_Login.CheckString(_userid) ? _userid : ""); } }         
 
         public string encrypt_OldPassword { get; set; }
         public string encrypt_NewPassword { get; set; }
