@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using evoting.Domain.Models.Validate;
+using System.ComponentModel.DataAnnotations; 
 
 namespace evoting.Domain.Models
 {
@@ -10,129 +11,50 @@ namespace evoting.Domain.Models
     {
         public String RTA_ID { get; set;}
         public int REG_TYPE_ID { get; set;}
-        public string NAME { get; set;}              
 
-        public string SetNAME(string value)
-        {
-            if(value != null)
-            {
-                //..throw exception if validation failed
-                Validate_Login validateString=new Validate_Login();
-                bool isString_NAME;
-                try
-                {
-                    isString_NAME = validateString.CheckString(value);
-                if (isString_NAME)
-                    {
-                        NAME = value;
-                        return "Ok";
-                    }
-                    else
-                    {
-                        return "Please Enter Valid Name";
+        [Required (ErrorMessage ="Enter User ID") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
+        public string NAME { get; set;}  
 
-                    }
-
-                }
-                catch(Exception ex)
-                {
-                    throw ex;
-                }
-            }
-            else
-            {
-                return "Please Enter Name";
-            }
-           
-        }
-
+        [Required (ErrorMessage ="Enter NAME") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
         public string REG_NO { get; set;}
-        public string SetREG_NO(string value)
-            {
-                if(value != null)
-                {
-                    //..throw exception if validation failed
-                    Validate_Login validateString=new Validate_Login();
-                    bool isString_REG_NO;
-                    try
-                    {
-                        isString_REG_NO = validateString.CheckString(value);
-                    if (isString_REG_NO)
-                        {
-                            REG_NO = value;
-                            return "Ok";
-                        }
-                        else
-                        {
-                            return "Please Enter Valid Reg. No / CIN";
-
-                        }
-
-                    }
-                    catch(Exception ex)
-                    {
-                        throw ex;
-                    }
-                }
-                else
-                {
-                    return "Please Enter Reg. No / CIN";
-                }
-            
-            }        
+                
+        [Required (ErrorMessage ="Enter Registered Office Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
         public string REG_ADD1 { get; set;}
-        public string SetREG_ADD1(string value)
-            {
-                if(value != null)
-                {
-                    //..throw exception if validation failed
-                    Validate_Login validateString=new Validate_Login();
-                    bool isString_REG_ADD1;
-                    try
-                    {
-                        isString_REG_ADD1 = validateString.CheckString(value);
-                    if (isString_REG_ADD1)
-                        {
-                            REG_ADD1 = value;
-                            return "Ok";
-                        }
-                        else
-                        {
-                            return "Please Enter Valid Address";
-                        }
-
-                    }
-                    catch(Exception ex)
-                    {
-                        throw ex;
-                    }
-                }
-                else
-                {
-                    return "Please Enter Address";
-                }
-            
-            }
+         
         public string REG_ADD2 { get; set;}
         public string REG_ADD3 { get; set;}
+        [Required (ErrorMessage ="Enter City")] 
         public string REG_CITY { get; set;}
+           [Required (ErrorMessage ="Enter Pincode")] 
         public String REG_PINCODE { get; set;}
+           [Required (ErrorMessage ="Enter State")] 
         public String REG_STATE_ID { get; set;}
+           [Required (ErrorMessage ="Enter Country")] 
         public string REG_COUNTRY { get; set;}
+
         public string SCRUTNIZER_ID { get; set;}
+        [Required (ErrorMessage ="Enter Correspondence Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
         public string CORRES_ADD1 { get; set;}
         public string CORRES_ADD2 { get; set;}
         public string CORRES_ADD3 { get; set;}
+         [Required (ErrorMessage ="Enter City")]
         public string CORRES_CITY { get; set;}
+        [Required (ErrorMessage ="Enter Pincode")] 
         public String CORRES_PINCODE { get; set;}
+          [Required (ErrorMessage ="Enter State")] 
         public String CORRES_STATE_ID { get; set;}
+             [Required (ErrorMessage ="Enter Country")] 
         public string CORRES_COUNTRY { get; set;}
         public string PCS_NO { get; set;}
+         [Required (ErrorMessage ="Enter NAME") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
         public string CS_NAME { get; set;}
+         [Required (ErrorMessage ="Enter EMAIL_ID") ,RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
         public string CS_EMAIL_ID { get; set;}
         public string CS_ALT_EMAIL_ID { get; set;}
+         [Required (ErrorMessage ="Enter Telephone No.") ,RegularExpression(@"^[0-9]*$")] 
         public string CS_TEL_NO { get; set;}
         public string CS_FAX_NO { get; set;}
+        [Required (ErrorMessage ="Enter Mobile No.") ,RegularExpression(@"^[0-9]*$")] 
         public string CS_MOBILE_NO { get; set;}
         public DateTime CREATED_DATE { get; set;}
         public DateTime MODIFIED_DATE { get; set;}
