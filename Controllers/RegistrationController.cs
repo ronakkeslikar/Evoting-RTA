@@ -38,7 +38,7 @@ namespace evoting.Controllers
             catch(Exception ex)
             {
 
-                throw ex.Message;
+                throw ex.Message.ToString();
             }
            
         }
@@ -52,7 +52,7 @@ namespace evoting.Controllers
              }
             catch(Exception ex)
             {
-                throw ex.Message;
+                throw ex.Message.ToString();
             }
         }
          [HttpGet]

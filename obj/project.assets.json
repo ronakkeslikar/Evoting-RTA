@@ -5042,19 +5042,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ronak.BIGSHARE2\\.nuget\\packages\\": {}
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ronak.BIGSHARE2\\Documents\\GitHub\\Evoting-RTA\\evoting.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\Documents\\GitHub\\Evoting-RTA\\evoting.csproj",
       "projectName": "evoting",
-      "projectPath": "C:\\Users\\ronak.BIGSHARE2\\Documents\\GitHub\\Evoting-RTA\\evoting.csproj",
-      "packagesPath": "C:\\Users\\ronak.BIGSHARE2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ronak.BIGSHARE2\\Documents\\GitHub\\Evoting-RTA\\obj\\",
+      "projectPath": "C:\\Users\\Lenovo\\Documents\\GitHub\\Evoting-RTA\\evoting.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovo\\Documents\\GitHub\\Evoting-RTA\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ronak.BIGSHARE2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

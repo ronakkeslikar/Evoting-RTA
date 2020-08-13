@@ -9,11 +9,11 @@ namespace evoting.Utility
     {
           public void NullValueException()
         {
-            MessageBox.Show("Please enter value");
+           // MessageBox.Show("Please enter value");
         }
         public void MyDivideException()
         {
-            MessageBox.Show("Exception occured, divisor should not be zero");
+            //MessageBox.Show("Exception occured, divisor should not be zero");
         }
     }
 }

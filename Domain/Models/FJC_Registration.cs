@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using evoting.Domain.Models.Validate;
 
 namespace evoting.Domain.Models
 {

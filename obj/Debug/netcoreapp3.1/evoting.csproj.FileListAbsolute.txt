@@ -355,3 +355,10 @@ C:\Users\ronak.BIGSHARE2\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\st
 C:\Users\ronak.BIGSHARE2\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.dll
 C:\Users\ronak.BIGSHARE2\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.pdb
 C:\Users\ronak.BIGSHARE2\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.genruntimeconfig.cache
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.csprojAssemblyReference.cache
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.AssemblyInfo.cs
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.pdb
