@@ -8,7 +8,7 @@ namespace evoting.Domain.Models
 {
     public class FJC_ForgotPassword
     {
-        public string UserID { get; private set; }         
+        public string UserID { get;  set; }         
 
         public void SetUserID(string value)
         {
