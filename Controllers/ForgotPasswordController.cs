@@ -50,7 +50,7 @@ namespace evoting.Controllers
                                 break;
                         }
                         break;
-                    case 'R':
+                    case 'S':
 
                         result = await _loginService.ForgotPasswordData(fJC_forgot);
                         break;
