@@ -36,9 +36,8 @@ namespace evoting.Services
         {
             try
             {
-                Dictionary<string, object> dictRegis = new Dictionary<string, object>();
-                //dictRegis.Add("@Mode", "I");                
-                dictRegis.Add("@RTA_ID", "0");
+                Dictionary<string, object> dictRegis = new Dictionary<string, object>();                            
+                dictRegis.Add("@SR_No", "0");
                 dictRegis.Add("@REG_TYPE_ID",fJC_Registration.REG_TYPE_ID);
                 dictRegis.Add("@NAME", fJC_Registration.NAME); 
                 dictRegis.Add("@REG_NO", fJC_Registration.REG_NO);
@@ -82,7 +81,7 @@ namespace evoting.Services
             {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();   
                 // dictRegis.Add("@Mode", "U");               
-                dictRegis.Add("@RTA_ID", fJC_Registration.RTA_ID);
+                dictRegis.Add("@SR_No", fJC_Registration.SR_NO);
                 dictRegis.Add("@REG_TYPE_ID",fJC_Registration.REG_TYPE_ID);
                 dictRegis.Add("@NAME", fJC_Registration.NAME); 
                 dictRegis.Add("@REG_NO", fJC_Registration.REG_NO);
@@ -125,7 +124,7 @@ namespace evoting.Services
             try
             {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();               
-                dictRegis.Add("@RTAID", fJC_Registration.RTA_ID);               
+                dictRegis.Add("@SR_No", fJC_Registration.SR_NO);               
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);
                 return ds.Tables[0];               
