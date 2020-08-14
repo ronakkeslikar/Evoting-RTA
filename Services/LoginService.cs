@@ -24,7 +24,7 @@ namespace evoting.Services
         Task<DataTable> ForgotPassword_DOB_Data(FJC_ForgotPassword fJC_forgot);
         Task<DataTable> ForgotPassword_PAN_ID_Data(FJC_ForgotPassword fJC_forgot);
         Task<DataTable> ForgotPassword_EmailID_Data(FJC_ForgotPassword fJC_forgot);
-        Task<DataTable> GetInvestorEmailIDData(FJC_ForgotPassword fJC_forgot);
+        Task<DataTable> GetInvestorEmailIDData(string UserID);
 
          Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot);
     }
@@ -41,9 +41,9 @@ namespace evoting.Services
         {
             try
             {
-                Dictionary<string, object> dictLogin = new Dictionary<string, object>();                
-                dictLogin.Add("@Password", fJC_Login.encrypt_Password);
-                dictLogin.Add("@DPIIDCLID", fJC_Login.UserID);
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@DPIIDCLID", fJC_Login.UserID);               
+                dictLogin.Add("@Password", fJC_Login.encrypt_Password);               
                 dictLogin.Add("@IP_Address", fJC_Login.system_ip);
                 // dictLogin.Add("@TokenId", TokenId);
                 DataSet ds=new DataSet();
@@ -144,12 +144,12 @@ namespace evoting.Services
                 throw ex;
             }
         }
-        public async Task<DataTable> GetInvestorEmailIDData(FJC_ForgotPassword fJC_forgot)
+        public async Task<DataTable> GetInvestorEmailIDData(string UserID)
         {
             try
             {
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();               
-                dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);               
+                dictForgotPwd.Add("@DPIIDCLID", UserID);               
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_GetInvestorEmailID", dictForgotPwd);
                 return ds.Tables[0];

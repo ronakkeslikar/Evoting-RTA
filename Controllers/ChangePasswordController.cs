@@ -26,7 +26,9 @@ namespace evoting.Controllers
             _loginService = loginService;
         }
 
-        [HttpPost]        
+        [HttpPost] 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> ForgotPassword(FJC_ChangePassword fJC_changePwd)
 
         {

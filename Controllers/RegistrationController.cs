@@ -28,6 +28,8 @@ namespace evoting.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> RegistrationSave(FJC_Registration fJC_Registration)
         { 
             try
@@ -43,6 +45,8 @@ namespace evoting.Controllers
            
         }
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> RegistrationUpdate(FJC_Registration fJC_Registration)
         { 
             try
@@ -56,11 +60,13 @@ namespace evoting.Controllers
             }
         }
          [HttpGet]
-        public async Task<IActionResult> GetRegistrationID(FJC_Registration fJC_Registration)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
+        public async Task<IActionResult> GetRegistrationID([FromQuery] int SR_NO)
         {
             try
             {
-                var result = await _registrationService.GetRegistrationIDData(fJC_Registration);
+                var result = await _registrationService.GetRegistrationIDData(SR_NO);
                 return Ok(JsonConvert.SerializeObject(result));
             }
             catch(Exception ex)

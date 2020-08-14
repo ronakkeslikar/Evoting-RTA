@@ -72,12 +72,12 @@ namespace evoting.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetInvestorEmailID(FJC_ForgotPassword fJC_forgot)
+        public async Task<IActionResult> GetInvestorEmailID([FromQuery] string UserID )
 
         {
             try
             {
-                var result = await _loginService.GetInvestorEmailIDData(fJC_forgot);
+                var result = await _loginService.GetInvestorEmailIDData(UserID);
                 return Ok(JsonConvert.SerializeObject(result));
 
             }

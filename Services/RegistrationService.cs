@@ -20,7 +20,7 @@ namespace evoting.Services
     {     
         Task<DataTable> Registration_InsertData(FJC_Registration fJC_Registration);
         Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration);
-        Task<DataTable> GetRegistrationIDData(FJC_Registration fJC_Registration);
+        Task<DataTable> GetRegistrationIDData(int SR_NO);
         
     }
 
@@ -119,12 +119,12 @@ namespace evoting.Services
                 throw ex;
             }
         }
-         public async Task<DataTable> GetRegistrationIDData(FJC_Registration fJC_Registration)
+         public async Task<DataTable> GetRegistrationIDData(int SR_NO)
         {
             try
             {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();               
-                dictRegis.Add("@SR_No", fJC_Registration.SR_NO);               
+                dictRegis.Add("@SR_No", SR_NO);               
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);
                 return ds.Tables[0];               
