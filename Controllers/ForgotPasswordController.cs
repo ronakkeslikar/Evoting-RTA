@@ -42,10 +42,7 @@ namespace evoting.Controllers
                         {
                             case 'D':
                                 result = await _loginService.ForgotPassword_DOB_Data(fJC_forgot);
-                                break;
-                            case 'P':
-                                result = await _loginService.ForgotPassword_PAN_ID_Data(fJC_forgot);
-                                break;              
+                                break;                                          
                             case 'B':
                                 result = await _loginService.ForgotPassword_BANK_ACC_Data(fJC_forgot);
                                  break;

@@ -21,12 +21,9 @@ namespace evoting.Services
         Task<DataTable> LoginDataUser(FJC_LoginRequest fJC_Login); 
         Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd);
         Task<DataTable> ForgotPasswordData(FJC_ForgotPassword fJC_forgot);
-        Task<DataTable> ForgotPassword_DOB_Data(FJC_ForgotPassword fJC_forgot);
-        Task<DataTable> ForgotPassword_PAN_ID_Data(FJC_ForgotPassword fJC_forgot);
-        Task<DataTable> ForgotPassword_EmailID_Data(FJC_ForgotPassword fJC_forgot);
+        Task<DataTable> ForgotPassword_DOB_Data(FJC_ForgotPassword fJC_forgot);        
         Task<DataTable> GetInvestorEmailIDData(string UserID);
-
-         Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot);
+        Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot);
     }
 
     public class LoginService : ILoginService
@@ -81,7 +78,8 @@ namespace evoting.Services
             try
             {
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();                
-                dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);               
+                dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID); 
+                dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID);              
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
                 return ds.Tables[0];                
@@ -98,6 +96,7 @@ namespace evoting.Services
             {
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);
+                dictForgotPwd.Add("@PANID", fJC_forgot.PAN_ID);
                 dictForgotPwd.Add("@DOB", fJC_forgot.DOB);
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
@@ -108,38 +107,25 @@ namespace evoting.Services
                 throw ex;
             }
         }
-        public async Task<DataTable> ForgotPassword_PAN_ID_Data(FJC_ForgotPassword fJC_forgot)
+         public async Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot)
         {
             try
             {
-                Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();
+                Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();               
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);
                 dictForgotPwd.Add("@PANID", fJC_forgot.PAN_ID);
+                dictForgotPwd.Add("@Bank_AccNo", fJC_forgot.Bank_AccNo);             
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];               
+                return ds.Tables[0];
+               
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public async Task<DataTable> ForgotPassword_EmailID_Data(FJC_ForgotPassword fJC_forgot)
-        {
-            try
-            {
-                Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();
-                dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);
-                dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID);
-                DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];                
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
         public async Task<DataTable> GetInvestorEmailIDData(string UserID)
         {
             try
@@ -154,27 +140,8 @@ namespace evoting.Services
             {
                 throw ex;
             }
-        }
-     
-
-     
-     public async Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot)
-        {
-            try
-            {
-                Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();               
-                dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);
-                dictForgotPwd.Add("@Bank_AccNo", fJC_forgot.Bank_AccNo);             
-                DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];
-               
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        }      
+    
     }
 }
 
