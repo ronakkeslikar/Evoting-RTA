@@ -62,8 +62,11 @@ namespace evoting.Services
             {
                 Dictionary<string, object> dictChangePwd = new Dictionary<string, object>();
                 dictChangePwd.Add("@DPIIDCLID", fJC_changePwd.UserID);
-                dictChangePwd.Add("@CurrPassword", DecryptPassword.Decrypt_Password(fJC_changePwd.encrypt_OldPassword));
-                dictChangePwd.Add("@NewPassword", DecryptPassword.Decrypt_Password(fJC_changePwd.encrypt_NewPassword));
+                dictChangePwd.Add("@CurrPassword", fJC_changePwd.encrypt_OldPassword);
+                dictChangePwd.Add("@NewPassword", fJC_changePwd.encrypt_NewPassword);
+   
+                // dictChangePwd.Add("@CurrPassword", DecryptPassword.Decrypt_Password(fJC_changePwd.encrypt_OldPassword));
+                // dictChangePwd.Add("@NewPassword", DecryptPassword.Decrypt_Password(fJC_changePwd.encrypt_NewPassword));
                 
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ChangePassword", dictChangePwd);
