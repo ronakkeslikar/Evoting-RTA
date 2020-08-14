@@ -9,7 +9,7 @@ namespace evoting.Domain.Models
 {
     public class FJC_Registration
     {
-        public String RTA_ID { get; set;}
+        public String SR_NO { get; set;}
         public int REG_TYPE_ID { get; set;}
 
         [Required (ErrorMessage ="Enter User ID") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
