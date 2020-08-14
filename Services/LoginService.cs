@@ -25,6 +25,8 @@ namespace evoting.Services
         Task<DataTable> ForgotPassword_PAN_ID_Data(FJC_ForgotPassword fJC_forgot);
         Task<DataTable> ForgotPassword_EmailID_Data(FJC_ForgotPassword fJC_forgot);
         Task<DataTable> GetInvestorEmailIDData(FJC_ForgotPassword fJC_forgot);
+
+         Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot);
     }
 
     public class LoginService : ILoginService
@@ -159,5 +161,25 @@ namespace evoting.Services
             }
         }
     }
-}
+
+     
+     public async Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot)
+        {
+            try
+            {
+                Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();               
+                dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);
+                dictForgotPwd.Add("@Bank_AccNo", fJC_forgot.Bank_AccNo);             
+                DataSet ds = new DataSet();
+                ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
+                return ds.Tables[0];
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+
  

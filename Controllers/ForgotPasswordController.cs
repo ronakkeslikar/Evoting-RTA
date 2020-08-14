@@ -27,7 +27,9 @@ namespace evoting.Controllers
             _loginService = loginService;
         }
 
-        [HttpPost]        
+        [HttpPost] 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> ForgotPassword(FJC_ForgotPassword fJC_forgot)
         {
             try
@@ -44,13 +46,16 @@ namespace evoting.Controllers
                             case 'P':
                                 result = await _loginService.ForgotPassword_PAN_ID_Data(fJC_forgot);
                                 break;
-
+//bank account              
+                            case 'B':
+                                result = await _loginService.ForgotPassword_BANK_ACC_Data(fJC_forgot);
+                                 break;
                             case 'E':
                                  result = await _loginService.ForgotPasswordData(fJC_forgot);
                                 break;
                         }
                         break;
-                    case 'S':
+                    case 'N':
 
                         result = await _loginService.ForgotPasswordData(fJC_forgot);
                         break;
@@ -65,6 +70,8 @@ namespace evoting.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetInvestorEmailID(FJC_ForgotPassword fJC_forgot)
 
         {
