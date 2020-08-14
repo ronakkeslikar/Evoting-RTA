@@ -45,8 +45,7 @@ namespace evoting.Controllers
                                 break;
                             case 'P':
                                 result = await _loginService.ForgotPassword_PAN_ID_Data(fJC_forgot);
-                                break;
-//bank account              
+                                break;              
                             case 'B':
                                 result = await _loginService.ForgotPassword_BANK_ACC_Data(fJC_forgot);
                                  break;
@@ -55,12 +54,11 @@ namespace evoting.Controllers
                                 break;
                         }
                         break;
-                    case 'N':
+                    case 'C':
 
                         result = await _loginService.ForgotPasswordData(fJC_forgot);
                         break;
-                }
-                //var result = await _loginService.ForgotPasswordData(fJC_forgot);
+                }               
                 return Ok(JsonConvert.SerializeObject(result));
             }
             catch (Exception e)

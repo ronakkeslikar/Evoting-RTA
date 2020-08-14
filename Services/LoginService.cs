@@ -44,12 +44,10 @@ namespace evoting.Services
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@DPIIDCLID", fJC_Login.UserID);               
                 dictLogin.Add("@Password", fJC_Login.encrypt_Password);               
-                dictLogin.Add("@IP_Address", fJC_Login.system_ip);
-                // dictLogin.Add("@TokenId", TokenId);
+                dictLogin.Add("@IP_Address", fJC_Login.system_ip);               
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
-                return ds.Tables[0];
-                //return await AppDBCalls.GetDataSet("Evote_LoginSession_Detai=awals", dictLogin);
+                return ds.Tables[0]; //it will return a Token ID from database              
             }
             catch (Exception ex)
             {
@@ -70,8 +68,7 @@ namespace evoting.Services
                 
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ChangePassword", dictChangePwd);
-                return ds.Tables[0];
-                //return await AppDBCalls.GetDataSet("Evote_ChangePassword", dictChangePwd);
+                return ds.Tables[0];                
             }
             catch (Exception ex)
             {
@@ -87,8 +84,7 @@ namespace evoting.Services
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);               
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];
-                //return await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
+                return ds.Tables[0];                
             }
             catch (Exception ex)
             {
@@ -105,8 +101,7 @@ namespace evoting.Services
                 dictForgotPwd.Add("@DOB", fJC_forgot.DOB);
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];
-                //return await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
+                return ds.Tables[0];              
             }
             catch (Exception ex)
             {
@@ -122,8 +117,7 @@ namespace evoting.Services
                 dictForgotPwd.Add("@PANID", fJC_forgot.PAN_ID);
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];
-                //return await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
+                return ds.Tables[0];               
             }
             catch (Exception ex)
             {
@@ -139,8 +133,7 @@ namespace evoting.Services
                 dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID);
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];
-                //return await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
+                return ds.Tables[0];                
             }
             catch (Exception ex)
             {
@@ -155,8 +148,7 @@ namespace evoting.Services
                 dictForgotPwd.Add("@DPIIDCLID", UserID);               
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_GetInvestorEmailID", dictForgotPwd);
-                return ds.Tables[0];
-                //return await AppDBCalls.GetDataSet("Evote_GetInvestorEmailID", dictForgotPwd);
+                return ds.Tables[0];                
             }
             catch (Exception ex)
             {

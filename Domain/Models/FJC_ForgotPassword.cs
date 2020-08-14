@@ -12,11 +12,11 @@ namespace evoting.Domain.Models
     {
         //private string _userid;
         //public string UserID { get { return _userid; } set { _userid = (Validate_Login.CheckString(_userid) ? _userid : ""); } }         
-          [Required(ErrorMessage ="Enter User ID")]                
-          public string UserID { get; set; }
-        public string encrypt_OldPassword { get; set; }
-        public string encrypt_NewPassword { get; set; }
+        [Required(ErrorMessage ="Enter User ID")]                
+        public string UserID { get; set; } 
         public string EmailID { get; set; }
+
+        [Required(ErrorMessage ="Enter PAN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")]  
         public string PAN_ID { get; set; }
 
         public string Bank_AccNo { get; set; }
