@@ -10,14 +10,15 @@ namespace evoting.Domain.Models
 {
     public class FJC_ForgotPassword
     {
-        //private string _userid;
+        private string _panid;
         //public string UserID { get { return _userid; } set { _userid = (Validate_Login.CheckString(_userid) ? _userid : ""); } }         
         [Required(ErrorMessage ="Enter User ID")]                
         public string UserID { get; set; } 
         public string EmailID { get; set; }
 
-        [Required(ErrorMessage ="Enter PAN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")]  
-        public string PAN_ID { get; set; }
+       // [Required(ErrorMessage ="Enter PAN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")]  
+       // public string PAN_ID { get; set; }
+       public string PAN_ID { get { return _panid; } set { _panid = (Validate_Login.CheckString(_panid) ? _panid : "Enter PAN ID"); } }         
 
         public string Bank_AccNo { get; set; }
 
