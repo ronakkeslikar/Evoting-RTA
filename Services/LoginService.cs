@@ -160,7 +160,7 @@ namespace evoting.Services
                 throw ex;
             }
         }
-    }
+     
 
      
      public async Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot)
@@ -181,5 +181,6 @@ namespace evoting.Services
             }
         }
     }
+}
 
  
