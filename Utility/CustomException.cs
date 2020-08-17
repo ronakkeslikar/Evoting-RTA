@@ -9,12 +9,11 @@ namespace evoting.Utility
     {       
         public class InvalidUserID : Exception
         {
-            //Overriding the Message property
             public override string Message
             {
                 get
                 {
-                    return "Invalid User Id/Password";
+                    return "Invalid User Id";
                 }
             }
         }

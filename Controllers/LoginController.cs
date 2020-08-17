@@ -39,7 +39,7 @@ namespace evoting.Controllers
             }
             catch (CustomException.InvalidUserID ex)
             {
-                return Unauthorized("Invalid User Id/Password");
+                return Unauthorized(ex.Message);
             }
             catch
             {
