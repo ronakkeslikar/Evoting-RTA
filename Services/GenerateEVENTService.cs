@@ -19,8 +19,17 @@ namespace evoting.Services
 
        public interface IGenerateEVENTService
     {
-         Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN);
-         Task<DataTable> UpdateEVENT(FJC_UpdateEVENT fJC_EVENT) ; 
+          Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN);
+          Task<DataTable> UpdateGenerateEVENT(Int32 EVENT_ID);
+          Task<DataTable> DeleteGenerateEVENT(Int32 EVENT_ID);
+         
+
+        Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT) ; 
+        Task<DataTable> UpdateEVENTDetail(int EVENT_DETAIL_ID) ; 
+        Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID) ; 
+         
+         
+
     } 
 
         public class GenerateEVENTService : IGenerateEVENTService
@@ -31,6 +40,7 @@ namespace evoting.Services
         {
             _context = context;
         } 
+        ///////////////////////////////////////GenerateEVENT///////////////////////////////////////////////////////////
          public async Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN)
         {
             try
@@ -45,7 +55,7 @@ namespace evoting.Services
                 dictLogin.Add("@SELECT_SCRUTINIZER", fJC_EVSN.SELECT_SCRUTINIZER);
                 // dictLogin.Add("@TokenId", TokenId);
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("", dictLogin);
+                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
                 return ds.Tables[0];
                 //return await AppDBCalls.GetDataSet("Evote_LoginSession_Detai=awals", dictLogin);
             }
@@ -54,9 +64,42 @@ namespace evoting.Services
                 throw ex;
             }
         }
+         
+          public async Task<DataTable> UpdateGenerateEVENT(int EVENT_ID)
+        {
+            try
+            {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@EVENT_ID",  EVENT_ID);               
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                return ds.Tables[0];
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-
-       public async Task<DataTable> UpdateEVENT(FJC_UpdateEVENT fJC_EVENT)
+            public async Task<DataTable> DeleteGenerateEVENT(int EVENT_ID)
+        {
+            try
+            {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@EVENT_ID",  EVENT_ID);               
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_GenerateDelete_Event", dictLogin);
+                return ds.Tables[0];
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+///////////////////////////////////////UpdateEVENT////////////////////////////////////////////////////////////////
+       public async Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT)
        {
             try
             {
@@ -76,13 +119,50 @@ namespace evoting.Services
                 dictLogin.Add("@UPLOAD_LOGO", fJC_EVENT.UPLOAD_LOGO); //file             
                 dictLogin.Add("@UPLOAD_RESOLUTION_FILE", fJC_EVENT.UPLOAD_RESOLUTION_FILE);//file
                 dictLogin.Add("@UPLOAD_NOTICE", fJC_EVENT.UPLOAD_NOTICE); //file
-                dictLogin.Add("@ENTER_NOF_RESOLUTION", fJC_EVENT.ENTER_NOF_RESOLUTION);  //decimal           
-                dictLogin.Add("@TITAL", fJC_EVENT.TITAL);//text
-                dictLogin.Add("@DESCRIPTION", fJC_EVENT.DESCRIPTION);     //text          
-                dictLogin.Add("@FILEUPLOAD", fJC_EVENT.FILEUPLOAD); //file
+                // dictLogin.Add("@ENTER_NOF_RESOLUTION", fJC_EVENT.ENTER_NOF_RESOLUTION);  //decimal           
+                // dictLogin.Add("@TITAL", fJC_EVENT.TITAL);//text
+                // dictLogin.Add("@DESCRIPTION", fJC_EVENT.DESCRIPTION);     //text          
+                // dictLogin.Add("@FILEUPLOAD", fJC_EVENT.FILEUPLOAD); //file
                 // dictLogin.Add("@TokenId", TokenId);
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("", dictLogin);
+                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                return ds.Tables[0];
+                //return await AppDBCalls.GetDataSet("Evote_LoginSession_Detai=awals", dictLogin);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+   
+         
+          public async Task<DataTable> UpdateEVENTDetail(int EVENT_DETAIL_ID)
+       {
+            try
+            {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@ISIN", EVENT_DETAIL_ID);               
+             
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                return ds.Tables[0];
+                //return await AppDBCalls.GetDataSet("Evote_LoginSession_Detai=awals", dictLogin);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+         public async Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID)
+       {
+            try
+            {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@ISIN", EVENT_DETAIL_ID);               
+             
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
                 return ds.Tables[0];
                 //return await AppDBCalls.GetDataSet("Evote_LoginSession_Detai=awals", dictLogin);
             }

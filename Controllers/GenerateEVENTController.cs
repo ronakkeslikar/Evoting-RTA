@@ -44,6 +44,44 @@ namespace evoting.Controllers
             }
             
         }
+        
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateEVENTUser([FromQuery] string EVENT_ID )
+
+        {
+            try
+            {
+                var result = await _GenerateEVENTService.GenerateEVENT(EVENT_ID);
+                return Ok(JsonConvert.SerializeObject(result));
+
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            
+        }
+         
+           [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteEVENTUser([FromQuery] string EVENT_ID )
+
+        {
+            try
+            {
+                var result = await _GenerateEVENTService.GenerateEVENT(EVENT_ID);
+                return Ok(JsonConvert.SerializeObject(result));
+
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            
+        }
 
     }
 }

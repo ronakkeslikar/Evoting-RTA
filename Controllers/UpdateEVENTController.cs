@@ -20,25 +20,40 @@ namespace evoting.Controllers
     [ApiController]
       public class UpdateEVENTController : ControllerBase
     {
-          private readonly IUpdateEVENTService _UpdateEVENTService;
+          private readonly IGenerateEVENTService _GenerateEVENTService;
 
-        public UpdateEVENTController(IUpdateEVENTService UpdateEVENTService)
+        public UpdateEVENTController(IGenerateEVENTService GenerateEVENTService)
         {
-            _UpdateEVENTService = UpdateEVENTService;
+            _GenerateEVENTService = GenerateEVENTService;
         }
-       
+
+         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
+        public async Task<IActionResult> EVENTDetailUser(FJC_UpdateEVENT fJC_EVSN)
+
+        {
+            try
+            {    
+                var result = await _GenerateEVENTService.EVENTDetail(fJC_EVSN);
+                return Ok(JsonConvert.SerializeObject(result));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        } 
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> UpdateEVENTUser(FJC_UpdateEVENT fJC_EVSN)
+        public async Task<IActionResult> UpdateEVENTDetailUser([FromQuery] int EVENT_DETAIL_ID)
 
         {
             try
-            {
-               
-                 
-                var result = await _UpdateEVENTService.UpdateEVENT(fJC_EVSN);
+            {    
+                var result = await _GenerateEVENTService.UpdateEVENTDetail(EVENT_DETAIL_ID);
                 return Ok(JsonConvert.SerializeObject(result));
             }
             catch(Exception ex)
@@ -48,6 +63,23 @@ namespace evoting.Controllers
             
         }
 
+         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
+        public async Task<IActionResult> DeleteEVENTDetailUser([FromQuery] int EVENT_DETAIL_ID)
+
+        {
+            try
+            {    
+                var result = await _GenerateEVENTService.DeleteEVENTDetail(EVENT_DETAIL_ID);
+                return Ok(JsonConvert.SerializeObject(result));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
 
 
 

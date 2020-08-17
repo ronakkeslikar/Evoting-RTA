@@ -9,7 +9,10 @@ using System.ComponentModel.DataAnnotations;
 namespace evoting.Domain.Models
 {
 public class FJC_GenerateEVENT
- {
+ {   
+
+    
+    public int EVENT_ID { get; set;}
     [Required(ErrorMessage ="Enter ISIN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")] 
     public String ISIN { get; set;}
     
@@ -28,7 +31,7 @@ public class FJC_GenerateEVENT
     [Required(ErrorMessage ="Enter Cut Of Date")] 
     public DateTime CUT_OF_DATE { get; set;}
    
-    [Required(ErrorMessage ="Enter Scrutinizer")] 
+    [Required(ErrorMessage ="Select Scrutinizer")] 
     public string SELECT_SCRUTINIZER { get; set;}
  }
 }
