@@ -11,8 +11,11 @@ namespace evoting.Domain.Models
 public class FJC_GenerateEVENT
  {   
 
-    
     public int EVENT_ID { get; set;}
+
+    [Required(ErrorMessage ="Enter Row ID Client")] 
+    public int ROWID_CLIENT { get; set;}
+
     [Required(ErrorMessage ="Enter ISIN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")] 
     public String ISIN { get; set;}
     
@@ -32,6 +35,10 @@ public class FJC_GenerateEVENT
     public DateTime CUT_OF_DATE { get; set;}
    
     [Required(ErrorMessage ="Select Scrutinizer")] 
-    public string SELECT_SCRUTINIZER { get; set;}
+    public string SCRUTINIZER { get; set;}
+
+    public string CREATED_BY { get; set;}
+
+    public string UPDATED_BY { get; set;}
  }
 }

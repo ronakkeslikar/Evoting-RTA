@@ -40,45 +40,92 @@ namespace evoting.Controllers
             }
             catch(Exception ex)
             {
-                throw ex;
+                 if (ex.Message == "Invalid User Id/Password")
+                {
+                    return Unauthorized("Invalid User Id/Password");
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             
         }
         
-        [HttpGet]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateEVENTUser([FromQuery] string EVENT_ID )
+        public async Task<IActionResult> UpdateEVENTUser(FJC_GenerateEVENT fJC_EVSN )
 
         {
             try
             {
-                var result = await _GenerateEVENTService.GenerateEVENT(EVENT_ID);
+                var result = await _GenerateEVENTService.UpdateGenerateEVENT(fJC_EVSN);
                 return Ok(JsonConvert.SerializeObject(result));
 
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw e;
+                 if (ex.Message == "Invalid User Id/Password")
+                {
+                    return Unauthorized("Invalid User Id/Password");
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             
         }
          
-           [HttpDelete]
+
+         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteEVENTUser([FromQuery] string EVENT_ID )
+        public async Task<IActionResult> GetEVENTUser([FromQuery] Int32 EVENT_ID )
 
         {
             try
             {
-                var result = await _GenerateEVENTService.GenerateEVENT(EVENT_ID);
+                var result = await _GenerateEVENTService.GeteGenerateEVENT(EVENT_ID);
                 return Ok(JsonConvert.SerializeObject(result));
 
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw e;
+                 if (ex.Message == "Invalid User Id/Password")
+                {
+                    return Unauthorized("Invalid User Id/Password");
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }
+            
+        } 
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteEVENTUser([FromQuery] Int32 EVENT_ID )
+
+        {
+            try
+            {
+                var result = await _GenerateEVENTService.DeleteGenerateEVENT(EVENT_ID);
+                return Ok(JsonConvert.SerializeObject(result));
+
+            }
+            catch(Exception ex)
+            {
+                 if (ex.Message == "Invalid User Id/Password")
+                {
+                    return Unauthorized("Invalid User Id/Password");
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             
         }

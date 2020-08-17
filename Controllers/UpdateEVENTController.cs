@@ -48,12 +48,12 @@ namespace evoting.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> UpdateEVENTDetailUser([FromQuery] int EVENT_DETAIL_ID)
+        public async Task<IActionResult> UpdateEVENTDetailUser(FJC_UpdateEVENT fJC_EVSN)
 
         {
             try
             {    
-                var result = await _GenerateEVENTService.UpdateEVENTDetail(EVENT_DETAIL_ID);
+                var result = await _GenerateEVENTService.UpdateEVENTDetail(fJC_EVSN);
                 return Ok(JsonConvert.SerializeObject(result));
             }
             catch(Exception ex)
@@ -62,7 +62,24 @@ namespace evoting.Controllers
             }
             
         }
+        
+         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
+        public async Task<IActionResult> GetEVENTDetailUser([FromQuery] int EVENT_DETAIL_ID)
 
+        {
+            try
+            {    
+                var result = await _GenerateEVENTService.GetEVENTDetail(EVENT_DETAIL_ID);
+                return Ok(JsonConvert.SerializeObject(result));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
          [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       

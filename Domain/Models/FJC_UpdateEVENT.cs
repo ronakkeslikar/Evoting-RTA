@@ -11,7 +11,7 @@ namespace evoting.Domain.Models
 public class FJC_UpdateEVENT {
 
  public int EVENT_DETAIL_ID { get; set;}
-  [Required(ErrorMessage ="Enter ISIN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")] 
+[Required(ErrorMessage ="Enter ISIN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")] 
 public String ISIN { get; set;}
 [Required(ErrorMessage ="Enter ISIN Type")] 
 public string TYPE_ISIN { get; set;}
