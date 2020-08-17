@@ -36,20 +36,28 @@ namespace evoting.Services
         } 
          public async Task<DataTable> LoginDataUser(FJC_LoginRequest fJC_Login)
         {
-            try
-            {
+            
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@DPIIDCLID", fJC_Login.UserID);               
                 dictLogin.Add("@Password", fJC_Login.encrypt_Password);               
                 dictLogin.Add("@IP_Address", fJC_Login.system_ip);               
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
-                return ds.Tables[0]; //it will return a Token ID from database              
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0]; //it will return a Token ID from database 
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }            
         }
         public async Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd)
         {
