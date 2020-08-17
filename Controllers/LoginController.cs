@@ -11,6 +11,7 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
+using evoting.Utility;
 
 namespace evoting.Controllers
 {
@@ -31,7 +32,6 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> LoginUser(FJC_LoginRequest fJC_Login)
-
         {
             try
             {
@@ -40,9 +40,15 @@ namespace evoting.Controllers
             }
             catch(Exception ex)
             {
-                throw ex;
+                if (ex.Message == "Invalid User Id/Password")
+                {
+                    return Unauthorized("Invalid User Id/Password");
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
-            
         }
     }
 }

@@ -409,3 +409,4 @@ C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\staticwebas
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.genruntimeconfig.cache
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csproj.CoreCompileInputs.cache
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.MvcApplicationPartsAssemblyInfo.cache
+D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csprojAssemblyReference.cache
