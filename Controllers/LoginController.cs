@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
 using evoting.Services;
 using Microsoft.AspNetCore.Http;
 using System.Data;
@@ -38,17 +37,14 @@ namespace evoting.Controllers
                 var result = await _loginService.LoginDataUser(fJC_Login);
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch(Exception ex)
+            catch (CustomException.InvalidUserID ex)
             {
-                if (ex.Message == "Invalid User Id/Password")
-                {
-                    return Unauthorized("Invalid User Id/Password");
-                }
-                else
-                {
-                    return Unauthorized();
-                }
+                return Unauthorized(ex.Message);
             }
+            catch
+            {
+                return Unauthorized();
+            }                
         }
     }
 }
