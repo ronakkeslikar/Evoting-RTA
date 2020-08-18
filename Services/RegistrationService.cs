@@ -34,8 +34,6 @@ namespace evoting.Services
         } 
          public async Task<DataTable> Registration_InsertData(FJC_Registration fJC_Registration)
         {
-            try
-            {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();                            
                 dictRegis.Add("@SR_No", "0");
                 dictRegis.Add("@REG_TYPE_ID",fJC_Registration.REG_TYPE_ID);
@@ -69,16 +67,24 @@ namespace evoting.Services
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
                 return ds.Tables[0];               
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+             if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0];  
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } 
         }
          public async Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration)
-        {
-            try
-            {
+        {            
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();   
                 // dictRegis.Add("@Mode", "U");               
                 dictRegis.Add("@SR_No", fJC_Registration.SR_NO);
@@ -111,28 +117,45 @@ namespace evoting.Services
                 dictRegis.Add("@MODIFIED_DATE", fJC_Registration.MODIFIED_DATE);                 
 
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
-                return ds.Tables[0];               
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
+            if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0];  
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } 
         }
          public async Task<DataTable> GetRegistrationIDData(int SR_NO)
         {
-            try
-            {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();               
                 dictRegis.Add("@SR_No", SR_NO);               
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);
-                return ds.Tables[0];               
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                            
+             if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0]; 
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } 
         }
         
         

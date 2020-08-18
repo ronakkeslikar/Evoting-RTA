@@ -61,8 +61,7 @@ namespace evoting.Services
         }
         public async Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd)
         {
-            try
-            {
+           
                 Dictionary<string, object> dictChangePwd = new Dictionary<string, object>();
                 dictChangePwd.Add("@DPIIDCLID", fJC_changePwd.UserID);
                 dictChangePwd.Add("@CurrPassword", fJC_changePwd.encrypt_OldPassword);
@@ -73,81 +72,120 @@ namespace evoting.Services
                 
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ChangePassword", dictChangePwd);
-                return ds.Tables[0];                
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                 if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0]; 
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } 
         }
 
         public async Task<DataTable> ForgotPasswordData(FJC_ForgotPassword fJC_forgot)
         {
-            try
-            {
+            
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();                
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID); 
                 dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID);              
                 DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];                
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);                          
+             if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0];  
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } 
         }
 
         public async Task<DataTable> ForgotPassword_DOB_Data(FJC_ForgotPassword fJC_forgot)
-        {
-            try
-            {
+        {           
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);
                 dictForgotPwd.Add("@PANID", fJC_forgot.PAN_ID);
                 dictForgotPwd.Add("@DOB", fJC_forgot.DOB);
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];              
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                        
+             if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0];  
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } 
         }
          public async Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot)
         {
-            try
-            {
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();               
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID);
                 dictForgotPwd.Add("@PANID", fJC_forgot.PAN_ID);
                 dictForgotPwd.Add("@Bank_AccNo", fJC_forgot.Bank_AccNo);             
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                return ds.Tables[0];
-               
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                              
+            if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0]; 
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } 
         }
         
         public async Task<DataTable> GetInvestorEmailIDData(string UserID)
         {
-            try
-            {
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();               
                 dictForgotPwd.Add("@DPIIDCLID", UserID);               
                 DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_GetInvestorEmailID", dictForgotPwd);
-                return ds.Tables[0];                
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                ds = await AppDBCalls.GetDataSet("Evote_GetInvestorEmailID", dictForgotPwd);                              
+            if(!ds.Tables[0].Columns.Contains("Error"))
+                {
+                    return ds.Tables[0];  
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    {
+                        throw new CustomException.InvalidUserID();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } 
         }      
     
     }
