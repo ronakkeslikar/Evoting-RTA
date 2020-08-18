@@ -11,6 +11,7 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
+using evoting.Utility;
 
 namespace evoting.Controllers
 {
@@ -38,10 +39,14 @@ namespace evoting.Controllers
                 var result = await _GenerateEVENTService.EVENTDetail(fJC_EVSN);
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch(Exception ex)
+             catch (CustomException.InvalidEventId ex)
             {
-                throw ex;
+                return Unauthorized(ex.Message);
             }
+            catch
+            {
+                return Unauthorized();
+            }   
             
         } 
 
@@ -56,10 +61,14 @@ namespace evoting.Controllers
                 var result = await _GenerateEVENTService.UpdateEVENTDetail(fJC_EVSN);
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch(Exception ex)
+             catch (CustomException.InvalidEventId ex)
             {
-                throw ex;
+                return Unauthorized(ex.Message);
             }
+            catch
+            {
+                return Unauthorized();
+            }   
             
         }
         
@@ -74,10 +83,14 @@ namespace evoting.Controllers
                 var result = await _GenerateEVENTService.GetEVENTDetail(EVENT_DETAIL_ID);
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch(Exception ex)
+            catch (CustomException.InvalidEventId ex)
             {
-                throw ex;
+                return Unauthorized(ex.Message);
             }
+            catch
+            {
+                return Unauthorized();
+            }   
             
         }
          [HttpDelete]
@@ -91,10 +104,14 @@ namespace evoting.Controllers
                 var result = await _GenerateEVENTService.DeleteEVENTDetail(EVENT_DETAIL_ID);
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch(Exception ex)
+            catch (CustomException.InvalidEventId ex)
             {
-                throw ex;
+                return Unauthorized(ex.Message);
             }
+            catch
+            {
+                return Unauthorized();
+            }   
             
         }
 
