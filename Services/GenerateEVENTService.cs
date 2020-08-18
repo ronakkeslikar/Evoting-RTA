@@ -24,11 +24,15 @@ namespace evoting.Services
           Task<DataTable> DeleteGenerateEVENT(Int32 EVENT_ID);
           Task<DataTable> GeteGenerateEVENT(Int32 EVENT_ID);
 
-        Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT) ; 
-        Task<DataTable> UpdateEVENTDetail(FJC_UpdateEVENT fJC_EVENT) ; 
-        Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID) ; 
+         Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT) ; 
+         Task<DataTable> UpdateEVENTDetail(FJC_UpdateEVENT fJC_EVENT) ; 
+         Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID) ; 
          Task<DataTable> GetEVENTDetail(int EVENT_DETAIL_ID) ; 
-
+        
+         Task<DataTable> EVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION) ; 
+         Task<DataTable> UpdateEVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION) ; 
+         Task<DataTable> DeleteEVENTResolution(int EVENT_RESOLUTION_ID) ; 
+         Task<DataTable> GetEVENTResolution(int EVENT_RESOLUTION_ID) ; 
     } 
 
         public class GenerateEVENTService : IGenerateEVENTService
@@ -148,7 +152,7 @@ namespace evoting.Services
             {
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);               
-                dictLogin.Add("@SELECT_SCRUTINIZER", fJC_EVENT.SELECT_SCRUTINIZER);
+                //dictLogin.Add("@SELECT_SCRUTINIZER", fJC_EVENT.SELECT_SCRUTINIZER);
                 dictLogin.Add("@VOTING_START_DATETIME", fJC_EVENT.VOTING_START_DATETIME);               
                 dictLogin.Add("@VOTING_END_DATETIME", fJC_EVENT.VOTING_END_DATETIME);               
                 dictLogin.Add("@MEETING_DATETIME", fJC_EVENT.MEETING_DATETIME);
@@ -175,7 +179,7 @@ namespace evoting.Services
             {
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);               
-                dictLogin.Add("@SELECT_SCRUTINIZER", fJC_EVENT.SELECT_SCRUTINIZER);
+               // dictLogin.Add("@SELECT_SCRUTINIZER", fJC_EVENT.SELECT_SCRUTINIZER);
                 dictLogin.Add("@VOTING_START_DATETIME", fJC_EVENT.VOTING_START_DATETIME);               
                 dictLogin.Add("@VOTING_END_DATETIME", fJC_EVENT.VOTING_END_DATETIME);               
                 dictLogin.Add("@MEETING_DATETIME", fJC_EVENT.MEETING_DATETIME);
@@ -227,5 +231,92 @@ namespace evoting.Services
                 throw ex;
             }
         }
+
+
+        ////////////////////////////////////////////EVENT RESOLUTION//////////////////////////////////////////////////////
+         public async Task<DataTable> EVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION)
+       {
+            try
+            {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@EVENT_RESOLUTION_ID", FJC_EVENTRESOLUTION.EVENT_RESOLUTION_ID);               
+                dictLogin.Add("@ROW_NO", FJC_EVENTRESOLUTION.ROW_NO);
+                dictLogin.Add("@EVENT_NO", FJC_EVENTRESOLUTION.EVENT_NO);               
+                dictLogin.Add("@TITLE", FJC_EVENTRESOLUTION.TITLE);               
+                dictLogin.Add("@DESCRIPTION", FJC_EVENTRESOLUTION.DESCRIPTION);
+                dictLogin.Add("@FILE_PATH", FJC_EVENTRESOLUTION.FILE_PATH);      
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                return ds.Tables[0];
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+   
+         
+          public async Task<DataTable> UpdateEVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION)
+       {
+            try
+            {   
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@EVENT_RESOLUTION_ID", FJC_EVENTRESOLUTION.EVENT_RESOLUTION_ID);               
+                dictLogin.Add("@ROW_NO", FJC_EVENTRESOLUTION.ROW_NO);
+                dictLogin.Add("@EVENT_NO", FJC_EVENTRESOLUTION.EVENT_NO);               
+                dictLogin.Add("@TITLE", FJC_EVENTRESOLUTION.TITLE);               
+                dictLogin.Add("@DESCRIPTION", FJC_EVENTRESOLUTION.DESCRIPTION);
+                dictLogin.Add("@FILE_PATH", FJC_EVENTRESOLUTION.FILE_PATH);               
+                     
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        
+            public async Task<DataTable> DeleteEVENTResolution(int EVENT_RESOLUTION_ID)
+       {
+            try
+            {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@EVENT_RESOLUTION_ID", EVENT_RESOLUTION_ID);               
+             
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Get_EVENT_DETAIL", dictLogin);
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+         public async Task<DataTable> GetEVENTResolution(int EVENT_RESOLUTION_ID)
+       {
+            try
+            {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@EVENT_RESOLUTION_ID", EVENT_RESOLUTION_ID);               
+             
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("Evote_Delete_EVENT_DETAIL", dictLogin);
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+         
+
+
+
+
+
     }
 }
