@@ -23,8 +23,8 @@ public string TOTAL_NOF_SHARE { get; set;}
 public string VOTING_RIGHTS { get; set;}
 [Required(ErrorMessage ="Enter Cut Of Date")] 
 public DateTime CUT_OF_DATE { get; set;}
-[Required(ErrorMessage ="Enter Scrutinizer")] 
-public string SELECT_SCRUTINIZER { get; set;}
+// [Required(ErrorMessage ="Enter Scrutinizer")] 
+// public string SELECT_SCRUTINIZER { get; set;}
 [Required(ErrorMessage ="Enter Voting Start Date")] 
 public DateTime VOTING_START_DATETIME { get; set;}
 [Required(ErrorMessage ="Enter Voting End Date")] 

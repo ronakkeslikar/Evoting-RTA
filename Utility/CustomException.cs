@@ -17,5 +17,17 @@ namespace evoting.Utility
                 }
             }
         }
+
+
+        public class InvalidEventId : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Event Id";
+                }
+            }
+        }
     }
 }

@@ -13,16 +13,16 @@ public class FJC_GenerateEVENT
 
     public int EVENT_ID { get; set;}
 
-    [Required(ErrorMessage ="Enter Row ID Client")] 
+    [Required(ErrorMessage ="Enter Row ID Client")]
     public int ROWID_CLIENT { get; set;}
 
-    [Required(ErrorMessage ="Enter ISIN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")] 
+    [Required(ErrorMessage ="Enter ISIN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")]
     public String ISIN { get; set;}
     
-    [Required(ErrorMessage ="Enter ISIN Type")] 
+    [Required(ErrorMessage ="Enter ISIN Type")]
     public string TYPE_ISIN { get; set;}
     
-    [Required(ErrorMessage ="Enter Evoing Type")] 
+    [Required(ErrorMessage ="Enter Evoing Type")]
     public string TYPE_EVOTING { get; set;}
     
     [Required(ErrorMessage ="Enter Total No Of Share")] 
