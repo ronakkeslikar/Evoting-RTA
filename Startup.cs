@@ -34,6 +34,7 @@ namespace evoting
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITestingService, TestingServices>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
 
             
         }
