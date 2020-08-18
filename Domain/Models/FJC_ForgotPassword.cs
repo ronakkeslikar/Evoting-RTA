@@ -17,8 +17,9 @@ namespace evoting.Domain.Models
         public string EmailID { get; set; }
 
        // [Required(ErrorMessage ="Enter PAN ID"),RegularExpression(@"^[a-zA-Z0-9]*$")]  
-       public string PAN_ID { get; set; }
-      // public string PAN_ID { get { return _panid; } set { _panid = (Validate_Login.CheckString(_panid) ? _panid : "Enter PAN ID"); } }         
+       //public string PAN_ID { get; set; }
+       
+        public string PAN_ID { get { return _panid; } set { _panid = (Validate_Login.CheckString(_panid) ? _panid : "Enter PAN ID"); } }         
 
         public string Bank_AccNo { get; set; }
 
