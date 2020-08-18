@@ -66,7 +66,7 @@ namespace evoting.Services
 
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
-                return ds.Tables[0];               
+                              
              if(!ds.Tables[0].Columns.Contains("Error"))
                 {
                     return ds.Tables[0];  
