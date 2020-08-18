@@ -11,6 +11,7 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
+using evoting.Utility;
 
 namespace evoting.Controllers
 {
@@ -37,10 +38,18 @@ namespace evoting.Controllers
             var result = await _loginService.ChangePasswordData(fJC_changePwd);
             return Ok(JsonConvert.SerializeObject(result));
           }
-          catch(Exception ex)
-          {
-              throw ex;
-          }
+         catch (CustomException.InvalidUserID ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (CustomException.InvalidPassword ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch
+            {
+                return Unauthorized();
+            }  
             
         }
     }

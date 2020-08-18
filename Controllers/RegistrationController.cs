@@ -11,6 +11,7 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
+using evoting.Utility;
 
 namespace evoting.Controllers
 {
@@ -37,11 +38,14 @@ namespace evoting.Controllers
                 var result = await _registrationService.Registration_InsertData(fJC_Registration);
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch(Exception ex)
+            catch (CustomException.InvalidValue ex)
             {
-
-                throw ex;
+                return Unauthorized(ex.Message);
             }
+            catch
+            {
+                return Unauthorized();
+            }  
            
         }
         [HttpPut]
@@ -54,10 +58,14 @@ namespace evoting.Controllers
                 var result = await _registrationService.Registration_UpdateData(fJC_Registration);
                 return Ok(JsonConvert.SerializeObject(result));
              }
-            catch(Exception ex)
+            catch (CustomException.InvalidValue ex)
             {
-                throw ex;
+                return Unauthorized(ex.Message);
             }
+            catch
+            {
+                return Unauthorized();
+            }  
         }
          [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -69,10 +77,18 @@ namespace evoting.Controllers
                 var result = await _registrationService.GetRegistrationIDData(SR_NO);
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch(Exception ex)
+            catch (CustomException.InvalidUserID ex)
             {
-                throw ex;
+                return Unauthorized(ex.Message);
             }
+            catch (CustomException.InvalidPassword ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch
+            {
+                return Unauthorized();
+            } 
             
         }
     }

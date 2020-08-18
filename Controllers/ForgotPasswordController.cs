@@ -11,6 +11,7 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
+using evoting.Utility;
 
 
 namespace evoting.Controllers
@@ -52,15 +53,22 @@ namespace evoting.Controllers
                         }
                         break;
                     case 'C':
-
                         result = await _loginService.ForgotPasswordData(fJC_forgot);
                         break;
                 }               
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch (Exception e)
+           catch (CustomException.InvalidUserID ex)
             {
-                throw e;
+                return Unauthorized(ex.Message);
+            }
+            catch (CustomException.InvalidPassword ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch
+            {
+                return Unauthorized();
             }            
         }
 
@@ -76,10 +84,18 @@ namespace evoting.Controllers
                 return Ok(JsonConvert.SerializeObject(result));
 
             }
-            catch(Exception e)
+            catch (CustomException.InvalidUserID ex)
             {
-                throw e;
+                return Unauthorized(ex.Message);
             }
+            catch (CustomException.InvalidPassword ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch
+            {
+                return Unauthorized();
+            } 
             
         }
     }

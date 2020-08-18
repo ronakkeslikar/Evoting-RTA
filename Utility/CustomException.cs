@@ -17,5 +17,25 @@ namespace evoting.Utility
                 }
             }
         }
+        public class InvalidPassword : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Password";
+                }
+            }
+        }
+        public class InvalidValue : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Value/Data";
+                }
+            }
+        }
     }
 }
