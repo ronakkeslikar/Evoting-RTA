@@ -20,10 +20,10 @@ public class FJC_GenerateEVENT
     public String ISIN { get; set;}
     
     [Required(ErrorMessage ="Enter ISIN Type")]
-    public string TYPE_ISIN { get; set;}
+    public int TYPE_ISIN { get; set;}
     
     [Required(ErrorMessage ="Enter Evoing Type")]
-    public string TYPE_EVOTING { get; set;}
+    public int TYPE_EVOTING { get; set;}
     
     [Required(ErrorMessage ="Enter Total No Of Share")] 
     public string TOTAL_NOF_SHARE { get; set;}
@@ -32,7 +32,7 @@ public class FJC_GenerateEVENT
     public string VOTING_RIGHTS { get; set;}
     
     [Required(ErrorMessage ="Enter Cut Of Date")] 
-    public DateTime CUT_OF_DATE { get; set;}
+    public string CUT_OF_DATE { get; set;}
    
     [Required(ErrorMessage ="Select Scrutinizer")] 
     public string SCRUTINIZER { get; set;}

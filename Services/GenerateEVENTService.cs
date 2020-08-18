@@ -46,8 +46,7 @@ namespace evoting.Services
         ///////////////////////////////////////GenerateEVENTDetail///////////////////////////////////////////////////////////
          public async Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN)
         {
-            try
-            {
+            
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@ISIN", fJC_EVSN.ISIN);
                 dictLogin.Add("@ROWID_CLIENT", fJC_EVSN.ROWID_CLIENT);                
@@ -55,7 +54,7 @@ namespace evoting.Services
                 dictLogin.Add("@TYPE_EVOTING", fJC_EVSN.TYPE_EVOTING);
                 dictLogin.Add("@TOTAL_NOF_SHARE", fJC_EVSN.TOTAL_NOF_SHARE);               
                 dictLogin.Add("@VOTING_RIGHTS", fJC_EVSN.VOTING_RIGHTS);
-                dictLogin.Add("@CUT_OF_DATE", fJC_EVSN.CUT_OF_DATE);               
+                dictLogin.Add("@CUT_OF_DATE", new DateTime(2012, 12, 25, 10, 30, 50).ToString("yyyy-MM-dd HH:mm:ss"));               
                 dictLogin.Add("@SCRUTINIZER", fJC_EVSN.SCRUTINIZER);
                 dictLogin.Add("@CREATED_BY", fJC_EVSN.CREATED_BY);   
                 dictLogin.Add("@UPDATED_BY", fJC_EVSN.UPDATED_BY);   
@@ -77,11 +76,8 @@ namespace evoting.Services
                         return null;
                     }
                 }            
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            
+            
         }
          
           public async Task<DataTable> UpdateGenerateEVENT(FJC_GenerateEVENT fJC_EVSN)
@@ -95,7 +91,7 @@ namespace evoting.Services
                 dictLogin.Add("@TYPE_EVOTING", fJC_EVSN.TYPE_EVOTING);
                 dictLogin.Add("@TOTAL_NOF_SHARE", fJC_EVSN.TOTAL_NOF_SHARE);               
                 dictLogin.Add("@VOTING_RIGHTS", fJC_EVSN.VOTING_RIGHTS);
-                dictLogin.Add("@CUT_OF_DATE", fJC_EVSN.CUT_OF_DATE);               
+                dictLogin.Add("@CUT_OF_DATE",fJC_EVSN.CUT_OF_DATE );               
                 dictLogin.Add("@SCRUTINIZER", fJC_EVSN.SCRUTINIZER);
                 dictLogin.Add("@CREATED_BY", fJC_EVSN.CREATED_BY);   
                 dictLogin.Add("@UPDATED_BY", fJC_EVSN.UPDATED_BY);            
