@@ -11,8 +11,16 @@ namespace evoting.Domain.Models.Validate
 
         public static bool CheckString(string inputString)
         {
-            var regexItem = new Regex("^[a-zA-Z0-9]*$"); //returns false if contains special character
-            return regexItem.IsMatch(inputString);
+            if(inputString!=null)
+            {
+                var regexItem = new Regex("^[a-zA-Z0-9]*$"); //returns false if contains special character
+                return regexItem.IsMatch(inputString);
+            }
+            else
+            {
+                return false;
+            }
+            
         }
         public static bool CheckOnlyAlphabetString(string inputString)
         {
