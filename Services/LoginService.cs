@@ -103,9 +103,9 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
                     {
-                        throw new CustomException.InvalidUserID();
+                        throw new CustomException.InvalidEmailID();
                     }
                     else
                     {

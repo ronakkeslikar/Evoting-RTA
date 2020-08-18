@@ -50,5 +50,15 @@ namespace evoting.Utility
                 }
             }
         }
+        public class InvalidEmailID : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Email ID";
+                }
+            }
+        }
     }
 }

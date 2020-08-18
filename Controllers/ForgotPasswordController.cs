@@ -11,7 +11,7 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
-
+using evoting.Utility;
 
 namespace evoting.Controllers
 {
@@ -35,9 +35,10 @@ namespace evoting.Controllers
             try
             {
                 var result = (Object)null;
-                switch (fJC_forgot.TypeOfUser)
-                {
-                    case 'I':
+                
+                    if(fJC_forgot.TypeOfUser=='I')
+                    { 
+                    
                         switch (fJC_forgot.TypeOfUpdate)
                         {
                             case 'D':
@@ -50,18 +51,22 @@ namespace evoting.Controllers
                                  result = await _loginService.ForgotPasswordData(fJC_forgot);
                                 break;
                         }
-                        break;
-                    case 'C':
-
-                        result = await _loginService.ForgotPasswordData(fJC_forgot);
-                        break;
-                }               
+                    }
+                    else
+                    {
+                       result = await _loginService.ForgotPasswordData(fJC_forgot);  
+                    } 
+                              
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            catch (Exception e)
+           catch (CustomException.InvalidEmailID ex)
             {
-                throw e;
-            }            
+                return Unauthorized(ex.Message);
+            }
+            catch
+            {
+                return Unauthorized();
+            }             
         }
 
         [HttpGet]
@@ -76,10 +81,14 @@ namespace evoting.Controllers
                 return Ok(JsonConvert.SerializeObject(result));
 
             }
-            catch(Exception e)
+            catch (CustomException.InvalidValue ex)
             {
-                throw e;
+                return Unauthorized(ex.Message);
             }
+            catch
+            {
+                return Unauthorized();
+            }  
             
         }
     }

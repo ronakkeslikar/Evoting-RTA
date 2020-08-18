@@ -35,7 +35,7 @@ namespace evoting.Services
          public async Task<DataTable> Registration_InsertData(FJC_Registration fJC_Registration)
         {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();                            
-                dictRegis.Add("@SR_No", "0");
+                dictRegis.Add("@SR_No", 0);
                 dictRegis.Add("@REG_TYPE_ID",fJC_Registration.REG_TYPE_ID);
                 dictRegis.Add("@NAME", fJC_Registration.NAME); 
                 dictRegis.Add("@REG_NO", fJC_Registration.REG_NO);
@@ -45,8 +45,7 @@ namespace evoting.Services
                 dictRegis.Add("@REG_CITY", fJC_Registration.REG_CITY);
                 dictRegis.Add("@REG_PINCODE", fJC_Registration.REG_PINCODE);
                 dictRegis.Add("@REG_STATE_ID",fJC_Registration.REG_STATE_ID);  
-                dictRegis.Add("@REG_COUNTRY", fJC_Registration.REG_COUNTRY);
-                dictRegis.Add("@SCRUTNIZER_ID",fJC_Registration.SCRUTNIZER_ID);
+                dictRegis.Add("@REG_COUNTRY", fJC_Registration.REG_COUNTRY);                
                 dictRegis.Add("@CORRES_ADD1", fJC_Registration.CORRES_ADD1);  
                 dictRegis.Add("@CORRES_ADD2",fJC_Registration.CORRES_ADD2);
                 dictRegis.Add("@CORRES_ADD3",fJC_Registration.CORRES_ADD3);
@@ -60,9 +59,7 @@ namespace evoting.Services
                 dictRegis.Add("@CS_ALT_EMAIL_ID", fJC_Registration.CS_ALT_EMAIL_ID);
                 dictRegis.Add("@CS_TEL_NO", fJC_Registration.CS_TEL_NO);
                 dictRegis.Add("@CS_FAX_NO", fJC_Registration.CS_FAX_NO); 
-                dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.CS_MOBILE_NO);
-                dictRegis.Add("@CREATED_DATE", fJC_Registration.CREATED_DATE);
-                dictRegis.Add("@MODIFIED_DATE", fJC_Registration.MODIFIED_DATE);                 
+                dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.CS_MOBILE_NO);                        
 
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
@@ -73,9 +70,9 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
                     {
-                        throw new CustomException.InvalidUserID();
+                        throw new CustomException.InvalidEmailID();
                     }
                     else
                     {
@@ -97,8 +94,7 @@ namespace evoting.Services
                 dictRegis.Add("@REG_CITY", fJC_Registration.REG_CITY);
                 dictRegis.Add("@REG_PINCODE", fJC_Registration.REG_PINCODE);
                 dictRegis.Add("@REG_STATE_ID",fJC_Registration.REG_STATE_ID);  
-                dictRegis.Add("@REG_COUNTRY", fJC_Registration.REG_COUNTRY);
-                dictRegis.Add("@SCRUTNIZER_ID",fJC_Registration.SCRUTNIZER_ID);
+                dictRegis.Add("@REG_COUNTRY", fJC_Registration.REG_COUNTRY);               
                 dictRegis.Add("@CORRES_ADD1", fJC_Registration.CORRES_ADD1);  
                 dictRegis.Add("@CORRES_ADD2",fJC_Registration.CORRES_ADD2);
                 dictRegis.Add("@CORRES_ADD3",fJC_Registration.CORRES_ADD3);
@@ -112,9 +108,7 @@ namespace evoting.Services
                 dictRegis.Add("@CS_ALT_EMAIL_ID", fJC_Registration.CS_ALT_EMAIL_ID);
                 dictRegis.Add("@CS_TEL_NO", fJC_Registration.CS_TEL_NO);
                 dictRegis.Add("@CS_FAX_NO", fJC_Registration.CS_FAX_NO); 
-                dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.CS_MOBILE_NO);
-                dictRegis.Add("@CREATED_DATE", fJC_Registration.CREATED_DATE);
-                dictRegis.Add("@MODIFIED_DATE", fJC_Registration.MODIFIED_DATE);                 
+                dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.CS_MOBILE_NO);                                
 
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              

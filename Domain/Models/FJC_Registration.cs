@@ -9,7 +9,7 @@ namespace evoting.Domain.Models
 {
     public class FJC_Registration
     {
-        public String SR_NO { get; set;}
+        public int SR_NO { get; set;}
         public int REG_TYPE_ID { get; set;}
 
         [Required (ErrorMessage ="Enter User ID") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
@@ -30,9 +30,7 @@ namespace evoting.Domain.Models
            [Required (ErrorMessage ="Enter State")] 
         public String REG_STATE_ID { get; set;}
            [Required (ErrorMessage ="Enter Country")] 
-        public string REG_COUNTRY { get; set;}
-
-        public string SCRUTNIZER_ID { get; set;}
+        public string REG_COUNTRY { get; set;}       
         [Required (ErrorMessage ="Enter Correspondence Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
         public string CORRES_ADD1 { get; set;}
         public string CORRES_ADD2 { get; set;}
@@ -56,8 +54,6 @@ namespace evoting.Domain.Models
         public string CS_FAX_NO { get; set;}
         [Required (ErrorMessage ="Enter Mobile No.") ,RegularExpression(@"^[0-9]*$")] 
         public string CS_MOBILE_NO { get; set;}
-        public DateTime CREATED_DATE { get; set;}
-        public DateTime MODIFIED_DATE { get; set;}
     }  
      
 }
