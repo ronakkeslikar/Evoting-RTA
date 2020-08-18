@@ -246,7 +246,7 @@ namespace evoting.Services
                 dictLogin.Add("@DESCRIPTION", FJC_EVENTRESOLUTION.DESCRIPTION);
                 dictLogin.Add("@FILE_PATH", FJC_EVENTRESOLUTION.FILE_PATH);      
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                ds= await AppDBCalls.GetDataSet("Evote_Event_Resolution", dictLogin);
                 return ds.Tables[0];
                
             }
@@ -270,7 +270,7 @@ namespace evoting.Services
                 dictLogin.Add("@FILE_PATH", FJC_EVENTRESOLUTION.FILE_PATH);               
                      
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                ds= await AppDBCalls.GetDataSet("Evote_Event_Resolution", dictLogin);
                 return ds.Tables[0];
             }
             catch (Exception ex)
@@ -288,7 +288,7 @@ namespace evoting.Services
                 dictLogin.Add("@EVENT_RESOLUTION_ID", EVENT_RESOLUTION_ID);               
              
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Get_EVENT_DETAIL", dictLogin);
+                ds= await AppDBCalls.GetDataSet("Evote_Delete_EVENT_Resolution", dictLogin);
                 return ds.Tables[0];
             }
             catch (Exception ex)
@@ -304,7 +304,7 @@ namespace evoting.Services
                 dictLogin.Add("@EVENT_RESOLUTION_ID", EVENT_RESOLUTION_ID);               
              
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Delete_EVENT_DETAIL", dictLogin);
+                ds= await AppDBCalls.GetDataSet("Evote_Get_EVENT_Resolution", dictLogin);
                 return ds.Tables[0];
             }
             catch (Exception ex)
