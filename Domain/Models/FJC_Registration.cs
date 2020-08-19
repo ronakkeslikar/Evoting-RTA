@@ -26,9 +26,9 @@ namespace evoting.Domain.Models
         [Required (ErrorMessage ="Enter City")] 
         public string REG_CITY { get; set;}
            [Required (ErrorMessage ="Enter Pincode")] 
-        public String REG_PINCODE { get; set;}
+        public string REG_PINCODE { get; set;}
            [Required (ErrorMessage ="Enter State")] 
-        public String REG_STATE_ID { get; set;}
+        public string REG_STATE_ID { get; set;}
            [Required (ErrorMessage ="Enter Country")] 
         public string REG_COUNTRY { get; set;}       
         [Required (ErrorMessage ="Enter Correspondence Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
@@ -38,9 +38,9 @@ namespace evoting.Domain.Models
          [Required (ErrorMessage ="Enter City")]
         public string CORRES_CITY { get; set;}
         [Required (ErrorMessage ="Enter Pincode")] 
-        public String CORRES_PINCODE { get; set;}
+        public string CORRES_PINCODE { get; set;}
           [Required (ErrorMessage ="Enter State")] 
-        public String CORRES_STATE_ID { get; set;}
+        public string CORRES_STATE_ID { get; set;}
              [Required (ErrorMessage ="Enter Country")] 
         public string CORRES_COUNTRY { get; set;}
         public string PCS_NO { get; set;}
@@ -54,6 +54,8 @@ namespace evoting.Domain.Models
         public string CS_FAX_NO { get; set;}
         [Required (ErrorMessage ="Enter Mobile No.") ,RegularExpression(@"^[0-9]*$")] 
         public string CS_MOBILE_NO { get; set;}
+        [Required (ErrorMessage ="Enter Mobile No.") ,RegularExpression(@"^[0-9]*$")] 
+        public string PANID { get; set;}
     }  
      
 }
