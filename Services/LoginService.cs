@@ -29,8 +29,7 @@ namespace evoting.Services
     public class LoginService : ILoginService
     {
         //db context here
-        protected readonly AppDbContext _context;
-        string dummyPanid="XXXXXXXX";
+        protected readonly AppDbContext _context;        
         public LoginService(AppDbContext context)
         {
             _context = context;
@@ -41,8 +40,7 @@ namespace evoting.Services
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@DPIIDCLID", fJC_Login.UserID);               
                 dictLogin.Add("@Password", fJC_Login.encrypt_Password);               
-                dictLogin.Add("@IP_Address", fJC_Login.system_ip);
-                 dictLogin.Add("@PANID", dummyPanid);                  
+                dictLogin.Add("@IP_Address", fJC_Login.system_ip);                                 
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
                 if(!ds.Tables[0].Columns.Contains("Error"))
@@ -51,9 +49,13 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
                     {
-                        throw new CustomException.InvalidUserID();
+                        throw new CustomException.InvalidEmailID();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
+                    {
+                        throw new CustomException.InvalidPANID();
                     }
                     else
                     {
@@ -80,10 +82,14 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
                     {
-                        throw new CustomException.InvalidUserID();
-                    }
+                        throw new CustomException.InvalidUserID ();
+                    }  
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Password")
+                    {
+                        throw new CustomException.InvalidPassword ();
+                    }                   
                     else
                     {
                         return null;
@@ -96,8 +102,7 @@ namespace evoting.Services
             
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();                
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID); 
-                dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID); 
-                dictForgotPwd.Add("@PANID", dummyPanid);             
+                dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID);                            
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);                          
              if(!ds.Tables[0].Columns.Contains("Error"))
@@ -106,10 +111,14 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
+                    {
+                        throw new CustomException.InvalidUserID ();
+                    } 
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
                     {
                         throw new CustomException.InvalidEmailID();
-                    }
+                    }                   
                     else
                     {
                         return null;
@@ -132,9 +141,13 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
                     {
-                        throw new CustomException.InvalidUserID();
+                        throw new CustomException.InvalidUserID ();
+                    } 
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
+                    {
+                        throw new CustomException.InvalidPANID();
                     }
                     else
                     {
@@ -157,9 +170,13 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
                     {
-                        throw new CustomException.InvalidUserID();
+                        throw new CustomException.InvalidUserID ();
+                    } 
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
+                    {
+                        throw new CustomException.InvalidPANID();
                     }
                     else
                     {
@@ -180,7 +197,7 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
                     {
                         throw new CustomException.InvalidUserID();
                     }

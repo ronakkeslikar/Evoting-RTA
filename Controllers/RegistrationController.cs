@@ -25,16 +25,21 @@ namespace evoting.Controllers
 
         public RegistrationController(IRegistrationService registrationService)
         {
-            _registrationService = registrationService;
+            _registrationService = registrationService; 
         }
-
+       
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> RegistrationSave(FJC_Registration fJC_Registration)
         { 
             try
-            {
+            {   
+                 if(fJC_Registration.REG_TYPE_ID==1 || fJC_Registration.REG_TYPE_ID==2 )
+                {
+                  fJC_Registration.PANID="XXXXXXXX";  
+                } 
+
                 var result = await _registrationService.Registration_InsertData(fJC_Registration);
                 return Ok(JsonConvert.SerializeObject(result));
             }

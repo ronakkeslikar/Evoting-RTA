@@ -13,7 +13,7 @@ namespace evoting.Utility
             {
                 get
                 {
-                    return "Invalid User Id";
+                    return "Invalid User ID";
                 }
             }
         }
@@ -57,6 +57,16 @@ namespace evoting.Utility
                 get
                 {
                     return "Invalid Email ID";
+                }
+            }
+        }
+         public class InvalidPANID : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid PAN ID";
                 }
             }
         }

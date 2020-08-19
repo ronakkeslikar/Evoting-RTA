@@ -25,7 +25,8 @@ namespace evoting.Controllers
         public ForgotPasswordController(ILoginService loginService)
         {
             _loginService = loginService;
-        }
+      
+        }      
 
         [HttpPost] 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -34,26 +35,30 @@ namespace evoting.Controllers
         {
             try
             {
-                var result = (Object)null;
+                var result = (Object)null;      
+                if(fJC_forgot.PAN_ID=="" && (fJC_forgot.TypeOfUser!='I'|| fJC_forgot.TypeOfUpdate =='E')) 
+                {
+                    fJC_forgot.PAN_ID="XXXXXXXX";
+                }         
                 
                     if(fJC_forgot.TypeOfUser=='I')
                     { 
                     
                         switch (fJC_forgot.TypeOfUpdate)
                         {
-                            case 'D':
+                            case 'D':                            
                                 result = await _loginService.ForgotPassword_DOB_Data(fJC_forgot);
                                 break;                                          
                             case 'B':
                                 result = await _loginService.ForgotPassword_BANK_ACC_Data(fJC_forgot);
                                  break;
-                            case 'E':
+                            case 'E':                                 
                                  result = await _loginService.ForgotPasswordData(fJC_forgot);
                                 break;
                         }
                     }
                     else
-                    {
+                    {                        
                        result = await _loginService.ForgotPasswordData(fJC_forgot);  
                     } 
                               

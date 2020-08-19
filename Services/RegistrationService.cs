@@ -60,14 +60,7 @@ namespace evoting.Services
                 dictRegis.Add("@CS_TEL_NO", fJC_Registration.CS_TEL_NO);
                 dictRegis.Add("@CS_FAX_NO", fJC_Registration.CS_FAX_NO); 
                 dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.CS_MOBILE_NO);   
-                if(fJC_Registration.REG_TYPE_ID==1 || fJC_Registration.REG_TYPE_ID==2) 
-                {
-                    dictRegis.Add("@PANID","XXXXXXXX");  
-                }
-                else
-                {
-                    dictRegis.Add("@PANID",fJC_Registration.PANID);    
-                }                       
+                dictRegis.Add("@PANID",fJC_Registration.PANID);                       
 
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
@@ -81,6 +74,10 @@ namespace evoting.Services
                     if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
                     {
                         throw new CustomException.InvalidEmailID();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
+                    {
+                        throw new CustomException.InvalidPANID();
                     }
                     else
                     {
@@ -117,14 +114,7 @@ namespace evoting.Services
                 dictRegis.Add("@CS_TEL_NO", fJC_Registration.CS_TEL_NO);
                 dictRegis.Add("@CS_FAX_NO", fJC_Registration.CS_FAX_NO); 
                 dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.CS_MOBILE_NO); 
-                if(fJC_Registration.REG_TYPE_ID==1 || fJC_Registration.REG_TYPE_ID==2) 
-                {
-                    dictRegis.Add("@PANID","XXXXXXXX");  
-                }
-                else
-                {
-                    dictRegis.Add("@PANID",fJC_Registration.PANID);    
-                }               
+               dictRegis.Add("@PANID",fJC_Registration.PANID);               
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
             if(!ds.Tables[0].Columns.Contains("Error"))
@@ -133,9 +123,13 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
                     {
-                        throw new CustomException.InvalidUserID();
+                        throw new CustomException.InvalidEmailID();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
+                    {
+                        throw new CustomException.InvalidPANID();
                     }
                     else
                     {
@@ -156,9 +150,13 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
                     {
-                        throw new CustomException.InvalidUserID();
+                        throw new CustomException.InvalidEmailID();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
+                    {
+                        throw new CustomException.InvalidPANID();
                     }
                     else
                     {
