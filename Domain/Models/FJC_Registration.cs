@@ -8,7 +8,8 @@ using System.ComponentModel.DataAnnotations;
 namespace evoting.Domain.Models
 {
     public class FJC_Registration
-    {private string _panid;
+    {
+       //private string _panid;
         public int SR_NO { get; set;}
         public int REG_TYPE_ID { get; set;}
 
@@ -54,10 +55,10 @@ namespace evoting.Domain.Models
         public string CS_FAX_NO { get; set;}
         [Required (ErrorMessage ="Enter Mobile No.") ,RegularExpression(@"^[0-9]*$")] 
         public string CS_MOBILE_NO { get; set;}
-        [Required (ErrorMessage ="Enter Mobile No.") ,RegularExpression(@"^[0-9]*$")] 
+         
          //   [Required (ErrorMessage ="Enter PAN") ,RegularExpression(@"^[0-9]*$")] 
-      //   public string PANID { get; set;}
-      public string PANID { get { return _panid; } set { _panid = (Validate_Login.CheckString(_panid) ? _panid : "Enter PAN ID"); } }         
+        public string PANID { get; set;}
+     // public string PANID { get { return _panid; } set { _panid = (Validate_Login.CheckString(_panid) ? _panid : "Enter PAN ID"); } }         
 
     }  
      
