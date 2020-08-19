@@ -30,6 +30,7 @@ namespace evoting.Services
     {
         //db context here
         protected readonly AppDbContext _context;
+        string dummyPanid="XXXXXXXX";
         public LoginService(AppDbContext context)
         {
             _context = context;
@@ -40,7 +41,8 @@ namespace evoting.Services
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@DPIIDCLID", fJC_Login.UserID);               
                 dictLogin.Add("@Password", fJC_Login.encrypt_Password);               
-                dictLogin.Add("@IP_Address", fJC_Login.system_ip);               
+                dictLogin.Add("@IP_Address", fJC_Login.system_ip);
+                 dictLogin.Add("@PANID", dummyPanid);                  
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
                 if(!ds.Tables[0].Columns.Contains("Error"))
@@ -65,7 +67,7 @@ namespace evoting.Services
                 Dictionary<string, object> dictChangePwd = new Dictionary<string, object>();
                 dictChangePwd.Add("@DPIIDCLID", fJC_changePwd.UserID);
                 dictChangePwd.Add("@CurrPassword", fJC_changePwd.encrypt_OldPassword);
-                dictChangePwd.Add("@NewPassword", fJC_changePwd.encrypt_NewPassword);
+                dictChangePwd.Add("@NewPassword", fJC_changePwd.encrypt_NewPassword);                
    
                 // dictChangePwd.Add("@CurrPassword", DecryptPassword.Decrypt_Password(fJC_changePwd.encrypt_OldPassword));
                 // dictChangePwd.Add("@NewPassword", DecryptPassword.Decrypt_Password(fJC_changePwd.encrypt_NewPassword));
@@ -94,7 +96,8 @@ namespace evoting.Services
             
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();                
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID); 
-                dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID);              
+                dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID); 
+                dictForgotPwd.Add("@PANID", dummyPanid);             
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);                          
              if(!ds.Tables[0].Columns.Contains("Error"))
