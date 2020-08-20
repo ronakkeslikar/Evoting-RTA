@@ -48,13 +48,14 @@ namespace evoting.Services
         {
             
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@EVENT_ID", fJC_EVSN.EVENT_ID);
                 dictLogin.Add("@ISIN", fJC_EVSN.ISIN);
                 dictLogin.Add("@ROWID_CLIENT", fJC_EVSN.ROWID_CLIENT);                
                 dictLogin.Add("@TYPE_ISIN", fJC_EVSN.TYPE_ISIN);               
                 dictLogin.Add("@TYPE_EVOTING", fJC_EVSN.TYPE_EVOTING);
                 dictLogin.Add("@TOTAL_NOF_SHARE", fJC_EVSN.TOTAL_NOF_SHARE);               
                 dictLogin.Add("@VOTING_RIGHTS", fJC_EVSN.VOTING_RIGHTS);
-                dictLogin.Add("@CUT_OF_DATE", new DateTime(2012, 12, 25, 10, 30, 50).ToString("yyyy-MM-dd HH:mm:ss"));               
+                dictLogin.Add("@CUT_OF_DATE", fJC_EVSN.CUT_OF_DATE);//new DateTime(2012, 12, 25, 10, 30, 50).ToString("yyyy-MM-dd HH:mm:ss"));               
                 dictLogin.Add("@SCRUTINIZER", fJC_EVSN.SCRUTINIZER);
                 dictLogin.Add("@CREATED_BY", fJC_EVSN.CREATED_BY);   
                 dictLogin.Add("@UPDATED_BY", fJC_EVSN.UPDATED_BY);   
@@ -85,6 +86,7 @@ namespace evoting.Services
             try
             {
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                 dictLogin.Add("@EVENT_ID", fJC_EVSN.EVENT_ID);
                 dictLogin.Add("@ISIN", fJC_EVSN.ISIN); 
                 dictLogin.Add("@ROWID_CLIENT", fJC_EVSN.ROWID_CLIENT);             
                 dictLogin.Add("@TYPE_ISIN", fJC_EVSN.TYPE_ISIN);               
@@ -147,18 +149,20 @@ namespace evoting.Services
             try
             {
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);               
-                //dictLogin.Add("@SELECT_SCRUTINIZER", fJC_EVENT.SELECT_SCRUTINIZER);
-                dictLogin.Add("@VOTING_START_DATETIME", fJC_EVENT.VOTING_START_DATETIME);               
-                dictLogin.Add("@VOTING_END_DATETIME", fJC_EVENT.VOTING_END_DATETIME);               
-                dictLogin.Add("@MEETING_DATETIME", fJC_EVENT.MEETING_DATETIME);
-                dictLogin.Add("@LAST_DATE_NOTICE", fJC_EVENT.LAST_DATE_NOTICE);               
-                dictLogin.Add("@VOTING_RESULT_DATE", fJC_EVENT.VOTING_RESULT_DATE); 
+                dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);
+                 dictLogin.Add("@EVENT_ID", fJC_EVENT.EVENT_ID);           
+                dictLogin.Add("@VOTING_START_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_START_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));               
+                dictLogin.Add("@VOTING_END_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_END_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));           
+                dictLogin.Add("@MEETING_DATETIME", (DateTime.Parse(fJC_EVENT.MEETING_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));    
+                dictLogin.Add("@LAST_DATE_NOTICE",(DateTime.Parse(fJC_EVENT.LAST_DATE_NOTICE)).ToString("yyyy-MM-dd hh:mm:ss:fff"));         
+                dictLogin.Add("@VOTING_RESULT_DATE",(DateTime.Parse(fJC_EVENT.VOTING_RESULT_DATE)).ToString("yyyy-MM-dd hh:mm:ss:fff"));
                 dictLogin.Add("@UPLOAD_LOGO", fJC_EVENT.UPLOAD_LOGO); //file             
                 dictLogin.Add("@UPLOAD_RESOLUTION_FILE", fJC_EVENT.UPLOAD_RESOLUTION_FILE);//file
                 dictLogin.Add("@UPLOAD_NOTICE", fJC_EVENT.UPLOAD_NOTICE); //file
+                dictLogin.Add("@ENTER_NOF_RESOLUTION", fJC_EVENT.ENTER_NOF_RESOLUTION);
+                
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                ds= await AppDBCalls.GetDataSet("EVOTE_EVENT_DETAIL", dictLogin);
                 return ds.Tables[0];
                
             }
@@ -174,18 +178,19 @@ namespace evoting.Services
             try
             {
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);               
-               // dictLogin.Add("@SELECT_SCRUTINIZER", fJC_EVENT.SELECT_SCRUTINIZER);
-                dictLogin.Add("@VOTING_START_DATETIME", fJC_EVENT.VOTING_START_DATETIME);               
-                dictLogin.Add("@VOTING_END_DATETIME", fJC_EVENT.VOTING_END_DATETIME);               
-                dictLogin.Add("@MEETING_DATETIME", fJC_EVENT.MEETING_DATETIME);
-                dictLogin.Add("@LAST_DATE_NOTICE", fJC_EVENT.LAST_DATE_NOTICE);               
-                dictLogin.Add("@VOTING_RESULT_DATE", fJC_EVENT.VOTING_RESULT_DATE); 
+                dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);
+                dictLogin.Add("@EVENT_ID", fJC_EVENT.EVENT_ID);           
+                dictLogin.Add("@VOTING_START_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_START_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));               
+                dictLogin.Add("@VOTING_END_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_END_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));           
+                dictLogin.Add("@MEETING_DATETIME", (DateTime.Parse(fJC_EVENT.MEETING_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));    
+                dictLogin.Add("@LAST_DATE_NOTICE",(DateTime.Parse(fJC_EVENT.LAST_DATE_NOTICE)).ToString("yyyy-MM-dd hh:mm:ss:fff"));         
+                dictLogin.Add("@VOTING_RESULT_DATE",(DateTime.Parse(fJC_EVENT.VOTING_RESULT_DATE)).ToString("yyyy-MM-dd hh:mm:ss:fff"));
                 dictLogin.Add("@UPLOAD_LOGO", fJC_EVENT.UPLOAD_LOGO); //file             
                 dictLogin.Add("@UPLOAD_RESOLUTION_FILE", fJC_EVENT.UPLOAD_RESOLUTION_FILE);//file
-                dictLogin.Add("@UPLOAD_NOTICE", fJC_EVENT.UPLOAD_NOTICE); //file              
+                dictLogin.Add("@UPLOAD_NOTICE", fJC_EVENT.UPLOAD_NOTICE); //file
+                dictLogin.Add("@ENTER_NOF_RESOLUTION", fJC_EVENT.ENTER_NOF_RESOLUTION);            
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
+                ds= await AppDBCalls.GetDataSet("EVOTE_EVENT_DETAIL", dictLogin);
                 return ds.Tables[0];
             }
             catch (Exception ex)

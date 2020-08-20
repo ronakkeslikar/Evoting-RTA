@@ -16,7 +16,7 @@ using evoting.Utility;
 namespace evoting.Controllers
 {
 
-    [Route("api/UpdateEVENT")]               
+    [Route("api/EVENTDetail")]               
     [Produces("application/json")]
     [ApiController]
       public class UpdateEVENTController : ControllerBase
