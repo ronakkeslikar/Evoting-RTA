@@ -35,8 +35,9 @@ namespace evoting.Controllers
         {
             try
             {
+                
                 var result = (Object)null;      
-                if(fJC_forgot.PAN_ID=="" && (fJC_forgot.TypeOfUser!='I'|| fJC_forgot.TypeOfUpdate =='E')) 
+                if(fJC_forgot.TypeOfUser!='I'|| fJC_forgot.TypeOfUpdate =='E') 
                 {
                     fJC_forgot.PAN_ID="XXXXXXXX";
                 }         
