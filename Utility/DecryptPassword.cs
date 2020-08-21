@@ -20,5 +20,6 @@ namespace evoting.Utility
             string result = new String(decoded_char);
             return result;
         }
+        
     }
 }
