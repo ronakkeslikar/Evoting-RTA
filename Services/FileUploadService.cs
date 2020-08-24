@@ -13,6 +13,8 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using evoting.Domain.Models;
 using evoting.Utility;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace evoting.Services
 {
@@ -33,15 +35,34 @@ namespace evoting.Services
 
         public async Task<DataTable> FileUpload_Details(FJC_FileUpload fjc_FileUpload)
         {
-           
+             
+
+                var name = fjc_FileUpload.files;
+
+                // Saving file on Server
+                if (name.Length > 0) 
+                {
+                    var folderName = Path.Combine("ROM", "RTA");           
+                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                    if (!Directory.Exists(pathToSave))  
+                    {                 
+                        Directory.CreateDirectory(pathToSave);
+                    } 
+                    //Path.Combine(folderName,System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:fff")+ fjc_FileUpload.Token_No + name.FileName);
+                    using (var fileStream = new FileStream(name.FileName, FileMode.Create)) 
+                    {
+                    name.CopyTo(fileStream);
+                    }
+                }
+           //Path.Combine(folderName,System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:fff")+ fjc_FileUpload.Token_No + name.FileName);
                 Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
                 dictfileUpld.Add("@DOC_NO", fjc_FileUpload.DOC_NO);
-                dictfileUpld.Add("@File_Name", fjc_FileUpload.File_Name);
-                dictfileUpld.Add("@File_Path", fjc_FileUpload.File_Path);  
-                dictfileUpld.Add("@ROWID", fjc_FileUpload.ROWID);  
-                dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_No);  
-                dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_No);  
-                dictfileUpld.Add("@MODIFIEDBY", fjc_FileUpload.MODIFIEDBY);                
+                dictfileUpld.Add("@File_Name", name.FileName);
+                //dictfileUpld.Add("@File_Path", fjc_FileUpload.File_Path);  
+                // dictfileUpld.Add("@ROWID", fjc_FileUpload.ROWID);  
+                // dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_No);  
+                // dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_No);  
+                // dictfileUpld.Add("@MODIFIEDBY", fjc_FileUpload.MODIFIEDBY);                
    
           
                 DataSet ds = new DataSet();

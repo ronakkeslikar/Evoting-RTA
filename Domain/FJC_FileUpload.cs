@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using evoting.Domain.Models.Validate;
 using System.ComponentModel.DataAnnotations; 
+using Microsoft.AspNetCore.Http;
 
 namespace evoting.Domain.Models
 {
@@ -11,14 +12,15 @@ namespace evoting.Domain.Models
 public class FJC_FileUpload 
     {    
         public int DOC_NO { get; set;}
+         public IFormFile files{get;set;} 
         public string File_Name { get; set;}
-        public string File_Path { get; set;}
-        public int ROWID { get; set;}
-        public string Token_No { get; set;}
-        public string CREATEDBY { get; set;}
-        public string MODIFIEDBY { get; set;}
-        public DateTime CREATED_DATE { get; set;}
-        public DateTime MODIFIED_DATE { get; set;}
+        //public string File_Path { get; set;}
+       // public int ROWID { get; set;}
+        // public string Token_No { get; set;}
+        // public string CREATEDBY { get; set;}
+        // public string MODIFIEDBY { get; set;}
+        // public DateTime CREATED_DATE { get; set;}
+        // public DateTime MODIFIED_DATE { get; set;}
     }
         public class FJC_RTA_FileUpload 
     {    
