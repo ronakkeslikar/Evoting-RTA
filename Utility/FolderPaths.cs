@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using evoting.Domain.Models;
 
 namespace evoting.Utility
 {
@@ -85,14 +86,39 @@ namespace evoting.Utility
             }            
             
         } 
-
-        public static string CreateSpecificFolder(string _checkPath)
+ 
+        public static string CreateSpecificFolder(string _checkPath,string _filenamewithdatetime,FJC_FileUpload fileUpload)
         {
             //folder exists - if not then create
             //same file exists
             
-           
-            return "";
+                 var name = fileUpload.files;
+             if (name.Length > 0)
+             {
+                
+                if(_checkPath !=null)
+                {
+                      _checkPath =  Path.Combine(_checkPath,System.DateTime.Now.ToString("yyyy-MM-dd")); 
+                    if (!Directory.Exists(_checkPath))  
+                        {                         
+                            Directory.CreateDirectory(_checkPath);
+                        }                                        
+                        using (var fileStream = new FileStream(Path.Combine(_checkPath,_filenamewithdatetime), FileMode.Create,FileAccess.Write)) 
+                        {                            
+                            fileUpload.files.CopyTo(fileStream);
+                        }
+                         return "Done";
+                }
+                else
+                {
+                return "Please check File";  
+                }  
+             } 
+             else
+             {
+                return "No File Found";    
+             }       
+             
         }
     }
 }

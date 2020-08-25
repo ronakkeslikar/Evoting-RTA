@@ -16,7 +16,9 @@ public class FJC_FileUpload
         public string File_Name { get; set;}
         public string File_Path { get; set;}
         public int UploadedBy { get; set;}
-        public string Token_No { get; set;}  
+        public string Token_No { get; set;} 
+        public int User_Type {get;set;} 
+        public string UploadType {get;set;} 
        
     }     
  
