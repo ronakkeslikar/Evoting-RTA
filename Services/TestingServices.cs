@@ -1,4 +1,5 @@
 ﻿using evoting.Domain.Models;
+using evoting.Persistence.Contexts;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace evoting.Services
     public interface ITestingService
     {
         string GetClassToJSON(string FJC_ClassName);
+        string DBCheck();
     }
     public class TestingServices : ITestingService
     {
@@ -37,6 +39,11 @@ namespace evoting.Services
                 throw ex;
             }            
                 return ret;            
+        }
+        public string DBCheck()
+        {
+            //return JsonConvert.SerializeObject(AppDBCalls.Rel_connection);
+            return JsonConvert.SerializeObject(AppDBCalls.GetDataSet("TestingServices", new Dictionary<string, object>() { { "@flag", 1 } }));
         }
     }
 }
