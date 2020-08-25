@@ -57,7 +57,7 @@ namespace evoting.Services
            
                 Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
                 dictfileUpld.Add("@DOC_NO", fjc_FileUpload.DOC_NO);
-                dictfileUpld.Add("@File_Name", System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:fff")+ fjc_FileUpload.Token_No.Replace("\"","") + name.FileName);
+                dictfileUpld.Add("@File_Name", System.DateTime.Now.ToString("yyyyMMdd-hh:mm:ss:fff-")+ fjc_FileUpload.Token_No.Replace("\"","") + name.FileName);
                 dictfileUpld.Add("@File_Path", fjc_FileUpload.File_Path);  
                 dictfileUpld.Add("@UploadedBy", fjc_FileUpload.UploadedBy);  
                 dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_No); 
