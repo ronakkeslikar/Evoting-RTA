@@ -18,10 +18,17 @@ namespace evoting.Controllers
         {
             _TestingService = TestService;
         }
-        [HttpGet]
+        [HttpGet("fjc_Name/{fjc_Name}")]
         public string GetByClassName([FromQuery] string fjc_Name)
         {
             var result =  _TestingService.GetClassToJSON(fjc_Name);
+            return result;
+        }
+
+        [HttpGet]
+        public string GetByClassName()
+        {
+            var result = _TestingService.DBCheck();
             return result;
         }
     }
