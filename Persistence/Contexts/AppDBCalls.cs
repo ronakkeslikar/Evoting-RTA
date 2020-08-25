@@ -9,7 +9,9 @@ namespace evoting.Persistence.Contexts
 {
     public class AppDBCalls
     {
-        public static string ConStr = "Data Source=192.168.0.251;Initial Catalog=evoting;Persist Security Info=True;User ID=sa;Password=bigshare@123";
+        public static string ConStr1 = "Data Source=192.168.0.251;Initial Catalog=evoting;User ID=sa;Password=bigshare@123";
+        public static string ConStr = "Data Source=BIGSHARE-WEBSVR;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
+        public static string Rel_connection;
         public static string ErrorMsg;
         public static Task<DataSet> GetDataSet(string procname, Dictionary<string,object> keyValues)
         {            
@@ -18,7 +20,8 @@ namespace evoting.Persistence.Contexts
                 return Task.Run(() =>
                 {                    
                     DataSet _dt = new DataSet();
-                    SqlConnection con = new SqlConnection(ConStr);
+                    SqlConnection con = new SqlConnection(Rel_connection);
+                    
                     SqlCommand cmd = new SqlCommand(procname, con);
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -39,6 +42,41 @@ namespace evoting.Persistence.Contexts
                 return null;
             }
         }
+
+        private static bool DBConnectionStatus()
+        {
+            try
+            {
+                using (SqlConnection sqlConn =
+                    new SqlConnection(ConStr))
+                {
+                    sqlConn.Open();
+                    return (sqlConn.State == ConnectionState.Open);
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static void SetDBConnect()
+        {
+            if(DBConnectionStatus())
+            {
+                Rel_connection = ConStr;
+            }
+            else
+            {
+                Rel_connection = ConStr1;
+            }
+        }
+
+
 
 
     }
