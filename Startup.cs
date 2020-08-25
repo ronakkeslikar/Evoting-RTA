@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using evoting.Persistence.Contexts;
 using evoting.Services;
 using evoting.Domain.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace evoting
 {
@@ -17,19 +18,7 @@ namespace evoting
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-            FJC_ForgotPassword fJC_Forgot=new FJC_ForgotPassword();
-
-            if(fJC_Forgot.TypeOfUser!='I'|| fJC_Forgot.TypeOfUpdate =='E')
-            {
-                fJC_Forgot.PAN_ID="XXXXXXXX";  
-            }
-
-            FJC_Registration  fJC_Registration=new FJC_Registration();  
-             if(fJC_Registration.REG_TYPE_ID==1 || fJC_Registration.REG_TYPE_ID==2 )
-                {
-                  fJC_Registration.PANID="XXXXXXXX";  
-                } 
+            Configuration = configuration;           
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -49,6 +38,7 @@ namespace evoting
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IGenerateEVENTService, GenerateEVENTService>();
+            services.AddScoped<IFileUploadService, FileUploadService>();
             
         }
 
@@ -57,18 +47,17 @@ namespace evoting
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-
+            }             
             
 
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
+            });             
         }
     }
 }

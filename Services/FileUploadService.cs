@@ -36,7 +36,7 @@ namespace evoting.Services
         public async Task<DataTable> FileUpload_Details(FJC_FileUpload fjc_FileUpload)
         {
              
-
+                var getpath = FolderPaths.RTA.ROMUpload(); // date logic - combine
                 var name = fjc_FileUpload.files;
 
                 // Saving file on Server
@@ -54,16 +54,13 @@ namespace evoting.Services
                     name.CopyTo(fileStream);
                     }
                 }
-           //Path.Combine(folderName,System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:fff")+ fjc_FileUpload.Token_No + name.FileName);
+           
                 Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
                 dictfileUpld.Add("@DOC_NO", fjc_FileUpload.DOC_NO);
-                dictfileUpld.Add("@File_Name", name.FileName);
-                //dictfileUpld.Add("@File_Path", fjc_FileUpload.File_Path);  
-                // dictfileUpld.Add("@ROWID", fjc_FileUpload.ROWID);  
-                // dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_No);  
-                // dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_No);  
-                // dictfileUpld.Add("@MODIFIEDBY", fjc_FileUpload.MODIFIEDBY);                
-   
+                dictfileUpld.Add("@File_Name", System.DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:fff")+ fjc_FileUpload.Token_No.Replace("\"","") + name.FileName);
+                dictfileUpld.Add("@File_Path", fjc_FileUpload.File_Path);  
+                dictfileUpld.Add("@UploadedBy", fjc_FileUpload.UploadedBy);  
+                dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_No); 
           
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_spFileUpload", dictfileUpld);
@@ -76,11 +73,7 @@ namespace evoting.Services
                     if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
                     {
                         throw new CustomException.InvalidUserID ();
-                    }  
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Password")
-                    {
-                        throw new CustomException.InvalidPassword ();
-                    }                   
+                    }              
                     else
                     {
                         return null;
