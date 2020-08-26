@@ -41,6 +41,14 @@ namespace evoting.Controllers
             {
                 return Unauthorized(ex.Message);
             }
+            catch (CustomException.InvalidUserIDPWD ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+             catch (CustomException.InvalidAttempt ex)
+            {
+                return Unauthorized(ex.Message);
+            }
             catch
             {
                 return Unauthorized();

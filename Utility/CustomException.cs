@@ -40,6 +40,16 @@ namespace evoting.Utility
                 }
             }
         }
+         public class InvalidUserIDPWD : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid User ID OR Password";
+                }
+            }
+        }
         public class InvalidValue : Exception
         {
             public override string Message
@@ -67,6 +77,16 @@ namespace evoting.Utility
                 get
                 {
                     return "Invalid PAN ID";
+                }
+            }
+        }
+        public class InvalidAttempt : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Attempt Exceed";
                 }
             }
         }

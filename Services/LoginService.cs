@@ -57,6 +57,14 @@ namespace evoting.Services
                     {
                         throw new CustomException.InvalidPANID();
                     }
+                     else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
+                    {
+                        throw new CustomException.InvalidUserIDPWD();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Attempt Exceed")
+                    {
+                        throw new CustomException.InvalidAttempt();
+                    }
                     else
                     {
                         return null;
