@@ -90,5 +90,15 @@ namespace evoting.Utility
                 }
             }
         }
+        public class InvalidTokenID : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Token ID";
+                }
+            }
+        }
     }
 }

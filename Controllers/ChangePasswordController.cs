@@ -36,6 +36,7 @@ namespace evoting.Controllers
           {
             var result = await _loginService.ChangePasswordData(fJC_changePwd);
             return Ok(JsonConvert.SerializeObject(result));
+            //return Ok(new { status = true, message = "Password changed Successfully"});
           }
           catch(Exception ex)
           {

@@ -38,8 +38,15 @@ namespace evoting.Controllers
             [ProducesResponseType(StatusCodes.Status404NotFound)]  
             public async Task<IActionResult> ROM([FromForm]FJC_FileUpload std)
         {
-            var result = await _fileUploadService.FileUpload_Details(std);
-            return Ok(new { status = true, message = "File Posted Successfully"});
+            try
+            {
+                var result = await _fileUploadService.FileUpload_Details(std);
+                return Ok(new { status = true, message = "File Posted Successfully"});
+            }
+            catch (CustomException.InvalidTokenID ex)
+            {
+                return Unauthorized(ex.Message);
+            }
         }   
             
     }
