@@ -47,6 +47,10 @@ namespace evoting.Controllers
             {
                 return Unauthorized(ex.Message);
             }
+            catch 
+            {
+                return Unauthorized();
+            }
         }   
             
     }

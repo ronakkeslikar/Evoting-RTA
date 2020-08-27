@@ -90,14 +90,10 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
                     {
-                        throw new CustomException.InvalidUserID ();
-                    }  
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Password")
-                    {
-                        throw new CustomException.InvalidPassword ();
-                    }                   
+                        throw new CustomException.InvalidUserIDPWD ();
+                    }                                     
                     else
                     {
                         return null;
