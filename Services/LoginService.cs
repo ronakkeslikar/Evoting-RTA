@@ -93,6 +93,10 @@ namespace evoting.Services
                     if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
                     {
                         throw new CustomException.InvalidUserIDPWD ();
+                    } 
+                  else if (ds.Tables[0].Rows[0][0].ToString() == "New Password is same as Old Password")
+                    {
+                        throw new CustomException.InvalidDuplicatePassword ();
                     }                                     
                     else
                     {

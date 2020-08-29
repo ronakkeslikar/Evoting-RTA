@@ -43,6 +43,10 @@ namespace evoting.Controllers
             {
                 return Unauthorized(ex.Message);
             }
+          catch (CustomException.InvalidDuplicatePassword ex)
+          {
+              return Unauthorized(ex.Message);
+          }
           catch
           {
              return Unauthorized();

@@ -37,8 +37,8 @@ namespace evoting.Services
         {
             if(fjc_FileUpload.files.FileName.Length>0)
             { 
-               int User_Type=0;
-               int TokenRowID=0;
+               string User_Type="";
+               string TokenRowID="";
                string SaveToFolder="";
                string filenamewithdatetime="";
                 DataTable  dt1=new DataTable();
@@ -47,10 +47,11 @@ namespace evoting.Services
                 {                    
                    //-start-create folder directory-here
                         var getpath =(object)null;                   
-                        
+                       User_Type= dt1.Rows[0]["USER_TYPE"].ToString();
+                       TokenRowID= dt1.Rows[0]["ROWID"].ToString();
                     if(fjc_FileUpload.Process_Type=="ROM")  
                     {
-                            switch(User_Type)
+                            switch(Convert.ToUInt32(User_Type))
                             {
                                 case 1:
                                 getpath = FolderPaths.Company.ROMUpload(); 
@@ -58,12 +59,12 @@ namespace evoting.Services
                                 case 2:
                                 getpath = FolderPaths.RTA.ROMUpload(); 
                                 break;
-                                case 3:
-                                getpath = FolderPaths.Scrutinizer.ROMUpload(); 
-                                break;
-                                case 4:
-                                getpath = FolderPaths.Custodian.ROMUpload(); 
-                                break;
+                                //case 3:
+                                // getpath = FolderPaths.Scrutinizer.ROMUpload(); 
+                                // break;
+                                // case 4:
+                                // getpath = FolderPaths.Custodian.ROMUpload(); 
+                                // break;
                                 case 5:
                                 getpath = FolderPaths.EvotingAgency.ROMUpload(); 
                                 break;
@@ -71,7 +72,7 @@ namespace evoting.Services
                     }
                     else
                     {
-                        switch(User_Type)
+                        switch(Convert.ToUInt32(User_Type))
                             {
                                 case 1:
                                 getpath = FolderPaths.Company.AgreementUpload(); 
@@ -79,12 +80,12 @@ namespace evoting.Services
                                 case 2:
                                 getpath = FolderPaths.RTA.AgreementUpload(); 
                                 break;
-                                case 3:
-                                getpath = FolderPaths.Scrutinizer.AgreementUpload(); 
-                                break;
-                                case 4:
-                                getpath = FolderPaths.Custodian.AgreementUpload(); 
-                                break;
+                                // case 3:
+                                // getpath = FolderPaths.Scrutinizer.AgreementUpload(); 
+                                // break;
+                                // case 4:
+                                // getpath = FolderPaths.Custodian.AgreementUpload(); 
+                                // break;
                                 case 5:
                                 getpath = FolderPaths.EvotingAgency.AgreementUpload(); 
                                 break;
@@ -111,14 +112,14 @@ namespace evoting.Services
                 //var getpath = FolderPaths.RTA.ROMUpload(); // date logic - combine
                 
                 // // Saving file on Server               
-                if(SaveToFolder=="Done")
+                if(SaveToFolder!=null)
                 {
 
                     Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
                     dictfileUpld.Add("@DOC_NO", 0);
                     dictfileUpld.Add("@File_Name",filenamewithdatetime );
-                    dictfileUpld.Add("@File_Path", fjc_FileUpload.File_Path);  
-                    dictfileUpld.Add("@UploadedBy", TokenRowID);  
+                    dictfileUpld.Add("@File_Path", SaveToFolder);  
+                    dictfileUpld.Add("@UploadedBy", Convert.ToInt32(TokenRowID));  
                     dictfileUpld.Add("@Token_No", fjc_FileUpload.Token_ID); 
             
                     DataSet ds = new DataSet();

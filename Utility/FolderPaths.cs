@@ -10,7 +10,7 @@ namespace evoting.Utility
 {
     public static class FolderPaths
     {
-        public static string MainFolderPath = @"C:\evoting";
+        public static string MainFolderPath = @"C:\evoting";//@"C:\Sites\Evoting_API"; //@"C:\evoting";
 
         public static class RTA
         {
@@ -98,6 +98,7 @@ namespace evoting.Utility
                 
                 if(_checkPath !=null)
                 {
+                    string getFullFilepath="";
                       _checkPath =  Path.Combine(_checkPath,System.DateTime.Now.ToString("yyyy-MM-dd")); 
                     if (!Directory.Exists(_checkPath))  
                         {                         
@@ -106,17 +107,18 @@ namespace evoting.Utility
                         using (var fileStream = new FileStream(Path.Combine(_checkPath,_filenamewithdatetime), FileMode.Create,FileAccess.Write)) 
                         {                            
                             fileUpload.files.CopyTo(fileStream);
+                            getFullFilepath=fileStream.Name.ToString();
                         }
-                         return "Done";
+                         return getFullFilepath;
                 }
                 else
                 {
-                return "Please check File";  
+                return null;  
                 }  
              } 
              else
              {
-                return "No File Found";    
+                return null;    
              }       
              
         }

@@ -100,5 +100,16 @@ namespace evoting.Utility
                 }
             }
         }
+
+         public class InvalidDuplicatePassword : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "New Password is same as Old Password";
+                }
+            }
+        }
     }
 }
