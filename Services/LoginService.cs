@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using evoting.Persistence.Contexts;
-using evoting.Persistence.Contexts.Sp_SQL_Objects;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.EnvironmentVariables;
-using static evoting.Persistence.Contexts.Sp_SQL_Objects.SP_objectParam;
 using System.Data;
-using Microsoft.Data.SqlClient;
 using evoting.Domain.Models;
 using evoting.Utility;
 
@@ -56,11 +50,7 @@ namespace evoting.Services
                     else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
                     {
                         throw new CustomException.InvalidUserID();
-                    }
-                     else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
-                    {
-                        throw new CustomException.InvalidUserIDPWD();
-                    }
+                    }                     
                     else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Attempt Exceed")
                     {
                         throw new CustomException.InvalidAttempt();
