@@ -14,7 +14,7 @@ using evoting.Utility;
 
 namespace evoting.Controllers
 {
-    [Route("api/LoginReq")]
+    [Route("api/Login")]
     [Produces("application/json")]
     [ApiController]
      
@@ -35,15 +35,15 @@ namespace evoting.Controllers
             try
             {
                 var result = await _loginService.LoginDataUser(fJC_Login);
-                return Ok(JsonConvert.SerializeObject(result));
+                return Ok(Reformatter.Response_Object("User logged in succesfuly", ref result));
             }
             catch (CustomException.InvalidUserID ex)
             {
-                return Unauthorized(ex.Message);
+                return Unauthorized(new { status = false, message = ex.Message }) ;                
             }
-            catch
+            catch(Exception ex)
             {
-                return Unauthorized();
+                return StatusCode(500, new { status = false, message = ex.Message});
             }                
         }
     }

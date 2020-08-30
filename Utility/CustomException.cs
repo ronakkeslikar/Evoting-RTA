@@ -17,6 +17,16 @@ namespace evoting.Utility
                 }
             }
         }
+        public class MultipleRequests : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Multiple login requests received. Please try logging in after 5 minutes";
+                }
+            }
+        }
 
 
         public class InvalidEventId : Exception

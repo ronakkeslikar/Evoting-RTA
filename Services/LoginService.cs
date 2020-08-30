@@ -49,13 +49,13 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Multiple login requests")
                     {
-                        throw new CustomException.InvalidEmailID();
+                        throw new CustomException.MultipleRequests();
                     }
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
                     {
-                        throw new CustomException.InvalidPANID();
+                        throw new CustomException.InvalidUserID();
                     }
                     else
                     {
