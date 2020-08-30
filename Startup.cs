@@ -38,6 +38,7 @@ namespace evoting
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IGenerateEVENTService, GenerateEVENTService>();
+            services.AddScoped<IFileUploadService, FileUploadService>();
             
         }
 

@@ -42,6 +42,7 @@ namespace evoting.Controllers
 
                 var result = await _registrationService.Registration_InsertData(fJC_Registration);
                 return Ok(JsonConvert.SerializeObject(result));
+                // return Ok(new { status = true, message = "New Registration completed Successfully"});
             }
             catch (CustomException.InvalidValue ex)
             {
@@ -62,6 +63,7 @@ namespace evoting.Controllers
             {
                 var result = await _registrationService.Registration_UpdateData(fJC_Registration);
                 return Ok(JsonConvert.SerializeObject(result));
+                // return Ok(new { status = true, message = "Registration Updated Successfully"});
              }
             catch (CustomException.InvalidValue ex)
             {

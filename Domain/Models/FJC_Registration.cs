@@ -12,10 +12,10 @@ namespace evoting.Domain.Models
         public int SR_NO { get; set;}
         public int REG_TYPE_ID { get; set;}
 
-        [Required (ErrorMessage ="Enter User ID") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
+        [Required (ErrorMessage ="Enter Entity Name") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
         public string NAME { get; set;}  
 
-        [Required (ErrorMessage ="Enter NAME") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
+        [Required (ErrorMessage ="Enter Reg. No.") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
         public string REG_NO { get; set;}
                 
         [Required (ErrorMessage ="Enter Registered Office Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
@@ -25,7 +25,10 @@ namespace evoting.Domain.Models
         public string REG_ADD3 { get; set;}
         [Required (ErrorMessage ="Enter City")] 
         public string REG_CITY { get; set;}
-           [Required (ErrorMessage ="Enter Pincode")] 
+         [Required (ErrorMessage ="Enter Pincode"),RegularExpression(@"^[0-9]*$")] 
+         [MinLength(6, ErrorMessage = "Pincode Cannot be less than 6 digit")]  
+         [MaxLength(6, ErrorMessage = "Pincode Cannot be more than 6 digit")]  
+
         public string REG_PINCODE { get; set;}
            [Required (ErrorMessage ="Enter State")] 
         public string REG_STATE_ID { get; set;}
@@ -37,7 +40,9 @@ namespace evoting.Domain.Models
         public string CORRES_ADD3 { get; set;}
          [Required (ErrorMessage ="Enter City")]
         public string CORRES_CITY { get; set;}
-        [Required (ErrorMessage ="Enter Pincode")] 
+         [Required (ErrorMessage ="Enter Pincode"),RegularExpression(@"^[0-9]*$")] 
+         [MinLength(6, ErrorMessage = "Pincode Cannot be less than 6 digit")]  
+         [MaxLength(6, ErrorMessage = "Pincode Cannot be more than 6 digit")] 
         public string CORRES_PINCODE { get; set;}
           [Required (ErrorMessage ="Enter State")] 
         public string CORRES_STATE_ID { get; set;}

@@ -50,6 +50,16 @@ namespace evoting.Utility
                 }
             }
         }
+         public class InvalidUserIDPWD : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid User ID OR Password";
+                }
+            }
+        }
         public class InvalidValue : Exception
         {
             public override string Message
@@ -77,6 +87,37 @@ namespace evoting.Utility
                 get
                 {
                     return "Invalid PAN ID";
+                }
+            }
+        }
+        public class InvalidAttempt : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Attempt Exceed";
+                }
+            }
+        }
+        public class InvalidTokenID : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Token ID";
+                }
+            }
+        }
+
+         public class InvalidDuplicatePassword : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "New Password is same as Old Password";
                 }
             }
         }

@@ -57,6 +57,14 @@ namespace evoting.Services
                     {
                         throw new CustomException.InvalidUserID();
                     }
+                     else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
+                    {
+                        throw new CustomException.InvalidUserIDPWD();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Attempt Exceed")
+                    {
+                        throw new CustomException.InvalidAttempt();
+                    }
                     else
                     {
                         return null;
@@ -82,14 +90,14 @@ namespace evoting.Services
                 }
                 else
                 {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
+                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
                     {
-                        throw new CustomException.InvalidUserID ();
-                    }  
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Password")
+                        throw new CustomException.InvalidUserIDPWD ();
+                    } 
+                  else if (ds.Tables[0].Rows[0][0].ToString() == "New Password is same as Old Password")
                     {
-                        throw new CustomException.InvalidPassword ();
-                    }                   
+                        throw new CustomException.InvalidDuplicatePassword ();
+                    }                                     
                     else
                     {
                         return null;
