@@ -16,7 +16,7 @@ using evoting.Utility;
 namespace evoting.Controllers
 {
 
-    [Route("api/EVENTDetail")]               
+    [Route("api/EVENTDetails")]               
     [Produces("application/json")]
     [ApiController]
       public class UpdateEVENTController : ControllerBase
@@ -35,19 +35,16 @@ namespace evoting.Controllers
 
         {
             try
-            {    
-                var result = await _GenerateEVENTService.EVENTDetail(fJC_EVSN);
-                return Ok(JsonConvert.SerializeObject(result));
-            }
-             catch (CustomException.InvalidEventId ex)
             {
-                return Unauthorized(ex.Message);
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _GenerateEVENTService.EVENTDetail(fJC_EVSN, Token);
+                return Ok(Reformatter.Response_Object("Event-Details has been submitted succesfully", ref result));
             }
-            catch
+            catch (Exception ex)
             {
-                return Unauthorized();
-            }   
-            
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+
         } 
 
         [HttpPut]
@@ -57,19 +54,16 @@ namespace evoting.Controllers
 
         {
             try
-            {    
-                var result = await _GenerateEVENTService.UpdateEVENTDetail(fJC_EVSN);
-                return Ok(JsonConvert.SerializeObject(result));
-            }
-             catch (CustomException.InvalidEventId ex)
             {
-                return Unauthorized(ex.Message);
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _GenerateEVENTService.UpdateEVENTDetail(fJC_EVSN, Token);
+                return Ok(Reformatter.Response_Object("Event-Details has been updated succesfully", ref result));
             }
-            catch
+            catch (Exception ex)
             {
-                return Unauthorized();
-            }   
-            
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+
         }
         
          [HttpGet]
@@ -79,19 +73,16 @@ namespace evoting.Controllers
 
         {
             try
-            {    
-                var result = await _GenerateEVENTService.GetEVENTDetail(EVENT_DETAIL_ID);
-                return Ok(JsonConvert.SerializeObject(result));
-            }
-            catch (CustomException.InvalidEventId ex)
             {
-                return Unauthorized(ex.Message);
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _GenerateEVENTService.GetEVENTDetail(EVENT_DETAIL_ID, Token);
+                return Ok(Reformatter.Response_Object("Event-Details list generated successfully", ref result));
             }
-            catch
+            catch (Exception ex)
             {
-                return Unauthorized();
-            }   
-            
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+
         }
          [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -100,19 +91,16 @@ namespace evoting.Controllers
 
         {
             try
-            {    
-                var result = await _GenerateEVENTService.DeleteEVENTDetail(EVENT_DETAIL_ID);
-                return Ok(JsonConvert.SerializeObject(result));
-            }
-            catch (CustomException.InvalidEventId ex)
             {
-                return Unauthorized(ex.Message);
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _GenerateEVENTService.DeleteEVENTDetail(EVENT_DETAIL_ID, Token);
+                return Ok(Reformatter.Response_Object("Event-Details has been deleted succesfully", ref result));
             }
-            catch
+            catch (Exception ex)
             {
-                return Unauthorized();
-            }   
-            
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+
         }
 
 

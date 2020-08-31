@@ -24,7 +24,7 @@ namespace evoting.Services
           Task<DataTable> DeleteGenerateEVENT(Int32 EVENT_ID, string Token);
           Task<DataTable> GeteGenerateEVENT(Int32 EVENT_ID, string Token);
 
-         Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT) ; 
+         Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT, string Token) ; 
          Task<DataTable> UpdateEVENTDetail(FJC_UpdateEVENT fJC_EVENT) ; 
          Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID) ; 
          Task<DataTable> GetEVENTDetail(int EVENT_DETAIL_ID) ; 
