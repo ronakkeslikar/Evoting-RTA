@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
 using evoting.Utility;
+using System.Text.RegularExpressions;
 
 namespace evoting.Controllers
 {
@@ -30,26 +31,37 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> ForgotPassword(FJC_ForgotPassword fJC_forgot)
         {
+            //TypeOfUser attribute
+            //Scrutinizer - S, Investor - I, Company - C, Custodian - T, Corporate Shareholder - H, RTA - R
             try
             {                
-                var result = (DataTable)null;      
-                if(fJC_forgot.TypeOfUser!='I'|| fJC_forgot.TypeOfUpdate =='E') 
+                var result = (DataTable)null;   
+                if(fJC_forgot.TypeOfUser == 'S' || fJC_forgot.TypeOfUser == 'T' || fJC_forgot.TypeOfUser == 'H' 
+                            || (fJC_forgot.TypeOfUser == 'I' && fJC_forgot.TypeOfUpdate!='E'  ))
                 {
-                    fJC_forgot.PAN_ID="XXXXXXXX";
-                }         
+                    if(!Regex.IsMatch(fJC_forgot.PAN_ID, @"^[a-zA-Z0-9]*$"))
+                    {
+                        throw new CustomException.InvalidPanPattern();
+                    }
+                }
+                else if(fJC_forgot.TypeOfUser == 'C' || fJC_forgot.TypeOfUser == 'R')
+                {
+                    fJC_forgot.PAN_ID = "XXXXXXXX";
+                }
+                         
                 
                     if(fJC_forgot.TypeOfUser=='I')
                     { 
                     
                         switch (fJC_forgot.TypeOfUpdate)
                         {
-                            case 'D':                            
+                            case 'D': //Date of bit=rth cases                         
                                 result = await _loginService.ForgotPassword_DOB_Data(fJC_forgot);
                                 break;                                          
-                            case 'B':
+                            case 'B': //Bank Account cases
                                 result = await _loginService.ForgotPassword_BANK_ACC_Data(fJC_forgot);
                                  break;
-                            case 'E':                                 
+                            case 'E': //Email Cases                                 
                                  result = await _loginService.ForgotPasswordData(fJC_forgot);
                                 break;
                         }

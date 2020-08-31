@@ -152,6 +152,16 @@ namespace evoting.Utility
                 }
             } 
         }
+        public class InvalidPanPattern : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "PAN card pattern invalid. Please provide valid PAN again.";
+                }
+            }
+        }
 
     }
 }
