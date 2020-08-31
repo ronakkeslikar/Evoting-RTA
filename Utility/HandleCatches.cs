@@ -14,6 +14,14 @@ namespace evoting.Utility
             { 
                 return Unauthorized(new { status = false, message = ex.Message });
             }
+             else if(ex is CustomException.InvalidPANID)
+            {
+                return Unauthorized(new { status = false, message = ex.Message });
+            }
+            else if(ex is CustomException.InvalidEmailID)
+            {
+                return Unauthorized(new { status = false, message = ex.Message });
+            }
             else if(ex is CustomException.MissingToken)
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
