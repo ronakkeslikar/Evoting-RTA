@@ -40,20 +40,12 @@ namespace evoting.Controllers
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                 var result = await _GenerateEVENTService.GenerateEVENT(fJC_EVSN, Token);
                 return Ok(Reformatter.Response_Object("Event has been generated succesfully", ref result));
-            }            
-            catch (CustomException.MissingToken ex)
-            {
-                return StatusCode(500, new { status = false, message = ex.Message });
             }
-            catch (CustomException.InvalidTokenID ex)
+            catch (Exception ex)
             {
-                return StatusCode(401, new { status = false, message = ex.Message });
+                return (new HandleCatches()).ManageExceptions(ex);
             }
-            catch
-            {
-                return Unauthorized();
-            }   
-            
+
         }
         
         [HttpPut]
@@ -69,15 +61,10 @@ namespace evoting.Controllers
                 return Ok(Reformatter.Response_Object("Event has been updated succesfully", ref result));
 
             }
-            catch (CustomException.InvalidEventId ex)
+            catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
-            }
-            catch
-            {
-                return Unauthorized();
-            }   
-            
+                return (new HandleCatches()).ManageExceptions(ex);
+            }           
         }
          
 
@@ -89,19 +76,16 @@ namespace evoting.Controllers
         {
             try
             {
-                var result = await _GenerateEVENTService.GeteGenerateEVENT(EVENT_ID);
-                return Ok(JsonConvert.SerializeObject(result));
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _GenerateEVENTService.GeteGenerateEVENT(EVENT_ID, Token);
+                return Ok(Reformatter.Response_Object("Event List generated succesfully", ref result));
 
             }
-            catch (CustomException.InvalidEventId ex)
+            catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
+                return (new HandleCatches()).ManageExceptions(ex);
             }
-            catch
-            {
-                return Unauthorized();
-            }   
-            
+
         } 
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -111,17 +95,14 @@ namespace evoting.Controllers
         {
             try
             {
-                var result = await _GenerateEVENTService.DeleteGenerateEVENT(EVENT_ID);
-                return Ok(JsonConvert.SerializeObject(result));
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _GenerateEVENTService.DeleteGenerateEVENT(EVENT_ID, Token);
+                return Ok(Reformatter.Response_Object("Event deleted succesfully", ref result));
 
             }
-            catch (CustomException.InvalidEventId ex)
+            catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
-            }
-            catch
-            {
-                return Unauthorized();
+                return (new HandleCatches()).ManageExceptions(ex);
             }   
             
         }

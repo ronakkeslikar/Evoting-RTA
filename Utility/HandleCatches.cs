@@ -14,6 +14,22 @@ namespace evoting.Utility
             { 
                 return Unauthorized(new { status = false, message = ex.Message });
             }
+            else if(ex is CustomException.MissingToken)
+            {
+                return StatusCode(500, new { status = false, message = ex.Message });
+            }
+            else if(ex is CustomException.InvalidTokenID)
+            {
+                return StatusCode(401, new { status = false, message = ex.Message });
+            }
+            else if(ex is CustomException.InvalidEventId)
+            {
+                return Unauthorized(ex.Message);
+            }
+            else if(ex is CustomException.DeletedRecord)
+            {
+                return StatusCode(500, new { status = false, message = ex.Message });
+            }
             else
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
@@ -43,6 +59,8 @@ namespace evoting.Utility
                     throw new CustomException.InvalidTokenID();
                 case "Invalid Activity":
                     throw new CustomException.InvalidActivity();
+                case "Record  deleted already":
+                    throw new CustomException.DeletedRecord();
             }
         }
     }

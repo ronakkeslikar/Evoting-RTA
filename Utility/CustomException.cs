@@ -38,9 +38,20 @@ namespace evoting.Utility
                     return "Invalid Event Id";
                 }
             }
+        } //Record  deleted already
+
+        public class DeletedRecord : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Record Deleted already";
+                }
+            }
         }
 
-         public class InvalidPassword : Exception
+        public class InvalidPassword : Exception
         {
             public override string Message
             {
