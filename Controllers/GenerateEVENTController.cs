@@ -16,7 +16,7 @@ using evoting.Utility;
 namespace evoting.Controllers
 {
 
-    [Route("api/GenerateEVENT")]          
+    [Route("api/Event")]          
     [Produces("application/json")]
     [ApiController]
     public class GenerateEVENTController : ControllerBase
@@ -34,14 +34,20 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> GenerateEVENTUser(FJC_GenerateEVENT fJC_EVSN)
         {
+            
             try
             {
-                var result = await _GenerateEVENTService.GenerateEVENT(fJC_EVSN);
-                return Ok(JsonConvert.SerializeObject(result));
-            }
-           catch (CustomException.InvalidEventId ex)
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _GenerateEVENTService.GenerateEVENT(fJC_EVSN, Token);
+                return Ok(Reformatter.Response_Object("Event has been generated succesfully", ref result));
+            }            
+            catch (CustomException.MissingToken ex)
             {
-                return Unauthorized(ex.Message);
+                return StatusCode(500, new { status = false, message = ex.Message });
+            }
+            catch (CustomException.InvalidTokenID ex)
+            {
+                return StatusCode(401, new { status = false, message = ex.Message });
             }
             catch
             {
@@ -58,8 +64,9 @@ namespace evoting.Controllers
         {
             try
             {
-                var result = await _GenerateEVENTService.UpdateGenerateEVENT(fJC_EVSN);
-                return Ok(JsonConvert.SerializeObject(result));
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _GenerateEVENTService.UpdateGenerateEVENT(fJC_EVSN, Token);
+                return Ok(Reformatter.Response_Object("Event has been updated succesfully", ref result));
 
             }
             catch (CustomException.InvalidEventId ex)

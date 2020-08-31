@@ -106,7 +106,7 @@ namespace evoting.Utility
             {
                 get
                 {
-                    return "Invalid Token ID";
+                    return "Invalid Token ID. Your Session has Expired. Please log back in again";
                 }
             }
         }
@@ -121,5 +121,26 @@ namespace evoting.Utility
                 }
             }
         }
+        public class MissingToken : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Token missing. Try logging back in";
+                }
+            } 
+        }
+        public class InvalidActivity : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Activity. User not authorised to perform this activity";
+                }
+            } 
+        }
+
     }
 }

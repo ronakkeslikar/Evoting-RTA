@@ -37,14 +37,10 @@ namespace evoting.Controllers
                 var result = await _loginService.LoginDataUser(fJC_Login);
                 return Ok(Reformatter.Response_Object("User logged in succesfuly", ref result));
             }
-            catch (CustomException.InvalidUserID ex)
+            catch (Exception ex)
             {
-                return Unauthorized(new { status = false, message = ex.Message }) ;                
+                return (new HandleCatches()).ManageExceptions(ex);
             }
-            catch(Exception ex)
-            {
-                return StatusCode(500, new { status = false, message = ex.Message});
-            }                
         }
     }
 }

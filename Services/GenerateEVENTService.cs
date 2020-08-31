@@ -19,8 +19,8 @@ namespace evoting.Services
 
        public interface IGenerateEVENTService
     {
-          Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN);
-          Task<DataTable> UpdateGenerateEVENT(FJC_GenerateEVENT fJC_EVSN);
+          Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN, string Token);
+          Task<DataTable> UpdateGenerateEVENT(FJC_GenerateEVENT fJC_EVSN, string Token);
           Task<DataTable> DeleteGenerateEVENT(Int32 EVENT_ID);
           Task<DataTable> GeteGenerateEVENT(Int32 EVENT_ID);
 
@@ -44,68 +44,40 @@ namespace evoting.Services
             _context = context;
         } 
         ///////////////////////////////////////GenerateEVENTDetail///////////////////////////////////////////////////////////
-         public async Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN)
+         public async Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN, string token)
         {
             
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_ID", fJC_EVSN.EVENT_ID);
-                dictLogin.Add("@ISIN", fJC_EVSN.ISIN);
-                dictLogin.Add("@ROWID_CLIENT", fJC_EVSN.ROWID_CLIENT);                
+                dictLogin.Add("@ISIN", fJC_EVSN.ISIN);                                
                 dictLogin.Add("@TYPE_ISIN", fJC_EVSN.TYPE_ISIN);               
                 dictLogin.Add("@TYPE_EVOTING", fJC_EVSN.TYPE_EVOTING);
                 dictLogin.Add("@TOTAL_NOF_SHARE", fJC_EVSN.TOTAL_NOF_SHARE);               
                 dictLogin.Add("@VOTING_RIGHTS", fJC_EVSN.VOTING_RIGHTS);
                 dictLogin.Add("@CUT_OF_DATE", fJC_EVSN.CUT_OF_DATE);//new DateTime(2012, 12, 25, 10, 30, 50).ToString("yyyy-MM-dd HH:mm:ss"));               
-                dictLogin.Add("@SCRUTINIZER", fJC_EVSN.SCRUTINIZER);
-                dictLogin.Add("@CREATED_BY", fJC_EVSN.CREATED_BY);   
-                dictLogin.Add("@UPDATED_BY", fJC_EVSN.UPDATED_BY);   
-                // dictLogin.Add("@TokenId", TokenId);
+                dictLogin.Add("@SCRUTINIZER", fJC_EVSN.SCRUTINIZER);                   
+                dictLogin.Add("@Token", token);
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
-                if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0]; //it will return a Token ID from database 
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Event")
-                    {
-                        throw new CustomException.InvalidUserID();
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }            
-            
+            return Reformatter.Validate_DataTable(ds.Tables[0]);    
             
         }
          
-          public async Task<DataTable> UpdateGenerateEVENT(FJC_GenerateEVENT fJC_EVSN)
+          public async Task<DataTable> UpdateGenerateEVENT(FJC_GenerateEVENT fJC_EVSN, string token)
         {
-            try
-            {
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                 dictLogin.Add("@EVENT_ID", fJC_EVSN.EVENT_ID);
-                dictLogin.Add("@ISIN", fJC_EVSN.ISIN); 
-                dictLogin.Add("@ROWID_CLIENT", fJC_EVSN.ROWID_CLIENT);             
+                dictLogin.Add("@EVENT_ID", fJC_EVSN.EVENT_ID);
+                dictLogin.Add("@ISIN", fJC_EVSN.ISIN);                              
                 dictLogin.Add("@TYPE_ISIN", fJC_EVSN.TYPE_ISIN);               
                 dictLogin.Add("@TYPE_EVOTING", fJC_EVSN.TYPE_EVOTING);
                 dictLogin.Add("@TOTAL_NOF_SHARE", fJC_EVSN.TOTAL_NOF_SHARE);               
                 dictLogin.Add("@VOTING_RIGHTS", fJC_EVSN.VOTING_RIGHTS);
                 dictLogin.Add("@CUT_OF_DATE",fJC_EVSN.CUT_OF_DATE );               
                 dictLogin.Add("@SCRUTINIZER", fJC_EVSN.SCRUTINIZER);
-                dictLogin.Add("@CREATED_BY", fJC_EVSN.CREATED_BY);   
-                dictLogin.Add("@UPDATED_BY", fJC_EVSN.UPDATED_BY);            
+                dictLogin.Add("@Token", token);
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
-                return ds.Tables[0];
-               
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                return Reformatter.Validate_DataTable(ds.Tables[0]);            
         }
       
 

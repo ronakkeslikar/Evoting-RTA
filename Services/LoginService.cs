@@ -37,29 +37,7 @@ namespace evoting.Services
                 dictLogin.Add("@IP_Address", fJC_Login.system_ip);                                 
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
-                if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0]; //it will return a Token ID from database 
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Multiple login requests")
-                    {
-                        throw new CustomException.MultipleRequests();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
-                    {
-                        throw new CustomException.InvalidUserID();
-                    }                     
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Attempt Exceed")
-                    {
-                        throw new CustomException.InvalidAttempt();
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }            
+            return Reformatter.Validate_DataTable(ds.Tables[0]);            
         }
         public async Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd)
         {
@@ -74,25 +52,7 @@ namespace evoting.Services
                 
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ChangePassword", dictChangePwd);
-                 if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0]; 
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID OR Password")
-                    {
-                        throw new CustomException.InvalidUserIDPWD ();
-                    } 
-                  else if (ds.Tables[0].Rows[0][0].ToString() == "New Password is same as Old Password")
-                    {
-                        throw new CustomException.InvalidDuplicatePassword ();
-                    }                                     
-                    else
-                    {
-                        return null;
-                    }
-                } 
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
         public async Task<DataTable> ForgotPasswordData(FJC_ForgotPassword fJC_forgot)
@@ -102,26 +62,8 @@ namespace evoting.Services
                 dictForgotPwd.Add("@DPIIDCLID", fJC_forgot.UserID); 
                 dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID);                            
                 DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);                          
-             if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0];  
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
-                    {
-                        throw new CustomException.InvalidUserID ();
-                    } 
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
-                    {
-                        throw new CustomException.InvalidEmailID();
-                    }                   
-                    else
-                    {
-                        return null;
-                    }
-                } 
+                ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
+                return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
         public async Task<DataTable> ForgotPassword_DOB_Data(FJC_ForgotPassword fJC_forgot)
@@ -132,26 +74,7 @@ namespace evoting.Services
                 dictForgotPwd.Add("@DOB", fJC_forgot.DOB);
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                        
-             if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0];  
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
-                    {
-                        throw new CustomException.InvalidUserID ();
-                    } 
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
-                    {
-                        throw new CustomException.InvalidPANID();
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                } 
+            return Reformatter.Validate_DataTable(ds.Tables[0]);             
         }
          public async Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot)
         {
@@ -161,26 +84,8 @@ namespace evoting.Services
                 dictForgotPwd.Add("@Bank_AccNo", fJC_forgot.Bank_AccNo);             
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-                              
-            if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0]; 
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
-                    {
-                        throw new CustomException.InvalidUserID ();
-                    } 
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
-                    {
-                        throw new CustomException.InvalidPANID();
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                } 
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+             
         }
         
         public async Task<DataTable> GetInvestorEmailIDData(string UserID)
@@ -188,22 +93,9 @@ namespace evoting.Services
                 Dictionary<string, object> dictForgotPwd = new Dictionary<string, object>();               
                 dictForgotPwd.Add("@DPIIDCLID", UserID);               
                 DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_GetInvestorEmailID", dictForgotPwd);                              
-            if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0];  
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid User ID")
-                    {
-                        throw new CustomException.InvalidUserID();
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                } 
+                ds = await AppDBCalls.GetDataSet("Evote_GetInvestorEmailID", dictForgotPwd);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+            
         }      
     
     }
