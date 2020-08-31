@@ -19,13 +19,10 @@ namespace evoting.Controllers
     [ApiController]
     public class ForgotPasswordController : ControllerBase
     {
-
         private readonly ILoginService _loginService;
-
         public ForgotPasswordController(ILoginService loginService)
         {
-            _loginService = loginService;
-      
+            _loginService = loginService;      
         }      
 
         [HttpPost] 
@@ -34,9 +31,8 @@ namespace evoting.Controllers
         public async Task<IActionResult> ForgotPassword(FJC_ForgotPassword fJC_forgot)
         {
             try
-            {
-                
-                var result = (Object)null;      
+            {                
+                var result = (DataTable)null;      
                 if(fJC_forgot.TypeOfUser!='I'|| fJC_forgot.TypeOfUpdate =='E') 
                 {
                     fJC_forgot.PAN_ID="XXXXXXXX";
@@ -62,17 +58,12 @@ namespace evoting.Controllers
                     {                        
                        result = await _loginService.ForgotPasswordData(fJC_forgot);  
                     } 
-                              
-                return Ok(JsonConvert.SerializeObject(result));
+               return Ok(Reformatter.Response_Object("Password reset successfully", ref result)); 
             }
-           catch (CustomException.InvalidEmailID ex)
+            catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
-            }
-            catch
-            {
-                return Unauthorized();
-            }             
+                return (new HandleCatches()).ManageExceptions(ex);
+            }          
         }
 
         [HttpGet]
@@ -84,17 +75,12 @@ namespace evoting.Controllers
             try
             {
                 var result = await _loginService.GetInvestorEmailIDData(UserID);
-                return Ok(JsonConvert.SerializeObject(result));
-
+                 return Ok(Reformatter.Response_Object("Email ID retrieved successfully", ref result)); 
             }
-            catch (CustomException.InvalidValue ex)
+             catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
-            }
-            catch
-            {
-                return Unauthorized();
-            }  
+                return (new HandleCatches()).ManageExceptions(ex);
+            } 
             
         }
     }
