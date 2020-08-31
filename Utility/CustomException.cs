@@ -162,6 +162,26 @@ namespace evoting.Utility
                 }
             }
         }
+        public class EventIDExists : Exception  
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Event Id already exists.";
+                }
+            }
+        }
+        public class EventIDNotExists : Exception  
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Event Id does not exists.";
+                }
+            }
+        }
 
     }
 }

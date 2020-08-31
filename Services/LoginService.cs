@@ -13,7 +13,7 @@ namespace evoting.Services
     public interface ILoginService
     {     
         Task<DataTable> LoginDataUser(FJC_LoginRequest fJC_Login); 
-        Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd);
+        Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd, string token);
         Task<DataTable> ForgotPasswordData(FJC_ForgotPassword fJC_forgot);
         Task<DataTable> ForgotPassword_DOB_Data(FJC_ForgotPassword fJC_forgot);        
         Task<DataTable> GetInvestorEmailIDData(string UserID);
@@ -39,13 +39,14 @@ namespace evoting.Services
                 ds= await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);            
         }
-        public async Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd)
+        public async Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd, string token)
         {
            
                 Dictionary<string, object> dictChangePwd = new Dictionary<string, object>();
                 dictChangePwd.Add("@DPIIDCLID", fJC_changePwd.UserID);
                 dictChangePwd.Add("@CurrPassword", fJC_changePwd.encrypt_OldPassword);
-                dictChangePwd.Add("@NewPassword", fJC_changePwd.encrypt_NewPassword);                
+                dictChangePwd.Add("@NewPassword", fJC_changePwd.encrypt_NewPassword); 
+                dictChangePwd.Add("@token", token);               
    
                 // dictChangePwd.Add("@CurrPassword", DecryptPassword.Decrypt_Password(fJC_changePwd.encrypt_OldPassword));
                 // dictChangePwd.Add("@NewPassword", DecryptPassword.Decrypt_Password(fJC_changePwd.encrypt_NewPassword));
