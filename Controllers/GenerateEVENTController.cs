@@ -52,7 +52,6 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateEVENTUser(FJC_GenerateEVENT fJC_EVSN )
-
         {
             try
             {
