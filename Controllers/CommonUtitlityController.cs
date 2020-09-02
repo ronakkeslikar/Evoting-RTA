@@ -36,42 +36,19 @@ namespace evoting.Controllers
             try
             {   
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result=(DataTable)null;
-                str=str.ToUpper();
-                if(str=="RTA" || str=="SCRUTINIZER" || str=="COMPANY" || str=="CUSTODIAN")
-                {
-                    switch(str)
-                    {
-                        case "COMPANY":
-                        result = await _commonUtitlityService.GetCommonUtilityAudienceID(1,Token);
-                        break;
-                        case "RTA":
-                        result = await _commonUtitlityService.GetCommonUtilityAudienceID(2,Token);
-                        break;
-                         case "SCRUTINIZER":
-                        result = await _commonUtitlityService.GetCommonUtilityAudienceID(3,Token);
-                        break;
-                         case "CUSTODIAN":
-                        result = await _commonUtitlityService.GetCommonUtilityAudienceID(4,Token);
-                        break;
-                    }                     
-                }
-                else
-                {
-                     switch(str)
-                    { 
-                        case "DEBENTURES":
-                        result = await _commonUtitlityService.GetCommonUtilityISINID(3,Token);
-                        break;
-                        case "EQUITY":
-                         result = await _commonUtitlityService.GetCommonUtilityISINID(1,Token);
-                        break;
-                         case "PREFERENTIAL":
-                        result = await _commonUtitlityService.GetCommonUtilityISINID(2,Token);
-                        break;                        
-                    }                   
-                }
-                return Ok(Reformatter.Response_Object("Common Details retrieved successfully", ref result));  
+                var result=(DataTable)null;                 
+                     Dictionary<string, string> dictCommon = new Dictionary<string, string>()
+                        {
+                            {"COMPANY","C"},
+                            {"RTA","R"},
+                            {"SCRUTINIZER","Z"},
+                             {"CUSTODIAN","N"},
+                            {"Evoting_Types","T"},
+                            {"ISIN_Types","I"},
+                            {"All_Events","E"}
+                        };                                                 
+                result = await _commonUtitlityService.GetCommonDetails(dictCommon[str],Token);
+                return Ok(Reformatter.Response_Object("Records retrieved successfully", ref result));  
             }
             catch (Exception ex)
             {
