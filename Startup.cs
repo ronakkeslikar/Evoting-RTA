@@ -39,6 +39,7 @@ namespace evoting
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IGenerateEVENTService, GenerateEVENTService>();
             services.AddScoped<IFileUploadService, FileUploadService>();
+            services.AddScoped<IROMUploadService, ROMUploadService>();
             
         }
 
