@@ -104,22 +104,24 @@ namespace evoting.Services
          public async Task<DataTable> GetUserDetailsByTokenID(string TokenID)
         {
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
-                dictUserDetail.Add("@TokenID", TokenID);               
+                dictUserDetail.Add("@TokenID", TokenID); 
+
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_GetLoginDetails", dictUserDetail);                              
-            return Reformatter.Validate_DataTable(ds.Tables[0]); 
+                return Reformatter.Validate_DataTable(ds.Tables[0]); 
         }   
 //////////////////////////////////////////Get User Agreement Pdf from stored procedure to Upload  ////////////////////////////////////////////////////
          public async Task<DataTable> GetAgreementHtmlContent(int Event_No)
         { 
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
                 dictUserDetail.Add("@ID", 1); 
-                 dictUserDetail.Add("@CLIENT_NAME", "Lenovo"); 
-                  dictUserDetail.Add("@CLIENT_ADDRESS", "Mumbai"); 
-                   dictUserDetail.Add("@EVENT_NO", Event_No);               
+                dictUserDetail.Add("@CLIENT_NAME", "Lenovo"); 
+                dictUserDetail.Add("@CLIENT_ADDRESS", "Mumbai"); 
+                dictUserDetail.Add("@EVENT_NO", Event_No);  
+
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("SP_GETDOCUMENTCONTENT", dictUserDetail);                              
-            return Reformatter.Validate_DataTable(ds.Tables[0]); 
+                return Reformatter.Validate_DataTable(ds.Tables[0]); 
         }        
     }
 }
