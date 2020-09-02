@@ -42,6 +42,10 @@ namespace evoting.Utility
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
             }
+            else if(ex is CustomException.InvalidPanPattern)
+            {
+                return StatusCode(400, new { status = false, message = ex.Message });
+            }
             else
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
