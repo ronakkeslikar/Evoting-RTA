@@ -69,13 +69,13 @@ namespace evoting.Controllers
          [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> GetEVENTDetailUser([FromQuery] int EVENT_DETAIL_ID)
+        public async Task<IActionResult> GetEVENTDetailUser([FromQuery] int EVENT_ID)
 
         {
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result = await _GenerateEVENTService.GetEVENTDetail(EVENT_DETAIL_ID, Token);
+                var result = await _GenerateEVENTService.GetEVENTDetail(EVENT_ID, Token);
                 return Ok(Reformatter.Response_Object("Event-Details list generated successfully", ref result));
             }
             catch (Exception ex)
@@ -87,13 +87,13 @@ namespace evoting.Controllers
          [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> DeleteEVENTDetailUser([FromQuery] int EVENT_DETAIL_ID)
+        public async Task<IActionResult> DeleteEVENTDetailUser([FromQuery] int EVENT_ID)
 
         {
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result = await _GenerateEVENTService.DeleteEVENTDetail(EVENT_DETAIL_ID, Token);
+                var result = await _GenerateEVENTService.DeleteEVENTDetail(EVENT_ID, Token);
                 return Ok(Reformatter.Response_Object("Event-Details has been deleted succesfully", ref result));
             }
             catch (Exception ex)

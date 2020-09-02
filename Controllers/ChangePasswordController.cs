@@ -19,9 +19,7 @@ namespace evoting.Controllers
     [ApiController]
     public class ChangePasswordController : ControllerBase
     {
-
         private readonly ILoginService _loginService;
-
         public ChangePasswordController(ILoginService loginService)
         {
             _loginService = loginService;
@@ -31,26 +29,17 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> ChangePassword(FJC_ChangePassword fJC_changePwd)
-
         {
           try
           {
-            var result = await _loginService.ChangePasswordData(fJC_changePwd);
-            return Ok(JsonConvert.SerializeObject(result));
-            //return Ok(new { status = true, message = "Password changed Successfully"});
+            var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+            var result = await _loginService.ChangePasswordData(fJC_changePwd,Token);
+            return Ok(Reformatter.Response_Object("Password Changed successfully", ref result));                  
           }
-          catch (CustomException.InvalidUserIDPWD ex)
+          catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
+                return (new HandleCatches()).ManageExceptions(ex);
             }
-          catch (CustomException.InvalidDuplicatePassword ex)
-          {
-              return Unauthorized(ex.Message);
-          }
-          catch
-          {
-             return Unauthorized();
-          }
             
         }
     }

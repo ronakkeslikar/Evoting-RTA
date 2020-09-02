@@ -25,9 +25,9 @@ namespace evoting.Services
           Task<DataTable> GeteGenerateEVENT(Int32 EVENT_ID, string Token);
 
          Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT, string Token) ; 
-         Task<DataTable> UpdateEVENTDetail(FJC_UpdateEVENT fJC_EVENT) ; 
-         Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID) ; 
-         Task<DataTable> GetEVENTDetail(int EVENT_DETAIL_ID) ; 
+         Task<DataTable> UpdateEVENTDetail(FJC_UpdateEVENT fJC_EVENT, string Token) ; 
+         Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID, string Token) ; 
+         Task<DataTable> GetEVENTDetail(int EVENT_DETAIL_ID, string Token) ; 
         
          Task<DataTable> EVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION) ; 
          Task<DataTable> UpdateEVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION) ; 
@@ -103,31 +103,10 @@ namespace evoting.Services
             
         }
 ///////////////////////////////////////UpdateEVENT////////////////////////////////////////////////////////////////
-       public async Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT)
+       public async Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT, string Token)
        {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);
-                 dictLogin.Add("@EVENT_ID", fJC_EVENT.EVENT_ID);           
-                dictLogin.Add("@VOTING_START_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_START_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));               
-                dictLogin.Add("@VOTING_END_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_END_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));           
-                dictLogin.Add("@MEETING_DATETIME", (DateTime.Parse(fJC_EVENT.MEETING_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));    
-                dictLogin.Add("@LAST_DATE_NOTICE",(DateTime.Parse(fJC_EVENT.LAST_DATE_NOTICE)).ToString("yyyy-MM-dd hh:mm:ss:fff"));         
-                dictLogin.Add("@VOTING_RESULT_DATE",(DateTime.Parse(fJC_EVENT.VOTING_RESULT_DATE)).ToString("yyyy-MM-dd hh:mm:ss:fff"));
-                dictLogin.Add("@UPLOAD_LOGO", fJC_EVENT.UPLOAD_LOGO); //file             
-                dictLogin.Add("@UPLOAD_RESOLUTION_FILE", fJC_EVENT.UPLOAD_RESOLUTION_FILE);//file
-                dictLogin.Add("@UPLOAD_NOTICE", fJC_EVENT.UPLOAD_NOTICE); //file
-                dictLogin.Add("@ENTER_NOF_RESOLUTION", fJC_EVENT.ENTER_NOF_RESOLUTION);
-                
-                DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("EVOTE_EVENT_DETAIL", dictLogin);
-            return Reformatter.Validate_DataTable(ds.Tables[0]);
-        }
-   
-         
-          public async Task<DataTable> UpdateEVENTDetail(FJC_UpdateEVENT fJC_EVENT)
-       {
-           Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);
+               // dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);
                 dictLogin.Add("@EVENT_ID", fJC_EVENT.EVENT_ID);           
                 dictLogin.Add("@VOTING_START_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_START_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));               
                 dictLogin.Add("@VOTING_END_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_END_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));           
@@ -137,26 +116,53 @@ namespace evoting.Services
                 dictLogin.Add("@UPLOAD_LOGO", fJC_EVENT.UPLOAD_LOGO); //file             
                 dictLogin.Add("@UPLOAD_RESOLUTION_FILE", fJC_EVENT.UPLOAD_RESOLUTION_FILE);//file
                 dictLogin.Add("@UPLOAD_NOTICE", fJC_EVENT.UPLOAD_NOTICE); //file
-                dictLogin.Add("@ENTER_NOF_RESOLUTION", fJC_EVENT.ENTER_NOF_RESOLUTION);            
+                dictLogin.Add("@ENTER_NOF_RESOLUTION", fJC_EVENT.ENTER_NOF_RESOLUTION);
+                dictLogin.Add("@token", Token);
+                
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("EVOTE_EVENT_DETAIL", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
-        
-        
-            public async Task<DataTable> GetEVENTDetail(int EVENT_DETAIL_ID)
+   
+         
+          public async Task<DataTable> UpdateEVENTDetail(FJC_UpdateEVENT fJC_EVENT, string Token)
        {
            Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                dictLogin.Add("@EVENT_DETAIL_ID", EVENT_DETAIL_ID);               
+               // dictLogin.Add("@EVENT_DETAIL_ID", fJC_EVENT.EVENT_DETAIL_ID);
+                dictLogin.Add("@EVENT_ID", fJC_EVENT.EVENT_ID);           
+                dictLogin.Add("@VOTING_START_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_START_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));               
+                dictLogin.Add("@VOTING_END_DATETIME", (DateTime.Parse(fJC_EVENT.VOTING_END_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));           
+                dictLogin.Add("@MEETING_DATETIME", (DateTime.Parse(fJC_EVENT.MEETING_DATETIME)).ToString("yyyy-MM-dd hh:mm:ss:fff"));    
+                dictLogin.Add("@LAST_DATE_NOTICE",(DateTime.Parse(fJC_EVENT.LAST_DATE_NOTICE)).ToString("yyyy-MM-dd hh:mm:ss:fff"));         
+                dictLogin.Add("@VOTING_RESULT_DATE",(DateTime.Parse(fJC_EVENT.VOTING_RESULT_DATE)).ToString("yyyy-MM-dd hh:mm:ss:fff"));
+                dictLogin.Add("@UPLOAD_LOGO", fJC_EVENT.UPLOAD_LOGO); //file             
+                dictLogin.Add("@UPLOAD_RESOLUTION_FILE", fJC_EVENT.UPLOAD_RESOLUTION_FILE);//file
+                dictLogin.Add("@UPLOAD_NOTICE", fJC_EVENT.UPLOAD_NOTICE); //file
+                dictLogin.Add("@ENTER_NOF_RESOLUTION", fJC_EVENT.ENTER_NOF_RESOLUTION);  
+                dictLogin.Add("@token", Token);  
+
+                DataSet ds=new DataSet();
+                ds= await AppDBCalls.GetDataSet("EVOTE_UpdateEVENT_DETAIL", dictLogin);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+        }
+        
+        
+            public async Task<DataTable> GetEVENTDetail(int EVENT_ID, string Token)
+       {
+           Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+                dictLogin.Add("@EVENT_ID", EVENT_ID);  
+                dictLogin.Add("@token", Token);             
              
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Get_EVENT_DETAIL", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
-         public async Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID)
+         public async Task<DataTable> DeleteEVENTDetail(int EVENT_ID, string Token)
        {
           Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                dictLogin.Add("@EVENT_DETAIL_ID", EVENT_DETAIL_ID);           
+                dictLogin.Add("@EVENT_ID", EVENT_ID);  
+                dictLogin.Add("@token", Token); 
+
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Delete_EVENT_DETAIL", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);

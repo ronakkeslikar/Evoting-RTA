@@ -34,6 +34,10 @@ namespace evoting.Utility
             {
                 return Unauthorized(ex.Message);
             }
+            else if(ex is CustomException.EventIDExists)
+            {
+                return StatusCode(400, new { status = false, message = ex.Message });
+            }
             else if(ex is CustomException.DeletedRecord)
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
@@ -73,6 +77,10 @@ namespace evoting.Utility
                     throw new CustomException.InvalidActivity();
                 case "Record  deleted already":
                     throw new CustomException.DeletedRecord();
+                case "Event Id already exists":
+                throw new CustomException.EventIDExists();
+                case "Event Id does not exists":
+                throw new CustomException.EventIDNotExists();
             }
         }
     }
