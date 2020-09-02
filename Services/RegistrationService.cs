@@ -63,27 +63,8 @@ namespace evoting.Services
                 dictRegis.Add("@PANID",fJC_Registration.PANID);                       
 
                 DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);
-                              
-             if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0];  
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
-                    {
-                        throw new CustomException.InvalidEmailID();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
-                    {
-                        throw new CustomException.InvalidPANID();
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                } 
+                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
+              return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
          public async Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration)
         {            
@@ -117,25 +98,7 @@ namespace evoting.Services
                dictRegis.Add("@PANID",fJC_Registration.PANID);               
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
-            if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0];  
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
-                    {
-                        throw new CustomException.InvalidEmailID();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
-                    {
-                        throw new CustomException.InvalidPANID();
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                } 
+             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
          public async Task<DataTable> GetRegistrationIDData(int SR_NO)
         {
@@ -143,26 +106,7 @@ namespace evoting.Services
                 dictRegis.Add("@SR_No", SR_NO);               
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);
-                            
-             if(!ds.Tables[0].Columns.Contains("Error"))
-                {
-                    return ds.Tables[0]; 
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "Invalid Email ID")
-                    {
-                        throw new CustomException.InvalidEmailID();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString() == "Invalid PAN ID")
-                    {
-                        throw new CustomException.InvalidPANID();
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                } 
+              return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
         
         

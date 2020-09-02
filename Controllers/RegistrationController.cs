@@ -38,21 +38,14 @@ namespace evoting.Controllers
                  if(fJC_Registration.REG_TYPE_ID==1 || fJC_Registration.REG_TYPE_ID==2 )
                 {
                   fJC_Registration.PANID="XXXXXXXX";  
-                } 
-
-                var result = await _registrationService.Registration_InsertData(fJC_Registration);
-                return Ok(JsonConvert.SerializeObject(result));
-                // return Ok(new { status = true, message = "New Registration completed Successfully"});
+                }                 
+                var result = await _registrationService.Registration_InsertData(fJC_Registration);               
+                  return Ok(Reformatter.Response_Object("New Registration completed Successfully", ref result));              
             }
-            catch (CustomException.InvalidValue ex)
+             catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
-            }
-            catch
-            {
-                return Unauthorized();
-            }  
-           
+                return (new HandleCatches()).ManageExceptions(ex);
+            }           
         }
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -62,17 +55,12 @@ namespace evoting.Controllers
             try
             {
                 var result = await _registrationService.Registration_UpdateData(fJC_Registration);
-                return Ok(JsonConvert.SerializeObject(result));
-                // return Ok(new { status = true, message = "Registration Updated Successfully"});
+                return Ok(Reformatter.Response_Object("Registration Updated Successfully", ref result));                
              }
-            catch (CustomException.InvalidValue ex)
+             catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
-            }
-            catch
-            {
-                return Unauthorized();
-            }  
+                return (new HandleCatches()).ManageExceptions(ex);
+            } 
         }
          [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -82,20 +70,12 @@ namespace evoting.Controllers
             try
             {
                 var result = await _registrationService.GetRegistrationIDData(SR_NO);
-                return Ok(JsonConvert.SerializeObject(result));
+                return Ok(Reformatter.Response_Object("Registration Detail retrieved Successfully", ref result));
             }
-            catch (CustomException.InvalidUserID ex)
+             catch (Exception ex)
             {
-                return Unauthorized(ex.Message);
+                return (new HandleCatches()).ManageExceptions(ex);
             }
-            catch (CustomException.InvalidPassword ex)
-            {
-                return Unauthorized(ex.Message);
-            }
-            catch
-            {
-                return Unauthorized();
-            } 
             
         }
     }

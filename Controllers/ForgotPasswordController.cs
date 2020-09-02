@@ -55,7 +55,7 @@ namespace evoting.Controllers
                     
                         switch (fJC_forgot.TypeOfUpdate)
                         {
-                            case 'D': //Date of bit=rth cases                         
+                            case 'D': //Date of birth cases                         
                                 result = await _loginService.ForgotPassword_DOB_Data(fJC_forgot);
                                 break;                                          
                             case 'B': //Bank Account cases

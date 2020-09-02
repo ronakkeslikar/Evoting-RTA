@@ -38,9 +38,17 @@ namespace evoting.Utility
             {
                 return StatusCode(400, new { status = false, message = ex.Message });
             }
+            else if(ex is CustomException.CommonInvalidCode)
+            {
+                return StatusCode(400, new { status = false, message = ex.Message });
+            }
             else if(ex is CustomException.DeletedRecord)
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
+            }
+            else if(ex is CustomException.InvalidPanPattern)
+            {
+                return StatusCode(400, new { status = false, message = ex.Message });
             }
             else
             {
@@ -77,6 +85,8 @@ namespace evoting.Utility
                 throw new CustomException.EventIDExists();
                 case "Event Id does not exists":
                 throw new CustomException.EventIDNotExists();
+                case "Invalid Request code":
+                throw new CustomException.CommonInvalidCode();
             }
         }
     }

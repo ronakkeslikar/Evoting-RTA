@@ -18,32 +18,24 @@ using System.IO;
 
 namespace evoting.Services
 {
-    public interface IFileUploadService
+    public interface IROMUploadService
     {  
-        Task<DataTable> FileUpload_Details(FJC_FileUpload fjc_FileUpload,string Token);        
+       
+        Task<DataTable> ROMUpload_Details(FJC_FileUpload fjc_FileUpload,string Token);
     }
 
-    public class FileUploadService : IFileUploadService
+    public class ROMUploadService : IROMUploadService
     {
         //db context here
         protected readonly AppDbContext _context;
-        public FileUploadService(AppDbContext context)
+        public ROMUploadService(AppDbContext context)
         {
             _context = context;
         }  
-//////////////////////////////////////////Agreement File Upload ////////////////////////////////////////////////////
-        public async Task<DataTable> FileUpload_Details(FJC_FileUpload fjc_FileUpload,string Token)
+
+//////////////////////////////////////////ROM File Upload ////////////////////////////////////////////////////
+        public async Task<DataTable> ROMUpload_Details(FJC_FileUpload fjc_FileUpload,string Token)
         {
-            //-Start-Agreement HTML logic
-                string Agreement_HtmlContent="";
-                string DocumentType="";
-                DataTable  dt2=new DataTable();
-                dt2 =await GetAgreementHtmlContent(fjc_FileUpload.Event_No);
-                Agreement_HtmlContent= dt2.Rows[0]["Content"].ToString();
-                DocumentType= dt2.Rows[0]["DocumentType"].ToString();
-
-            //-END-
-
             if(fjc_FileUpload.files.FileName.Length>0)
             { 
                string User_Type="";
@@ -55,19 +47,27 @@ namespace evoting.Services
                 //-start-create folder directory-here
                         var getpath =(object)null;                   
                        User_Type= dt1.Rows[0]["USER_TYPE"].ToString();
-                       TokenRowID= dt1.Rows[0]["ROWID"].ToString();                    
-                        switch(Convert.ToUInt32(User_Type))
+                       TokenRowID= dt1.Rows[0]["ROWID"].ToString();
+                  
+                            switch(Convert.ToUInt32(User_Type))
                             {
                                 case 1:
-                                getpath = FolderPaths.Company.AgreementUpload(); 
+                                getpath = FolderPaths.Company.ROMUpload(); 
                                 break;
                                 case 2:
-                                getpath = FolderPaths.RTA.AgreementUpload(); 
-                                break;                               
-                                case 5:
-                                getpath = FolderPaths.EvotingAgency.AgreementUpload(); 
+                                getpath = FolderPaths.RTA.ROMUpload(); 
                                 break;
-                            }                  
+                                //case 3:
+                                // getpath = FolderPaths.Scrutinizer.ROMUpload(); 
+                                // break;
+                                // case 4:
+                                // getpath = FolderPaths.Custodian.ROMUpload(); 
+                                // break;
+                                case 5:
+                                getpath = FolderPaths.EvotingAgency.ROMUpload(); 
+                                break;
+                            }                   
+                   
                    //File name with time stamp and Event no 
                     filenamewithdatetime=System.DateTime.Now.ToString("yyyyMMdd-hh-mm-ss-fff-")+ fjc_FileUpload.Event_No + "-" + fjc_FileUpload.files.FileName;
                    //Return Full file path to save to database
@@ -86,7 +86,11 @@ namespace evoting.Services
                     dictfileUpld.Add("@token", Token); 
             
                     DataSet ds = new DataSet();
-                    ds = await AppDBCalls.GetDataSet("Evote_spFileUpload", dictfileUpld);                    
+                    ds = await AppDBCalls.GetDataSet("Evote_spFileUpload", dictfileUpld);
+                    if (!ds.Tables[0].Columns.Contains("Error"))
+                    {
+                        InsertBulkFileUpload(fjc_FileUpload.Event_No,SaveToFolder);     
+                    }
                     return Reformatter.Validate_DataTable(ds.Tables[0]);
                 }
                 else
@@ -98,31 +102,28 @@ namespace evoting.Services
             {
               return null;  
             }
-        } 
-
+        }  
 //////////////////////////////////////////Get User Login Detail using Token  ////////////////////////////////////////////////////
          public async Task<DataTable> GetUserDetailsByTokenID(string TokenID)
         {
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
-                dictUserDetail.Add("@TokenID", TokenID); 
-
+                dictUserDetail.Add("@TokenID", TokenID);               
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_GetLoginDetails", dictUserDetail);                              
-                return Reformatter.Validate_DataTable(ds.Tables[0]); 
-        }   
-//////////////////////////////////////////Get User Agreement Pdf from stored procedure to Upload  ////////////////////////////////////////////////////
-         public async Task<DataTable> GetAgreementHtmlContent(int Event_No)
-        { 
+            return Reformatter.Validate_DataTable(ds.Tables[0]); 
+        }  
+//////////////////////////////////////////Bulk Upload stored Procedure called here  ////////////////////////////////////////////////////     
+         public async void InsertBulkFileUpload(int Event_No,string FullPath)
+        {
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
-                dictUserDetail.Add("@ID", 1); 
-                dictUserDetail.Add("@CLIENT_NAME", "Lenovo"); 
-                dictUserDetail.Add("@CLIENT_ADDRESS", "Mumbai"); 
-                dictUserDetail.Add("@EVENT_NO", Event_No);  
-
+                dictUserDetail.Add("@FILEPATH", FullPath);     
+                dictUserDetail.Add("@GENERATEDEVENTNO", Event_No);           
                 DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("SP_GETDOCUMENTCONTENT", dictUserDetail);                              
-                return Reformatter.Validate_DataTable(ds.Tables[0]); 
-        }        
+                ds = await AppDBCalls.GetDataSet("SP_IMPORTTEXTFILE", dictUserDetail);                              
+             
+        }      
+        
+        
     }
 }
  

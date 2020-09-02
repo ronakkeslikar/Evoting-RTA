@@ -19,32 +19,32 @@ using System.Net.Http.Headers;
 
 namespace evoting.Controllers
 {
-    [Route("api/FileUpload")]
+    [Route("api/ROMUpload")]
     [Produces("application/json")]
     [ApiController]
      
-    public class FileUploadController : ControllerBase
+    public class ROMUploadController : ControllerBase
     {
-        private readonly IFileUploadService _fileUploadService;
+        private readonly IFileUploadService _romUploadService;
 
-        public FileUploadController(IFileUploadService fileUploadService)
+        public ROMUploadController(IFileUploadService romUploadService)
         {
-            _fileUploadService = fileUploadService;
+            _romUploadService = romUploadService;
         }
 
             [HttpPost]
             [Consumes("multipart/form-data")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]  
-            public async Task<IActionResult> Agreement([FromForm]FJC_FileUpload std)
+            public async Task<IActionResult> ROM([FromForm]FJC_FileUpload std)
         {
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result = await _fileUploadService.FileUpload_Details(std,Token);
+                var result = await _romUploadService.FileUpload_Details(std,Token);
                 return Ok(new { status = true, message = "File Posted Successfully"});
             }
-            catch (Exception ex)
+           catch (Exception ex)
             {
                 return (new HandleCatches()).ManageExceptions(ex);
             } 

@@ -182,6 +182,16 @@ namespace evoting.Utility
                 }
             }
         }
+         public class CommonInvalidCode : Exception  
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Request code";
+                }
+            }
+        }
 
     }
 }
