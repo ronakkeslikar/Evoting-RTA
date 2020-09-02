@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 
 namespace evoting.Services
-{
+{ 
       public interface ILogoUploadService
     {     
         Task<DataTable> LogoUpload_Details(FJC_FileUpload fjc_FileUpload,string Token);       

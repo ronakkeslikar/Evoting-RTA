@@ -24,7 +24,7 @@ namespace evoting.Controllers
     [ApiController]
 
     public class UploadNoticeController  : ControllerBase
-    {
+    { 
 
       private readonly INoticeUploadService _NoticeUploadService;
 

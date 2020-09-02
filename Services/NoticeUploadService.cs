@@ -15,7 +15,7 @@ using evoting.Domain.Models;
 using evoting.Utility;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-
+ 
 namespace evoting.Services
 {
       public interface INoticeUploadService

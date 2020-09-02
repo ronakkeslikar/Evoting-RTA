@@ -49,6 +49,7 @@ namespace evoting.Controllers
             {
                 return (new HandleCatches()).ManageExceptions(ex);
             }
+            
         }   
 
 

@@ -19,7 +19,7 @@ using System.IO;
 namespace evoting.Services
 {
       public interface IResolutionFileUploadService
-    {     
+    {      
         Task<DataTable> ResolutionFileUpload_Details(FJC_FileUpload fjc_FileUpload,string Token);       
         
     }

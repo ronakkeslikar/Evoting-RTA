@@ -21,7 +21,7 @@ namespace evoting.Controllers
 {
     [Route("api/UploadResolutionFile")]
     [Produces("application/json")]
-    [ApiController]
+    [ApiController] 
 
     public class UploadResolutionFileController  : ControllerBase
     {

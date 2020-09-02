@@ -10,7 +10,7 @@ namespace evoting.Utility
 {
     public static class FolderPaths
     {
-        public static string MainFolderPath = @"C:\evoting";//@"C:\Sites\Evoting_API"; //@"C:\evoting";
+        public static string MainFolderPath = @"C:\evoting";//@"C:\Sites\Evoting_API"; //@"C:\evoting"; 
 
         public static class RTA
         {

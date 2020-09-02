@@ -41,7 +41,7 @@ namespace evoting
             services.AddScoped<IFileUploadService, FileUploadService>();
             services.AddScoped<ILogoUploadService, LogoUploadService>();
             services.AddScoped<IResolutionFileUploadService, ResolutionFileUploadService>();
-            services.AddScoped<INoticeUploadService, NoticeUploadService>();
+            services.AddScoped<INoticeUploadService, NoticeUploadService>(); 
             
         }
 
