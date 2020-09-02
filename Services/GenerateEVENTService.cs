@@ -29,10 +29,10 @@ namespace evoting.Services
          Task<DataTable> DeleteEVENTDetail(int EVENT_DETAIL_ID, string Token) ; 
          Task<DataTable> GetEVENTDetail(int EVENT_DETAIL_ID, string Token) ; 
         
-         Task<DataTable> EVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION) ; 
-         Task<DataTable> UpdateEVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION) ; 
-         Task<DataTable> DeleteEVENTResolution(int EVENT_RESOLUTION_ID) ; 
-         Task<DataTable> GetEVENTResolution(int EVENT_RESOLUTION_ID) ; 
+         Task<DataTable> EVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION, string Token) ; 
+         Task<DataTable> UpdateEVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION, string Token) ; 
+         Task<DataTable> DeleteEVENTResolution(int EVENT_RESOLUTION_ID, string Token) ; 
+         Task<DataTable> GetEVENTResolution(int EVENT_RESOLUTION_ID, string Token) ; 
     } 
 
         public class GenerateEVENTService : IGenerateEVENTService
@@ -44,7 +44,7 @@ namespace evoting.Services
             _context = context;
         } 
         ///////////////////////////////////////GenerateEVENTDetail///////////////////////////////////////////////////////////
-         public async Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN, string token)
+         public async Task<DataTable> GenerateEVENT(FJC_GenerateEVENT fJC_EVSN, string Token)
         {
             
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
@@ -56,14 +56,14 @@ namespace evoting.Services
                 dictLogin.Add("@VOTING_RIGHTS", fJC_EVSN.VOTING_RIGHTS);
                 dictLogin.Add("@CUT_OF_DATE", fJC_EVSN.CUT_OF_DATE);//new DateTime(2012, 12, 25, 10, 30, 50).ToString("yyyy-MM-dd HH:mm:ss"));               
                 dictLogin.Add("@SCRUTINIZER", fJC_EVSN.SCRUTINIZER);                   
-                dictLogin.Add("@Token", token);
+                dictLogin.Add("@token", Token);
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);    
             
         }
          
-          public async Task<DataTable> UpdateGenerateEVENT(FJC_GenerateEVENT fJC_EVSN, string token)
+          public async Task<DataTable> UpdateGenerateEVENT(FJC_GenerateEVENT fJC_EVSN, string Token)
         {
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_ID", fJC_EVSN.EVENT_ID);
@@ -74,7 +74,7 @@ namespace evoting.Services
                 dictLogin.Add("@VOTING_RIGHTS", fJC_EVSN.VOTING_RIGHTS);
                 dictLogin.Add("@CUT_OF_DATE",fJC_EVSN.CUT_OF_DATE );               
                 dictLogin.Add("@SCRUTINIZER", fJC_EVSN.SCRUTINIZER);
-                dictLogin.Add("@Token", token);
+                dictLogin.Add("@token", Token);
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
                 return Reformatter.Validate_DataTable(ds.Tables[0]);            
@@ -82,21 +82,21 @@ namespace evoting.Services
       
 
        
-            public async Task<DataTable> GeteGenerateEVENT(int EVENT_ID, string token)
+            public async Task<DataTable> GeteGenerateEVENT(int EVENT_ID, string Token)
         {
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_ID",  EVENT_ID);
-                dictLogin.Add("@Token", token);
+                dictLogin.Add("@token", Token);
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_GenerateGet_Event", dictLogin);
                 return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
-            public async Task<DataTable> DeleteGenerateEVENT(int EVENT_ID, string token)
+            public async Task<DataTable> DeleteGenerateEVENT(int EVENT_ID, string Token)
         {           
                 Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_ID",  EVENT_ID);
-                dictLogin.Add("@Token", token);
+                dictLogin.Add("@token", Token);
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_GenerateDelete_Event", dictLogin);
                 return Reformatter.Validate_DataTable(ds.Tables[0]);
@@ -170,7 +170,7 @@ namespace evoting.Services
 
 
         ////////////////////////////////////////////EVENT RESOLUTION//////////////////////////////////////////////////////
-         public async Task<DataTable> EVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION)
+         public async Task<DataTable> EVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION, string Token)
        {
            Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_RESOLUTION_ID", FJC_EVENTRESOLUTION.EVENT_RESOLUTION_ID);               
@@ -178,14 +178,15 @@ namespace evoting.Services
                 dictLogin.Add("@EVENT_NO", FJC_EVENTRESOLUTION.EVENT_NO);               
                 dictLogin.Add("@TITLE", FJC_EVENTRESOLUTION.TITLE);               
                 dictLogin.Add("@DESCRIPTION", FJC_EVENTRESOLUTION.DESCRIPTION);
-                dictLogin.Add("@FILE_PATH", FJC_EVENTRESOLUTION.FILE_PATH);      
+                dictLogin.Add("@FILE_PATH", FJC_EVENTRESOLUTION.FILE_PATH); 
+                dictLogin.Add("@token", Token);     
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Event_Resolution", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
    
          
-          public async Task<DataTable> UpdateEVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION)
+          public async Task<DataTable> UpdateEVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION, string Token)
        {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_RESOLUTION_ID", FJC_EVENTRESOLUTION.EVENT_RESOLUTION_ID);               
@@ -193,7 +194,8 @@ namespace evoting.Services
                 dictLogin.Add("@EVENT_NO", FJC_EVENTRESOLUTION.EVENT_NO);               
                 dictLogin.Add("@TITLE", FJC_EVENTRESOLUTION.TITLE);               
                 dictLogin.Add("@DESCRIPTION", FJC_EVENTRESOLUTION.DESCRIPTION);
-                dictLogin.Add("@FILE_PATH", FJC_EVENTRESOLUTION.FILE_PATH);               
+                dictLogin.Add("@FILE_PATH", FJC_EVENTRESOLUTION.FILE_PATH); 
+                dictLogin.Add("@token", Token);              
                      
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Event_Resolution", dictLogin);
@@ -201,19 +203,21 @@ namespace evoting.Services
         }
         
         
-            public async Task<DataTable> DeleteEVENTResolution(int EVENT_RESOLUTION_ID)
+            public async Task<DataTable> DeleteEVENTResolution(int EVENT_RESOLUTION_ID, string Token)
        {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                dictLogin.Add("@EVENT_RESOLUTION_ID", EVENT_RESOLUTION_ID);               
+                dictLogin.Add("@EVENT_RESOLUTION_ID", EVENT_RESOLUTION_ID); 
+                dictLogin.Add("@token", Token);              
              
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Delete_EVENT_Resolution", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
-         public async Task<DataTable> GetEVENTResolution(int EVENT_RESOLUTION_ID)
+         public async Task<DataTable> GetEVENTResolution(int EVENT_RESOLUTION_ID, string Token)
        {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
-                dictLogin.Add("@EVENT_RESOLUTION_ID", EVENT_RESOLUTION_ID);               
+                dictLogin.Add("@EVENT_RESOLUTION_ID", EVENT_RESOLUTION_ID);  
+                dictLogin.Add("@token", Token);             
              
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Get_EVENT_Resolution", dictLogin);
