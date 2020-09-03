@@ -38,12 +38,7 @@ namespace evoting
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IGenerateEVENTService, GenerateEVENTService>();
-            services.AddScoped<IFileUploadService, FileUploadService>();
-
-            services.AddScoped<ILogoUploadService, LogoUploadService>();
-            services.AddScoped<IResolutionFileUploadService, ResolutionFileUploadService>();
-            services.AddScoped<INoticeUploadService, NoticeUploadService>(); 
-
+            services.AddScoped<IFileUploadService, FileUploadService>(); 
             services.AddScoped<IROMUploadService, ROMUploadService>();
             services.AddScoped<ICommonUtilityService, CommonUtilityService>();
 

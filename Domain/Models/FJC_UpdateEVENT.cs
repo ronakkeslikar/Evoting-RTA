@@ -5,6 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using evoting.Domain.Models.Validate;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace evoting.Domain.Models
 {
@@ -23,11 +24,11 @@ public string LAST_DATE_NOTICE { get; set;}
 [Required(ErrorMessage ="Enter Voting Result Date")] 
 public string VOTING_RESULT_DATE { get; set;}
 [Required(ErrorMessage ="Please Upload Logo")] 
-public string UPLOAD_LOGO { get; set;} //this will change to file
+public IFormFile UPLOAD_LOGO { get; set;} //this will change to file
 [Required(ErrorMessage ="Please Upload Resolution File")] 
-public string UPLOAD_RESOLUTION_FILE { get; set; } //this will change to file
+public IFormFile UPLOAD_RESOLUTION_FILE { get; set; } //this will change to file
         [Required(ErrorMessage ="Please Upload Notice")] 
-public string UPLOAD_NOTICE { get; set; } //this will change to file
+public IFormFile UPLOAD_NOTICE { get; set; } //this will change to file
         [Required(ErrorMessage ="Enter No of Resolution")] 
 public int ENTER_NOF_RESOLUTION { get; set;}
 
