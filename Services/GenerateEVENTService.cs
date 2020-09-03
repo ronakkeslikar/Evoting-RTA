@@ -106,17 +106,17 @@ namespace evoting.Services
        public async Task<DataTable> EVENTDetail(FJC_UpdateEVENT fJC_EVENT, string Token)
        {
         string logostr="";
-         string resolstr="";
-          string noticestr="";
+        string resolstr="";
+        string noticestr="";
         DataTable dt=new DataTable();
-         DataTable dt2=new DataTable();
-          DataTable dt3=new DataTable();
+        DataTable dt2=new DataTable();
+        DataTable dt3=new DataTable();
             dt=  await LogoUpload_Details(fJC_EVENT,Token);
             dt2= await ResolUpload_Details(fJC_EVENT, Token);
-            dt3= await ResolUpload_Details(fJC_EVENT, Token);
+            dt3= await NoticeUpload_Details(fJC_EVENT, Token);
         logostr= dt.Rows[0]["Success"].ToString();
-         resolstr= dt2.Rows[0]["Success"].ToString();
-          noticestr= dt3.Rows[0]["Success"].ToString();
+        resolstr= dt2.Rows[0]["Success"].ToString();
+        noticestr= dt3.Rows[0]["Success"].ToString();
         if(logostr=="Upload Success" && resolstr=="Upload Success" && noticestr=="Upload Success")
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
@@ -164,7 +164,6 @@ namespace evoting.Services
                                 break;
                                 case 2:
                                 getpath = FolderPaths.RTA.LogoUpload();
-                                 
                                 break;
                                 case 3:
                                  getpath = FolderPaths.Scrutinizer.LogoUpload(); 
@@ -176,25 +175,19 @@ namespace evoting.Services
                                 getpath = FolderPaths.EvotingAgency.LogoUpload(); 
                                 break;
                             }
-                                       
                     //File name with time stamp 
                     logonamewithdatetime=System.DateTime.Now.ToString("yyyyMMdd-hh-mm-ss-fff-")+ fjc_FileUpload.EVENT_ID + "-" + fjc_FileUpload.UPLOAD_LOGO.FileName;
-                    
                      //Return Full file path to save to database
                      string SaveToFolder="";                    
                     SaveToFolder=FolderPaths.CreateEventLogoSpecificFolder(getpath.ToString(),logonamewithdatetime.ToString(),fjc_FileUpload);
-                    SaveToFolder=FolderPaths.CreateEventResolSpecificFolder(getpath.ToString(),logonamewithdatetime.ToString(),fjc_FileUpload);
-                    SaveToFolder=FolderPaths.CreateEventNoticeSpecificFolder(getpath.ToString(),logonamewithdatetime.ToString(),fjc_FileUpload);
-
-                
+                   // SaveToFolder=FolderPaths.CreateEventResolSpecificFolder(getpath.ToString(),logonamewithdatetime.ToString(),fjc_FileUpload);
+                   // SaveToFolder=FolderPaths.CreateEventNoticeSpecificFolder(getpath.ToString(),logonamewithdatetime.ToString(),fjc_FileUpload);
                      //////////////////////Start to save database //////////////////////              
                  if(SaveToFolder!=null)
                 {
-
-                    Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
-                    dictfileUpld.Add("@DOC_NO", 0);
-                    dictfileUpld.Add("@Logo_Name",logonamewithdatetime );
-                    dictfileUpld.Add("@Logo_Path", SaveToFolder);  
+                    Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();                  
+                    dictfileUpld.Add("@File_Name",logonamewithdatetime );
+                    dictfileUpld.Add("@File_Path", SaveToFolder);  
                     dictfileUpld.Add("@UploadedBy", Convert.ToInt32(TokenRowID));  
                     dictfileUpld.Add("@token", Token);
                      dictfileUpld.Add("@Upload_Type", "Logo");  
@@ -217,7 +210,6 @@ namespace evoting.Services
         }
           public async Task<DataTable> ResolUpload_Details(FJC_UpdateEVENT fjc_FileUpload, string Token)
         {
-           
              if(fjc_FileUpload.UPLOAD_RESOLUTION_FILE.FileName.Length>0)
             { 
                string User_Type="";
@@ -226,7 +218,6 @@ namespace evoting.Services
                 DataTable  dt1=new DataTable();
                 dt1 =  await GetUserDetailsByTokenID(Token);                  
                     var getpath =(object)null; 
-                                    
                     User_Type= dt1.Rows[0]["USER_TYPE"].ToString();
                     TokenRowID= dt1.Rows[0]["ROWID"].ToString();
                    //User type wise Folder path selected
@@ -237,7 +228,6 @@ namespace evoting.Services
                                 break;
                                 case 2:
                                 getpath = FolderPaths.RTA.ResolutionFileUpload();
-                                 
                                 break;
                                 case 3:
                                  getpath = FolderPaths.Scrutinizer.ResolutionFileUpload(); 
@@ -249,23 +239,18 @@ namespace evoting.Services
                                 getpath = FolderPaths.EvotingAgency.ResolutionFileUpload(); 
                                 break;
                             }
-                                       
                     //File name with time stamp 
                     logonamewithdatetime=System.DateTime.Now.ToString("yyyyMMdd-hh-mm-ss-fff-")+ fjc_FileUpload.EVENT_ID + "-" + fjc_FileUpload.UPLOAD_RESOLUTION_FILE.FileName;
-                    
                      //Return Full file path to save to database
                      string SaveToFolder="";                    
                     SaveToFolder=FolderPaths.CreateEventResolSpecificFolder(getpath.ToString(),logonamewithdatetime.ToString(),fjc_FileUpload);
-                 
-                
                      //////////////////////Start to save database //////////////////////              
                  if(SaveToFolder!=null)
                 {
-
                     Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
-                    dictfileUpld.Add("@DOC_NO", 0);
-                    dictfileUpld.Add("@Logo_Name",logonamewithdatetime );
-                    dictfileUpld.Add("@Logo_Path", SaveToFolder);  
+                    
+                    dictfileUpld.Add("@File_Name",logonamewithdatetime );
+                    dictfileUpld.Add("@File_Path", SaveToFolder);  
                     dictfileUpld.Add("@UploadedBy", Convert.ToInt32(TokenRowID));  
                     dictfileUpld.Add("@token", Token); 
                     dictfileUpld.Add("@Upload_Type", "Resolution"); 
@@ -288,7 +273,6 @@ namespace evoting.Services
         }
           public async Task<DataTable> NoticeUpload_Details(FJC_UpdateEVENT fjc_FileUpload, string Token)
         {
-           
              if(fjc_FileUpload.UPLOAD_NOTICE.FileName.Length>0)
             { 
                string User_Type="";
@@ -297,7 +281,6 @@ namespace evoting.Services
                 DataTable  dt1=new DataTable();
                 dt1 =  await GetUserDetailsByTokenID(Token);                  
                     var getpath =(object)null; 
-                                    
                     User_Type= dt1.Rows[0]["USER_TYPE"].ToString();
                     TokenRowID= dt1.Rows[0]["ROWID"].ToString();
                    //User type wise Folder path selected
@@ -308,7 +291,6 @@ namespace evoting.Services
                                 break;
                                 case 2:
                                 getpath = FolderPaths.RTA.NoticeUpload();
-                                 
                                 break;
                                 case 3:
                                  getpath = FolderPaths.Scrutinizer.NoticeUpload(); 
@@ -320,23 +302,18 @@ namespace evoting.Services
                                 getpath = FolderPaths.EvotingAgency.NoticeUpload(); 
                                 break;
                             }
-                                       
                     //File name with time stamp 
                     logonamewithdatetime=System.DateTime.Now.ToString("yyyyMMdd-hh-mm-ss-fff-")+ fjc_FileUpload.EVENT_ID + "-" + fjc_FileUpload.UPLOAD_NOTICE.FileName;
-                    
                      //Return Full file path to save to database
                      string SaveToFolder="";                    
                     SaveToFolder=FolderPaths.CreateEventResolSpecificFolder(getpath.ToString(),logonamewithdatetime.ToString(),fjc_FileUpload);
-                 
-                
                      //////////////////////Start to save database //////////////////////              
                  if(SaveToFolder!=null)
                 {
-
                     Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
-                    dictfileUpld.Add("@DOC_NO", 0);
-                    dictfileUpld.Add("@Logo_Name",logonamewithdatetime );
-                    dictfileUpld.Add("@Logo_Path", SaveToFolder);  
+                   
+                    dictfileUpld.Add("@File_Name",logonamewithdatetime );
+                    dictfileUpld.Add("@File_Path", SaveToFolder);  
                     dictfileUpld.Add("@UploadedBy", Convert.ToInt32(TokenRowID));  
                     dictfileUpld.Add("@token", Token); 
                     dictfileUpld.Add("@Upload_Type", "Notice"); 
@@ -354,8 +331,6 @@ namespace evoting.Services
             {
                 return null;
             }
-
-
         }
    
           public async Task<DataTable> GetUserDetailsByTokenID(string Token)
@@ -408,8 +383,6 @@ namespace evoting.Services
                 ds= await AppDBCalls.GetDataSet("Evote_Delete_EVENT_DETAIL", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
-
-
         ////////////////////////////////////////////EVENT RESOLUTION//////////////////////////////////////////////////////
          public async Task<DataTable> EVENTResolution(FJC_EVENT_Resolution FJC_EVENTRESOLUTION, string Token)
        {
