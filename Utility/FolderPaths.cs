@@ -10,7 +10,7 @@ namespace evoting.Utility
 {
     public static class FolderPaths
     {
-        public static string MainFolderPath = @"C:\evoting";//@"C:\Sites\Evoting_API"; //@"C:\evoting";
+        public static string MainFolderPath = @"C:\evoting";//@"C:\Sites\Evoting_API"; //@"C:\evoting"; 
 
         public static class RTA
         {
@@ -25,6 +25,20 @@ namespace evoting.Utility
                 return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
             }            
             
+            public static string LogoUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+            }
+             public static string ResolutionFileUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+            }
+
+             public static string UploadNotice()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+            }
+
         } 
 
         public static class Company
@@ -39,7 +53,19 @@ namespace evoting.Utility
             {
                 return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
             }            
-            
+             public static string LogoUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+            }
+             public static string ResolutionFileUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+            }
+              public static string UploadNotice()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+            }
+
         } 
 
         public static class Custodian
@@ -54,7 +80,20 @@ namespace evoting.Utility
             {
                 return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
             }            
-            
+             public static string LogoUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+            }
+
+              public static string ResolutionFileUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+            }
+              public static string UploadNotice()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+            }
+
         } 
 
         public static class Scrutinizer
@@ -69,7 +108,19 @@ namespace evoting.Utility
             {
                 return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
             }            
-            
+             public static string LogoUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+            }
+             public static string ResolutionFileUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+            }
+              public static string UploadNotice()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+            }
+
         } 
 
         public static class EvotingAgency
@@ -84,7 +135,19 @@ namespace evoting.Utility
             {
                 return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
             }            
-            
+             public static string LogoUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+            }
+             public static string ResolutionFileUpload()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+            }
+              public static string UploadNotice()
+            {
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+            }
+
         } 
  
         public static string CreateSpecificFolder(string _checkPath,string _filenamewithdatetime,FJC_FileUpload fileUpload)
@@ -122,5 +185,7 @@ namespace evoting.Utility
              }       
              
         }
+
+       
     }
 }
