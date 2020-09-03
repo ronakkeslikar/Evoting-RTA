@@ -37,8 +37,5 @@ public class FJC_GenerateEVENT
     [Required(ErrorMessage ="Select Scrutinizer")] 
     public string SCRUTINIZER { get; set;}
 
-    public string CREATED_BY { get; set;}
-
-    public string UPDATED_BY { get; set;}
  }
 }
