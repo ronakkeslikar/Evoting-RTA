@@ -41,7 +41,7 @@ namespace evoting.Controllers
                         {
                             {"COMPANY","C"},
                             {"RTA","R"},
-                            {"SCRUTINIZER","Z"},
+                            {"SCRUTINIZER","Z"},//bind PCS_NO with User Name from Registration
                              {"CUSTODIAN","N"},
                             {"Evoting_Types","T"},
                             {"ISIN_Types","I"},
