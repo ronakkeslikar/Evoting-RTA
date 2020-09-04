@@ -38,6 +38,10 @@ namespace evoting.Utility
             {
                 return StatusCode(400, new { status = false, message = ex.Message });
             }
+            else if(ex is CustomException.InvalidDoCID)
+            {
+                return StatusCode(400, new { status = false, message = ex.Message });
+            }
             else if(ex is CustomException.CommonInvalidCode)
             {
                 return StatusCode(400, new { status = false, message = ex.Message });
@@ -95,6 +99,8 @@ namespace evoting.Utility
                 throw new CustomException.EventIDNotExists();
                 case "Invalid Request code":
                 throw new CustomException.CommonInvalidCode();
+                case "Document ID doesn't exists":
+                throw new CustomException.InvalidDoCID();
             }
         }
     }

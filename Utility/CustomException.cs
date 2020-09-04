@@ -212,5 +212,15 @@ namespace evoting.Utility
                 }
             }
         }
+        public class InvalidDoCID : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Document ID doesn't exists";
+                }
+            }
+        }//Invalid Document ID
     }
 }

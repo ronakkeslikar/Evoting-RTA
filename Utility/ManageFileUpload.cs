@@ -19,34 +19,35 @@ namespace evoting.Utility
             if (fjc_FileUpload.files.FileName.Length > 0)
             {              
                 string getpath = string.Empty;
+                DataTable dtFileDetails=new DataTable();
                 switch (process)
                 {
                     case ProcessType.Company_AgreementUpload:
                         getpath = FolderPaths.Company.AgreementUpload();
-                        await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                     dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
                     case ProcessType.RTA_AgreementUpload:
                         getpath = FolderPaths.RTA.AgreementUpload();
-                        await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                     dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
                     case ProcessType.EvotinAgency_AgreementUpload:
                         getpath = FolderPaths.EvotingAgency.AgreementUpload();
-                        await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                     dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
                     case ProcessType.Company_ROMUpload:
                         getpath = FolderPaths.Company.ROMUpload();
-                        await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                    dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
                     case ProcessType.RTA_ROMUpload:
                         getpath = FolderPaths.RTA.ROMUpload();
-                        await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                     dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
                     case ProcessType.EvotingAgency_ROMUpload:
                         getpath = FolderPaths.EvotingAgency.ROMUpload();
-                        await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                    dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
                 }
-                return null;
+                return dtFileDetails;
             }
             else
             {
@@ -94,8 +95,7 @@ namespace evoting.Utility
             //Saving file details to Database               
             if (SaveToFolder != null)
             {
-                Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
-                dictfileUpld.Add("@DOC_NO", 0);
+                Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();               
                 dictfileUpld.Add("@File_Name", filenamewithdatetime);
                 dictfileUpld.Add("@File_Path", SaveToFolder);
                 dictfileUpld.Add("@token", Token);
