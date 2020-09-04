@@ -388,7 +388,6 @@ D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\System.Linq.Dynamic.dll
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
@@ -401,8 +400,6 @@ D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\runtimes\win\lib\netco
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.AssemblyInfoInputs.cache
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.AssemblyInfo.cs
-D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csproj.CoreCompileInputs.cache
-D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.MvcApplicationPartsAssemblyInfo.cache
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.RazorTargetAssemblyInfo.cache
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csproj.CopyComplete
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\staticwebassets\evoting.StaticWebAssets.Manifest.cache
@@ -410,3 +407,7 @@ D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\staticwebassets\evotin
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.dll
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.pdb
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.genruntimeconfig.cache
+D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csprojAssemblyReference.cache
+D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csproj.CoreCompileInputs.cache
+D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.MvcApplicationPartsAssemblyInfo.cache
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\itextsharp.dll

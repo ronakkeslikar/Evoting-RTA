@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Linq.Dynamic;
 using System.Data;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
@@ -14,8 +13,8 @@ namespace evoting.Utility
         private static object First_FetchColumns(DataTable _dt, string[] _column_names) //This will remain until dynamic class creation utility is developed.
         {
             string format_columns = "new (" +  string.Join(',', _column_names) + ")";
-            var check =  _dt.AsEnumerable().Select(format_columns);
-            return check;
+            //var check = null;//_dt.AsEnumerable().Select(format_columns);
+            return null;
         }
         private static string Return_RowElement_Datatable(DataTable _dt)
         {
