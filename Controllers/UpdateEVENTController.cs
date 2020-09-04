@@ -31,7 +31,7 @@ namespace evoting.Controllers
          [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> EVENTDetailUser(FJC_UpdateEVENT fJC_EVSN)
+        public async Task<IActionResult> EVENTDetailUser([FromForm] FJC_UpdateEVENT fJC_EVSN)
 
         {
             try

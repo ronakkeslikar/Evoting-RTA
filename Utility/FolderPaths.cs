@@ -33,10 +33,9 @@ namespace evoting.Utility
             {
                  return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
             }
-
-             public static string UploadNotice()
+              public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
             }
 
         } 
@@ -61,9 +60,9 @@ namespace evoting.Utility
             {
                  return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
             }
-              public static string UploadNotice()
+              public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
             }
 
         } 
@@ -85,13 +84,13 @@ namespace evoting.Utility
                  return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
             }
 
-              public static string ResolutionFileUpload()
+            public static string ResolutionFileUpload()
             {
                  return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
             }
-              public static string UploadNotice()
+              public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
             }
 
         } 
@@ -112,13 +111,13 @@ namespace evoting.Utility
             {
                  return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
             }
-             public static string ResolutionFileUpload()
+            public static string ResolutionFileUpload()
             {
                  return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
             }
-              public static string UploadNotice()
+              public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
             }
 
         } 
@@ -143,9 +142,9 @@ namespace evoting.Utility
             {
                  return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
             }
-              public static string UploadNotice()
+              public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "UploadNotice");
+                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
             }
 
         } 
@@ -170,6 +169,112 @@ namespace evoting.Utility
                         using (var fileStream = new FileStream(Path.Combine(_checkPath,_filenamewithdatetime), FileMode.Create,FileAccess.Write)) 
                         {                            
                             fileUpload.files.CopyTo(fileStream);
+                            getFullFilepath=fileStream.Name.ToString();
+                        }
+                         return getFullFilepath;
+                }
+                else
+                {
+                return null;  
+                }  
+             } 
+             else
+             {
+                return null;    
+             }       
+             
+        }
+         public static string CreateEventLogoSpecificFolder(string _checkPath,string _filenamewithdatetime,FJC_UpdateEVENT fileUpload)
+        {
+            //folder exists - if not then create
+            //same file exists
+            
+                 var name = fileUpload.UPLOAD_LOGO;
+             if (name.Length > 0)
+             {
+                
+                if(_checkPath !=null)
+                {
+                    string getFullFilepath="";
+                      _checkPath =  Path.Combine(_checkPath,System.DateTime.Now.ToString("yyyy-MM-dd")); 
+                    if (!Directory.Exists(_checkPath))  
+                        {                         
+                            Directory.CreateDirectory(_checkPath);
+                        }                                        
+                        using (var fileStream = new FileStream(Path.Combine(_checkPath,_filenamewithdatetime), FileMode.Create,FileAccess.Write)) 
+                        {                            
+                            fileUpload.UPLOAD_LOGO.CopyTo(fileStream);
+                            getFullFilepath=fileStream.Name.ToString();
+                        }
+                         return getFullFilepath;
+                }
+                else
+                {
+                return null;  
+                }  
+             } 
+             else
+             {
+                return null;    
+             }       
+             
+        }
+        public static string CreateEventResolSpecificFolder(string _checkPath,string _filenamewithdatetime,FJC_UpdateEVENT fileUpload)
+        {
+            //folder exists - if not then create
+            //same file exists
+            
+                 var name = fileUpload.UPLOAD_RESOLUTION_FILE;
+             if (name.Length > 0)
+             {
+                
+                if(_checkPath !=null)
+                {
+                    string getFullFilepath="";
+                      _checkPath =  Path.Combine(_checkPath,System.DateTime.Now.ToString("yyyy-MM-dd")); 
+                    if (!Directory.Exists(_checkPath))  
+                        {                         
+                            Directory.CreateDirectory(_checkPath);
+                        }                                        
+                        using (var fileStream = new FileStream(Path.Combine(_checkPath,_filenamewithdatetime), FileMode.Create,FileAccess.Write)) 
+                        {                            
+                            fileUpload.UPLOAD_RESOLUTION_FILE.CopyTo(fileStream);
+                            getFullFilepath=fileStream.Name.ToString();
+                        }
+                         return getFullFilepath;
+                }
+                else
+                {
+                return null;  
+                }  
+             } 
+             else
+             {
+                return null;    
+             }       
+             
+        }
+
+         public static string CreateEventNoticeSpecificFolder(string _checkPath,string _filenamewithdatetime,FJC_UpdateEVENT fileUpload)
+        {
+            //folder exists - if not then create
+            //same file exists
+            
+                 var name = fileUpload.UPLOAD_NOTICE;
+             if (name.Length > 0)
+             {
+                
+                if(_checkPath !=null)
+                {
+                    string getFullFilepath="";
+                      _checkPath =  Path.Combine(_checkPath,System.DateTime.Now.ToString("yyyy-MM-dd")); 
+                    if (!Directory.Exists(_checkPath))  
+                        {                         
+                            Directory.CreateDirectory(_checkPath);
+                        }                                        
+                        using (var fileStream = new FileStream(Path.Combine(_checkPath,_filenamewithdatetime), FileMode.Create,FileAccess.Write)) 
+                        {                            
+                            fileUpload.UPLOAD_NOTICE.CopyTo(fileStream);
                             getFullFilepath=fileStream.Name.ToString();
                         }
                          return getFullFilepath;
