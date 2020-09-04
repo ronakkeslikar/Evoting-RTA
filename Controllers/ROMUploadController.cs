@@ -25,9 +25,9 @@ namespace evoting.Controllers
      
     public class ROMUploadController : ControllerBase
     {
-        private readonly IFileUploadService _romUploadService;
+        private readonly IROMUploadService _romUploadService;
 
-        public ROMUploadController(IFileUploadService romUploadService)
+        public ROMUploadController(IROMUploadService romUploadService)
         {
             _romUploadService = romUploadService;
         }
@@ -41,7 +41,7 @@ namespace evoting.Controllers
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result = await _romUploadService.FileUpload_Details(std,Token);
+                var result = await _romUploadService.ROMUpload_Details(std,Token);
                 return Ok(new { status = true, message = "File Posted Successfully"});
             }
            catch (Exception ex)

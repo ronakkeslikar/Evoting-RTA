@@ -37,18 +37,20 @@ namespace evoting.Services
         public async Task<DataTable> ROMUpload_Details(FJC_FileUpload fjc_FileUpload,string Token)
         {
             Utility.ManageFileUpload _obj = new ManageFileUpload();
-            return await _obj.SaveFile_FromToken(fjc_FileUpload, Token, FolderPaths.UploadType.ROM);
+            DataTable _dt = await _obj.SaveFile_FromToken(fjc_FileUpload, Token, FolderPaths.UploadType.ROM);
+            return await InsertBulkFileUpload(fjc_FileUpload.Event_No, Convert.ToInt32(_dt.Rows[0]["FilePath"]), Token);
         }  
   
 //////////////////////////////////////////Bulk Upload stored Procedure called here  ////////////////////////////////////////////////////     
-         public async void InsertBulkFileUpload(int Event_No,string FullPath)
+         private async Task<DataTable> InsertBulkFileUpload(int Event_No,int DocID, string Token)
         {
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
-                dictUserDetail.Add("@FILEPATH", FullPath);     
-                dictUserDetail.Add("@GENERATEDEVENTNO", Event_No);           
-                DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("SP_IMPORTTEXTFILE", dictUserDetail);                              
-             
+                dictUserDetail.Add("@DocumentID", DocID);     //doc id
+                dictUserDetail.Add("@GENERATEDEVENTNO", Event_No);
+            dictUserDetail.Add("@TokenID", Token);
+            DataSet ds=  await AppDBCalls.GetDataSet("SP_IMPORTTEXTFILE", dictUserDetail);
+            return ds.Tables[0]; //datatable reformatter
+                
         }      
         
         
