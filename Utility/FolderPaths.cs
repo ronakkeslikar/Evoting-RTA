@@ -187,5 +187,25 @@ namespace evoting.Utility
         }
 
        
+        public enum ProcessType
+        {
+            Company_AgreementUpload,
+            Company_ROMUpload,
+            RTA_AgreementUpload,
+            RTA_ROMUpload,
+            EvotinAgency_AgreementUpload,
+            EvotingAgency_ROMUpload
+        }
+        public enum AudienceType
+        {
+            Company,
+            RTA,
+            EvotingAgency
+        }
+        public enum UploadType
+        {
+            ROM,
+            Agreement
+        }
     }
 }

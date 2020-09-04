@@ -19,7 +19,7 @@ using System.Net.Http.Headers;
 
 namespace evoting.Controllers
 {
-    [Route("api/ROMUpload")]
+    [Route("api/ROM")]
     [Produces("application/json")]
     [ApiController]
      

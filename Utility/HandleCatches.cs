@@ -50,6 +50,14 @@ namespace evoting.Utility
             {
                 return StatusCode(400, new { status = false, message = ex.Message });
             }
+            else if(ex is CustomException.InvalidPathReference)
+            {
+                return StatusCode(500, new { status = false, message = ex.Message });
+            }//InvalidFileType
+            else if (ex is CustomException.InvalidFileType)
+            {
+                return StatusCode(500, new { status = false, message = ex.Message });
+            }
             else
             {
                 return StatusCode(500, new { status = false, message = ex.Message });

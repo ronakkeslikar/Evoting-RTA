@@ -9,8 +9,8 @@ using System.ComponentModel.DataAnnotations;
 namespace evoting.Domain.Models
 {
 public class FJC_UpdateEVENT {
-        [Required(ErrorMessage = "Event-ID is required")]
-        public int EVENT_ID { get; set;}
+[Required(ErrorMessage = "Event-ID is required")]
+public int EVENT_ID { get; set;}
 
 [Required(ErrorMessage ="Enter Voting Start Date")] 
 public string VOTING_START_DATETIME { get; set;}

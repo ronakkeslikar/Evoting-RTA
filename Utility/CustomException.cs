@@ -192,6 +192,25 @@ namespace evoting.Utility
                 }
             }
         }
-
+        public class InvalidPathReference : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Path referenced are incorrect";
+                }
+            }
+        } //InvalidFileType
+        public class InvalidFileType : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "File provided is of not proper format";
+                }
+            }
+        }
     }
 }
