@@ -18,21 +18,21 @@ using System.IO;
 
 namespace evoting.Services
 {
-    public interface IFileUploadService
+    public interface IAgreementUploadService
     {  
-        Task<DataTable> FileUpload_Details(FJC_FileUpload fjc_FileUpload,string Token);        
+        Task<DataTable> AgreementUpload_Details(FJC_FileUpload fjc_FileUpload,string Token);        
     }
 
-    public class FileUploadService : IFileUploadService
+    public class AgreementUploadService : IAgreementUploadService
     {
         //db context here
         protected readonly AppDbContext _context;
-        public FileUploadService(AppDbContext context)
+        public AgreementUploadService(AppDbContext context)
         {
             _context = context;
         }  
 //////////////////////////////////////////Agreement File Upload ////////////////////////////////////////////////////
-        public async Task<DataTable> FileUpload_Details(FJC_FileUpload fjc_FileUpload,string Token)
+        public async Task<DataTable> AgreementUpload_Details(FJC_FileUpload fjc_FileUpload,string Token)
         {
             //-Start-Agreement HTML logic
                 string Agreement_HtmlContent="";

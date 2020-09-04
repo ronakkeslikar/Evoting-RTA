@@ -19,17 +19,17 @@ using System.Net.Http.Headers;
 
 namespace evoting.Controllers
 {
-    [Route("api/FileUpload")]
+    [Route("api/Agreement")]
     [Produces("application/json")]
     [ApiController]
      
-    public class FileUploadController : ControllerBase
+    public class AgreementUploadController : ControllerBase
     {
-        private readonly IFileUploadService _fileUploadService;
+        private readonly IAgreementUploadService _agreementUploadService;
 
-        public FileUploadController(IFileUploadService fileUploadService)
+        public AgreementUploadController(IAgreementUploadService agreementUploadService)
         {
-            _fileUploadService = fileUploadService;
+            _agreementUploadService = agreementUploadService;
         }
 
             [HttpPost]
@@ -41,7 +41,7 @@ namespace evoting.Controllers
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result = await _fileUploadService.FileUpload_Details(std,Token);
+                var result = await _agreementUploadService.AgreementUpload_Details(std,Token);
                 return Ok(new { status = true, message = "File Posted Successfully"});
             }
             catch (Exception ex)
