@@ -15,6 +15,7 @@ using evoting.Domain.Models;
 using evoting.Utility;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using iTextSharp.tool.xml;
 
 namespace evoting.Services
 {
