@@ -41,7 +41,9 @@ namespace evoting
             services.AddScoped<IAgreementUploadService, AgreementUploadService>(); 
             services.AddScoped<IROMUploadService, ROMUploadService>();
             services.AddScoped<IFileUploadService, FileUploadService>();
-            services.AddScoped<ICommonUtilityService, CommonUtilityService>();
+            services.AddScoped<IPrivateListService, PrivateListService>();
+            services.AddScoped<IListService, ListService>();
+             services.AddScoped<IEventListService, EventListService>();
 
 
             

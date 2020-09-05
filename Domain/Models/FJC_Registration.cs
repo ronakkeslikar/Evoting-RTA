@@ -10,58 +10,59 @@ namespace evoting.Domain.Models
     public class FJC_Registration
     {
         public int SR_NO { get; set;}
-        public int REG_TYPE_ID { get; set;}
+        public int reg_type_id { get; set;}
 
         [Required (ErrorMessage ="Enter Entity Name") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
-        public string NAME { get; set;}  
+        public string name { get; set;}  
 
         [Required (ErrorMessage ="Enter Reg. No.") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
-        public string REG_NO { get; set;}
+        public string reg_no { get; set;}
                 
         [Required (ErrorMessage ="Enter Registered Office Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
-        public string REG_ADD1 { get; set;}
+        public string reg_add1 { get; set;}
          
-        public string REG_ADD2 { get; set;}
-        public string REG_ADD3 { get; set;}
+        public string reg_add2 { get; set;}
+        public string reg_add3 { get; set;}
         [Required (ErrorMessage ="Enter City")] 
-        public string REG_CITY { get; set;}
+        public string reg_city { get; set;}
          [Required (ErrorMessage ="Enter Pincode"),RegularExpression(@"^[0-9]*$")] 
          [MinLength(6, ErrorMessage = "Pincode Cannot be less than 6 digit")]  
          [MaxLength(6, ErrorMessage = "Pincode Cannot be more than 6 digit")]  
 
-        public string REG_PINCODE { get; set;}
+        public string reg_pincode { get; set;}
            [Required (ErrorMessage ="Enter State")] 
-        public string REG_STATE_ID { get; set;}
+        public string reg_state_id { get; set;}
            [Required (ErrorMessage ="Enter Country")] 
-        public string REG_COUNTRY { get; set;}       
+        public string reg_country { get; set;}       
         [Required (ErrorMessage ="Enter Correspondence Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
-        public string CORRES_ADD1 { get; set;}
-        public string CORRES_ADD2 { get; set;}
-        public string CORRES_ADD3 { get; set;}
+        public string corres_add1 { get; set;}
+        public string corres_add2 { get; set;}
+        public string corres_add3 { get; set;}
          [Required (ErrorMessage ="Enter City")]
-        public string CORRES_CITY { get; set;}
+        public string corres_city { get; set;}
          [Required (ErrorMessage ="Enter Pincode"),RegularExpression(@"^[0-9]*$")] 
          [MinLength(6, ErrorMessage = "Pincode Cannot be less than 6 digit")]  
          [MaxLength(6, ErrorMessage = "Pincode Cannot be more than 6 digit")] 
-        public string CORRES_PINCODE { get; set;}
+        public string corres_pincode { get; set;}
           [Required (ErrorMessage ="Enter State")] 
-        public string CORRES_STATE_ID { get; set;}
+        public string corres_state_id { get; set;}
              [Required (ErrorMessage ="Enter Country")] 
-        public string CORRES_COUNTRY { get; set;}
-        public string PCS_NO { get; set;}
+        public string corres_country { get; set;}
+        public string pcs_no { get; set;}
          [Required (ErrorMessage ="Enter NAME") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
-        public string CS_NAME { get; set;}
+        public string cs_name { get; set;}
          [Required (ErrorMessage ="Enter EMAIL_ID") ,RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
-        public string CS_EMAIL_ID { get; set;}
-        public string CS_ALT_EMAIL_ID { get; set;}
+        public string cs_email_id { get; set;}
+        public string cs_alt_email_id { get; set;}
          [Required (ErrorMessage ="Enter Telephone No.") ,RegularExpression(@"^[0-9]*$")] 
-        public string CS_TEL_NO { get; set;}
-        public string CS_FAX_NO { get; set;}
+        public string cs_tel_no { get; set;}
+        public string cs_fax_no { get; set;}
         [Required (ErrorMessage ="Enter Mobile No.") ,RegularExpression(@"^[0-9]*$")] 
-        public string CS_MOBILE_NO { get; set;}
+        public string cs_mobile_no { get; set;}
          
      [Required (ErrorMessage ="Enter PAN ID") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
-        public string PANID { get; set;}
+        public string panid { get; set;}
+        public decimal alt_mob_num{get;set;}
 
     }  
      

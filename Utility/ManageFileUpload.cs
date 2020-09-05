@@ -68,6 +68,9 @@ namespace evoting.Utility
                         case "Issuer Company":
                                 _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Company_ROMUpload, Token);
                                     break;
+                        case "RTA":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.RTA_ROMUpload, Token);
+                                    break;
 
                     }
                 break;
@@ -75,8 +78,14 @@ namespace evoting.Utility
                     switch (dt.Rows[0]["type"])
                     {
                         case "Issuer Company":
-                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Company_ROMUpload, Token);
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Company_AgreementUpload, Token);
                                     break;
+                        case "RTA":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.RTA_AgreementUpload, Token);
+                        break;
+                        case "Evoting Agency":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.EvotinAgency_AgreementUpload, Token);
+                        break;
 
                     }
                 break;
