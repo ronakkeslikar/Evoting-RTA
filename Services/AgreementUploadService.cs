@@ -15,13 +15,18 @@ using evoting.Domain.Models;
 using evoting.Utility;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+ using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
+using System.Text;
+using System.Web; 
 
 namespace evoting.Services
 {
     public interface IAgreementUploadService
     {  
-        Task<DataTable> AgreementUpload_Details(FJC_FileUpload fjc_FileUpload,string Token);        
+        Task<DataTable> AgreementUpload_Details(int doc_id,string Token);        
     }
 
     public class AgreementUploadService : IAgreementUploadService
@@ -33,43 +38,61 @@ namespace evoting.Services
             _context = context;
         }  
 //////////////////////////////////////////Agreement File Upload ////////////////////////////////////////////////////
-        public async Task<DataTable> AgreementUpload_Details(FJC_FileUpload fjc_FileUpload,string Token)
+        public async Task<DataTable> AgreementUpload_Details(int doc_id,string Token)
         {
-            //-Start-Agreement HTML logic
-                string Agreement_HtmlContent="";
-                string DocumentType="";
-                DataTable  dt2=new DataTable();
-                dt2 =await GetAgreementHtmlContent(fjc_FileUpload.Event_No);
-                Agreement_HtmlContent= dt2.Rows[0]["Content"].ToString();
-                DocumentType= dt2.Rows[0]["DocumentType"].ToString();
-
-            //-END-
-            return await (new Utility.ManageFileUpload()).SaveFile_FromToken(fjc_FileUpload, Token, FolderPaths.UploadType.Agreement);
-        } 
-
-//////////////////////////////////////////Get User Login Detail using Token  ////////////////////////////////////////////////////
-         public async Task<DataTable> GetUserDetailsByTokenID(string TokenID)
-        {
-                Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
-                dictUserDetail.Add("@TokenID", TokenID); 
+           Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
+            
+                dictUserDetail.Add("@doc_id", doc_id);  
+                dictUserDetail.Add("@token", Token);  
 
                 DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_GetLoginDetails", dictUserDetail);                              
+                ds = await AppDBCalls.GetDataSet("sp_Upload_Agreement", dictUserDetail);                              
                 return Reformatter.Validate_DataTable(ds.Tables[0]); 
-        }   
+        } 
+
+
 //////////////////////////////////////////Get User Agreement Pdf from stored procedure to Upload  ////////////////////////////////////////////////////
-         public async Task<DataTable> GetAgreementHtmlContent(int Event_No)
+         public async Task<DataTable> GetAgreementHtmlContent(int Event_No,string Token)
         { 
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
                 dictUserDetail.Add("@ID", 1); 
                 dictUserDetail.Add("@CLIENT_NAME", "Lenovo"); 
                 dictUserDetail.Add("@CLIENT_ADDRESS", "Mumbai"); 
                 dictUserDetail.Add("@EVENT_NO", Event_No);  
+                dictUserDetail.Add("@token", Token);  
+
+
 
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("SP_GETDOCUMENTCONTENT", dictUserDetail);                              
                 return Reformatter.Validate_DataTable(ds.Tables[0]); 
-        }        
+        }   
+        public void ExportToPDF(string sb) 
+        {
+                StringReader sr = new StringReader(sb.ToString());
+
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
+                pdfDoc.Open();
+
+                htmlparser.Parse(sr);
+                pdfDoc.Close();
+
+                byte[] bytes = memoryStream.ToArray();
+                memoryStream.Close();
+
+                //convert byte to pdf and save
+                System.IO.File.WriteAllBytes(@"D:\shiv\Agreemtn_PDF.pdf", bytes);
+
+
+
+               
+            }
+
+        }    
     }
 }
  

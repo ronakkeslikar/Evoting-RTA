@@ -9,28 +9,29 @@ using Microsoft.AspNetCore.Http;
 
 namespace evoting.Domain.Models
 {
-public class FJC_UpdateEVENT {
-[Required(ErrorMessage = "Event-ID is required")]
-public int EVENT_ID { get; set;}
+public class FJC_UpdateEVENT
+ {
+        [Required(ErrorMessage = "Event-ID is required")]
+        public int event_id { get; set;}
 
-[Required(ErrorMessage ="Enter Voting Start Date")] 
-public string VOTING_START_DATETIME { get; set;}
-[Required(ErrorMessage ="Enter Voting End Date")] 
-public string VOTING_END_DATETIME { get; set;}
-[Required(ErrorMessage ="Enter Metting Datetime")] 
-public string MEETING_DATETIME { get; set;}
-[Required(ErrorMessage ="Enter Ladst Date Notice")] 
-public string LAST_DATE_NOTICE { get; set;}
-[Required(ErrorMessage ="Enter Voting Result Date")] 
-public string VOTING_RESULT_DATE { get; set;}
-[Required(ErrorMessage ="Please Upload Logo")] 
-public IFormFile UPLOAD_LOGO { get; set;} //this will change to file
-[Required(ErrorMessage ="Please Upload Resolution File")] 
-public IFormFile UPLOAD_RESOLUTION_FILE { get; set; } //this will change to file
-        [Required(ErrorMessage ="Please Upload Notice")] 
-public IFormFile UPLOAD_NOTICE { get; set; } //this will change to file
-        [Required(ErrorMessage ="Enter No of Resolution")] 
-public int ENTER_NOF_RESOLUTION { get; set;}
+        [Required(ErrorMessage ="Enter Voting Start Date")] 
+        public string  voting_start_datetime { get; set;}
+        [Required(ErrorMessage ="Enter Voting End Date")] 
+        public string  voting_end_datetime { get; set;}
+        [Required(ErrorMessage ="Enter Metting Datetime")] 
+        public string  meeting_datetime { get; set;}
+        [Required(ErrorMessage ="Enter Ladst Date Notice")] 
+        public string last_date_notice { get; set;}
+        [Required(ErrorMessage ="Enter Voting Result Date")] 
+        public string voting_result_date { get; set;}
+        [Required(ErrorMessage ="Please Upload Logo")] 
+        public int upload_logo { get; set;} //this will change to file
+        [Required(ErrorMessage ="Please Upload Resolution File")] 
+        public int upload_resolution_file  { get; set; } //this will change to file
+                [Required(ErrorMessage ="Please Upload Notice")] 
+        public int  upload_notice { get; set; } //this will change to file
+                [Required(ErrorMessage ="Enter No of Resolution")] 
+        public int  enter_nof_resolution{ get; set;}
 
 }
 }

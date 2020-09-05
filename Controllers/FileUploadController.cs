@@ -19,31 +19,32 @@ using System.Net.Http.Headers;
 
 namespace evoting.Controllers
 {
-    [Route("api/Agreement")]
+    [Route("api/FileUpload")]
     [Produces("application/json")]
     [ApiController]
      
-    public class AgreementUploadController : ControllerBase
+    public class FileUploadController : ControllerBase
     {
-        private readonly IAgreementUploadService _agreementUploadService;
+        private readonly IFileUploadService _fileUploadService;
 
-        public AgreementUploadController(IAgreementUploadService agreementUploadService)
+        public FileUploadController(IFileUploadService fileUploadService)
         {
-            _agreementUploadService = agreementUploadService;
+            _fileUploadService = fileUploadService;
         }
 
-            [HttpPost]      
+            [HttpPost]
+            [Consumes("multipart/form-data")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]  
-            public async Task<IActionResult> Agreement(int doc_id)
+            public async Task<IActionResult> FileUpload([FromForm] FJC_FileUpload _fjc_fileupload)
         {
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result = await _agreementUploadService.AgreementUpload_Details(doc_id,Token);
+                var result = await _fileUploadService.FileUpload_Details(_fjc_fileupload, Token);
                 return Ok(new { status = true, message = "File Posted Successfully"});
             }
-            catch (Exception ex)
+           catch (Exception ex)
             {
                 return (new HandleCatches()).ManageExceptions(ex);
             } 

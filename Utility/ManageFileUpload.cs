@@ -14,7 +14,7 @@ namespace evoting.Utility
     {
         
 
-        public async Task<DataTable> SaveFile(FJC_FileUpload fjc_FileUpload, ProcessType process,  string Token)
+        private async Task<DataTable> SaveFile(FJC_FileUpload fjc_FileUpload, ProcessType process,  string Token)
         {
             if (fjc_FileUpload.files.FileName.Length > 0)
             {              
@@ -71,6 +71,15 @@ namespace evoting.Utility
 
                     }
                 break;
+                case UploadType.Agreement: 
+                    switch (dt.Rows[0]["type"])
+                    {
+                        case "Issuer Company":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Company_ROMUpload, Token);
+                                    break;
+
+                    }
+                break;
             }
             return _return_Dt;
         }
@@ -86,7 +95,7 @@ namespace evoting.Utility
         {
             string filenamewithdatetime, SaveToFolder;
             //File name with time stamp and Event no 
-            filenamewithdatetime = System.DateTime.Now.ToString("yyyyMMdd-hh-mm-ss-fff-") + fjc_FileUpload.Event_No + "-" + fjc_FileUpload.files.FileName;
+            filenamewithdatetime = System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-" + fjc_FileUpload.files.FileName;
             //Return Full file path to save to database
             SaveToFolder = FolderPaths.CreateSpecificFolder(getpath, filenamewithdatetime.ToString(), fjc_FileUpload);
 

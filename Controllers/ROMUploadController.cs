@@ -33,10 +33,10 @@ namespace evoting.Controllers
         }
 
             [HttpPost]
-            [Consumes("multipart/form-data")]
+            
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]  
-            public async Task<IActionResult> ROM([FromForm]FJC_FileUpload std)
+            public async Task<IActionResult> ROM([FromForm]FJC_ROMUpload std)
         {
             try
             {

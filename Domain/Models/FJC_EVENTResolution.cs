@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,17 @@ namespace evoting.Domain.Models
 
        public class FJC_EVENT_Resolution
        {
-                  public string EVENT_NO { get; set; }                        
-              
-                  public FJC_Resolutions_Data[] Resolutions_Datas { get; set; }
+                  public string event_id { get; set; }                        
+
+                  public FJC_Resolutions_Data[]  resolutions_datas { get; set; }
        }
 
         public class FJC_Resolutions_Data
         {
-            public int EVENT_RESOLUTION_ID { get; set; }
-            public string TITLE { get; set; }
-            public string DESCRIPTION { get; set; }
-            public IFormFile FILE_PATH { get; set; } 
-        }
+            public int  event_resolution_id { get; set; }
+            public string title { get; set; }
+            public string description { get; set; }
+            public int doc_id { get; set; } 
+        }     
 
 }

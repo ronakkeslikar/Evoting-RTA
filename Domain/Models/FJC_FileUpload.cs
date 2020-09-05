@@ -11,11 +11,25 @@ namespace evoting.Domain.Models
 
 public class FJC_FileUpload 
     { 
-         public IFormFile files{get;set;} 
-        //public string Token_ID { get; set;} 
-        public int Event_No {get;set;} 
-       // public string Process_Type {get;set;} 
+         public IFormFile files{get;set;}   
+         public string upload_type{get;set;}
        
-    }     
+    }  
+    public class FJC_ROMUpload 
+    { 
+         public int doc_id {get;set;} //required
+       
+        public int event_id {get;set;}  //required
+      
+       
+    }  
+    public class FJC_DOC_Upload 
+    { 
+         public int doc_id {get;set;} //required
+       
+        public int event_id {get;set;}  //required
+      
+       
+    }   
  
 }

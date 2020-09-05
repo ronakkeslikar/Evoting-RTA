@@ -21,7 +21,7 @@ namespace evoting.Services
     public interface IROMUploadService
     {  
        
-        Task<DataTable> ROMUpload_Details(FJC_FileUpload fjc_FileUpload,string Token);
+        Task<DataTable> ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token);
     }
 
     public class ROMUploadService : IROMUploadService
@@ -34,11 +34,10 @@ namespace evoting.Services
         }  
 
 //////////////////////////////////////////ROM File Upload ////////////////////////////////////////////////////
-        public async Task<DataTable> ROMUpload_Details(FJC_FileUpload fjc_FileUpload,string Token)
+        public async Task<DataTable> ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token)
         {
-            Utility.ManageFileUpload _obj = new ManageFileUpload();
-            DataTable _dt = await _obj.SaveFile_FromToken(fjc_FileUpload, Token, FolderPaths.UploadType.ROM);
-            return await InsertBulkFileUpload(fjc_FileUpload.Event_No, Convert.ToInt32(_dt.Rows[0]["DOC_NO"]), Token);
+                        
+            return await InsertBulkFileUpload(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token);
         }  
   
 //////////////////////////////////////////Bulk Upload stored Procedure called here  ////////////////////////////////////////////////////     
