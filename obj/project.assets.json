@@ -11,6 +11,18 @@
           "lib/itextsharp.dll": {}
         }
       },
+      "itextsharp.xmlworker/5.5.13.1": {
+        "type": "package",
+        "dependencies": {
+          "iTextSharp": "5.5.13.1"
+        },
+        "compile": {
+          "lib/itextsharp.xmlworker.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.xmlworker.dll": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "type": "package",
         "compile": {
@@ -1316,6 +1328,20 @@
         "lib/iTextSharp.xml",
         "lib/itextsharp.dll",
         "notice.txt"
+      ]
+    },
+    "itextsharp.xmlworker/5.5.13.1": {
+      "sha512": "uGxlL39YGVgFuBOdw1WmGs5j4JxDeSG2QNLqBS1CG+q/57suw6fUFQGbwccIpUbQz1Y3FAO6NjkWgaS6QAswzw==",
+      "type": "package",
+      "path": "itextsharp.xmlworker/5.5.13.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "gnu-agpl-v3.0.md",
+        "itextsharp.xmlworker.5.5.13.1.nupkg.sha512",
+        "itextsharp.xmlworker.nuspec",
+        "lib/itextsharp.xmlworker.dll"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -5065,7 +5091,8 @@
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.5",
       "Newtonsoft.Json >= 12.0.3",
       "System.ComponentModel.Annotations >= 4.7.0",
-      "iTextSharp >= 5.5.13.1"
+      "iTextSharp >= 5.5.13.1",
+      "itextsharp.xmlworker >= 5.5.13.1"
     ]
   },
   "packageFolders": {
@@ -5130,6 +5157,10 @@
           "iTextSharp": {
             "target": "Package",
             "version": "[5.5.13.1, )"
+          },
+          "itextsharp.xmlworker": {
+            "target": "Package",
+            "version": "[5.5.13.1, )"
           }
         },
         "imports": [
@@ -5161,6 +5192,16 @@
       "warningLevel": 1,
       "message": "Package 'iTextSharp 5.5.13.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
       "libraryId": "iTextSharp",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'itextsharp.xmlworker 5.5.13.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "itextsharp.xmlworker",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"
       ]

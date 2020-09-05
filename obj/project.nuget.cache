@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "O/N1lweQAo6CvkxxO1K0sCUZCmtRH2FCsLW08pjgQkrVYqrOwezgi4Za/E5Op96N2Z1Xcf/EdWfeF68HMa4gAQ==",
+  "dgSpecHash": "BieYjsqr+cnZVhNB0/7yC1kQDEX/ya8aWWrp993lGYja8s+JgTE4rECFyaMCFWoqhAqc0uMrMdkd/8P1ICAOpw==",
   "success": true,
   "projectFilePath": "D:\\WindowsApp\\evoting-new\\evoting\\evoting.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\itextsharp\\5.5.13.1\\itextsharp.5.5.13.1.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\itextsharp.xmlworker\\5.5.13.1\\itextsharp.xmlworker.5.5.13.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -102,6 +103,16 @@
       "warningLevel": 1,
       "message": "Package 'iTextSharp 5.5.13.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
       "libraryId": "iTextSharp",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'itextsharp.xmlworker 5.5.13.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "itextsharp.xmlworker",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"
       ]
