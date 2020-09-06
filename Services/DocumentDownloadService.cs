@@ -49,9 +49,7 @@ namespace evoting.Services
         private async Task<DataTable> GetAgreementHtmlContent(int Event_No, string Token)
         {
             Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
-            dictUserDetail.Add("@ID", 1);
-            dictUserDetail.Add("@CLIENT_NAME", "Lenovo");
-            dictUserDetail.Add("@CLIENT_ADDRESS", "Mumbai");
+            
             dictUserDetail.Add("@EVENT_NO", Event_No);
             dictUserDetail.Add("@token", Token);
 
