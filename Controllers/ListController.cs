@@ -35,22 +35,8 @@ namespace evoting.Controllers
         {
             try
             { 
-                var result=(DataTable)null;                 
-                Dictionary<string, string> dictCommon = new Dictionary<string, string>()
-                {
-                    {"COMPANY","C"},
-                    {"rta","R"},
-                    {"SCRUTINIZER","Z"},//bind PCS_NO with User Name from Registration
-                        {"CUSTODIAN","N"},
-                    {"Evoting_Types","T"},
-                    {"isin_type","I"},
-                    {"events","E"},
-                    {"state","ST"},
-                    {"country","CN"},
-                    {"evoting_type","ET"},
-                    {"UnapprovedEvents","UAE"}                            
-                };                                                 
-                result = await _listService.GetList_Details(dictCommon[str]);
+                var result=(DataTable)null;                  
+                result = await _listService.GetList_Details(str);
                 return Ok(Reformatter.Response_Object("Records retrieved successfully", ref result));  
             }
             catch (Exception ex)

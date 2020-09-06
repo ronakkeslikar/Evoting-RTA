@@ -37,15 +37,9 @@ namespace evoting.Controllers
             try
             {   
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result=(DataTable)null;                 
-                     Dictionary<string, string> dictCommon = new Dictionary<string, string>()
-                        {
-                            {"COMPANY_Event_LIST","CEL"},                           
-                            {"SCRUTINIZER","Z"},//bind PCS_NO with User Name from Registration  
-                            {"UploadDocList","UDL"},                            
-                                                   
-                        };                                                 
-                result = await _privateListService.Getprivate_List_Details(dictCommon[str],Token);
+                var result=(DataTable)null;                
+                                                                    
+                result = await _privateListService.Getprivate_List_Details(str,Token);
                 return Ok(Reformatter.Response_Object("Records retrieved successfully", ref result));  
             }
             catch (Exception ex)
