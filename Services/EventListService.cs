@@ -18,7 +18,7 @@ namespace evoting.Services
 {
     public interface IEventListService
     {  
-       Task<DataTable> Getprivate_List_Details(string str,string Token);        
+       Task<DataTable> GetEventList_Details(string str,string Token);        
     }
 
     public class EventListService : IEventListService
@@ -29,7 +29,7 @@ namespace evoting.Services
         {
             _context = context;
         }   
-         public async Task<DataTable> Getprivate_List_Details(string str,string Token)
+         public async Task<DataTable> GetEventList_Details(string str,string Token)
         { 
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();               
                
