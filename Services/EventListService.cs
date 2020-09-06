@@ -18,14 +18,14 @@ namespace evoting.Services
 {
     public interface IEventListService
     {  
-       Task<DataTable> Getprivate_EventList_Details(string str,string Token);        
+       Task<DataTable> Getprivate_List_Details(string str,string Token);        
     }
 
     public class EventListService : IEventListService
     {
         //db context here
         protected readonly AppDbContext _context;
-        public PrivateListService(AppDbContext context)
+        public EventListService(AppDbContext context)
         {
             _context = context;
         }   

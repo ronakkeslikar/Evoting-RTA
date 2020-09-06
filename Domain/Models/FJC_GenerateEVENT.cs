@@ -29,7 +29,7 @@ public class FJC_GenerateEVENT
     public int  voting_rights { get; set;}
     
     [Required(ErrorMessage ="Enter Cut Of Date")] 
-    public DateTime cut_of_date{ get; set;}
+    public string cut_of_date{ get; set;}
    
     [Required(ErrorMessage ="Select Scrutinizer")] 
     public int scrutinizer { get; set;}

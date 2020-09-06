@@ -13,7 +13,7 @@ namespace evoting.Persistence.Contexts
         public static string ConStr = "Data Source=BIGSHARE-WEBSVR;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
         public static string Rel_connection;
         public static string ErrorMsg;
-        public static Task<DataSet> GetDataSet(string procname, Dictionary<string,object> keyValues)
+        public static Task<DataSet> GetDataSet(string procname, Dictionary<string,object> keyValues, SqlParameter sqlParameter = null)
         {            
             try
             {
@@ -28,6 +28,10 @@ namespace evoting.Persistence.Contexts
                     foreach (var item in keyValues)
                     {
                         cmd.Parameters.AddWithValue(item.Key, item.Value);
+                    }
+                    if(sqlParameter != null)
+                    {
+                        cmd.Parameters.Add(sqlParameter);
                     }
 
                     if (con.State == ConnectionState.Open) { con.Close(); } else { con.Open(); }

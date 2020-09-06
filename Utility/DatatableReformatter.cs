@@ -47,6 +47,13 @@ namespace evoting.Utility
                 return new { StatusCode = 200, message = _response_message, data = Return_DynamicType_ListElement(_dt) };
             }
         }
+        public static object Response_ResolutionObject(string _response_message, ref DataSet _ds)
+        {
+            return new { StatusCode = 200, message = _response_message, 
+                data = Return_DynamicType_RowElement(_ds.Tables[0]), 
+                resolution = Return_DynamicType_ListElement(_ds.Tables[1]) };
+            
+        }
         public static DataTable Validate_DataTable(DataTable _dt)
         {
             if (!_dt.Columns.Contains("Error"))
@@ -58,6 +65,14 @@ namespace evoting.Utility
                  (new HandleCatches()).Raise_DB_Exceptions(_dt.Rows[0][0].ToString());
                 return null;
             }
+        }
+        public static DataSet Validate_Dataset(DataSet dataSet)
+        {
+            foreach(DataTable dataTable in dataSet.Tables)
+            {
+                Validate_DataTable(dataTable);
+            }
+            return dataSet;
         }
     }
 }

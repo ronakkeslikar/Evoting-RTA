@@ -35,9 +35,9 @@ namespace evoting.Controllers
         { 
             try
             {   
-                 if(fJC_Registration.REG_TYPE_ID==1 || fJC_Registration.REG_TYPE_ID==2 )
+                 if(fJC_Registration.reg_type_id == 1 || fJC_Registration.reg_type_id == 2 )
                 {
-                  fJC_Registration.PANID="XXXXXXXX";  
+                  fJC_Registration.panid="XXXXXXXX";  
                 }                 
                 var result = await _registrationService.Registration_InsertData(fJC_Registration);               
                   return Ok(Reformatter.Response_Object("New Registration completed Successfully", ref result));              

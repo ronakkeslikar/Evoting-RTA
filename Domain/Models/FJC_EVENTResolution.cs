@@ -10,17 +10,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace evoting.Domain.Models
 {
-
-       public class FJC_EVENT_Resolution
-       {
-                  public string event_id { get; set; }                        
-
-                  public FJC_Resolutions_Data[]  resolutions_datas { get; set; }
-       }
-
         public class FJC_Resolutions_Data
         {
-            public int  event_resolution_id { get; set; }
+            public int  resolution_id { get; set; }
             public string title { get; set; }
             public string description { get; set; }
             public int doc_id { get; set; } 
