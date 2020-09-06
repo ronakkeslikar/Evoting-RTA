@@ -25,9 +25,9 @@ namespace evoting.Services
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
             dictLogin.Add("@event_id", event_id);
-            dictLogin.Add("@token_id", token);
+            dictLogin.Add("@token", token);
             DataSet ds = new DataSet();
-            ds = await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
+            ds = await AppDBCalls.GetDataSet("sp_ApproveEvent", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
