@@ -42,7 +42,7 @@ namespace evoting.Controllers
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                 var result = await _fileUploadService.FileUpload_Details(_fjc_fileupload, Token);
-                return Ok(new { status = true, message = "File Posted Successfully"});
+                return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
             }
            catch (Exception ex)
             {
