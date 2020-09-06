@@ -39,26 +39,25 @@ namespace evoting.Services
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
-        public async Task<DataTable> AgreementGenerator(int Event_No, string Token)
+        public async string AgreementGenerator(string Token)
         {
-            DataTable dt = await GetAgreementHtmlContent( Token);
+            DataTable dt = await GetAgreementHtmlContent(Token);
             //ExportToPDF();
-            return dt;
+             string htmlstr=dt.Rows[0]["CONTENT"].ToString();
+           string str1= ExportToPDF(htmlstr);
+            return str1;
 
         }
         private async Task<DataTable> GetAgreementHtmlContent( string Token)
         {
-            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
-            
+            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();            
             dictUserDetail.Add("@token", Token);
 
-
-
             DataSet ds = new DataSet();
-            ds = await AppDBCalls.GetDataSet("SP_GETDOCUMENTCONTENT", dictUserDetail);
+            ds = await AppDBCalls.GetDataSet("SP_GETDOCUMENTCONTENT", dictUserDetail);           
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
-        private void ExportToPDF(string sb)
+        private string ExportToPDF(string sb)
         {
             StringReader sr = new StringReader(sb.ToString());
 
@@ -76,8 +75,8 @@ namespace evoting.Services
                 memoryStream.Close();
 
                 //convert byte to pdf and save
-                System.IO.File.WriteAllBytes(@"D:\shiv\Agreemtn_PDF.pdf", bytes);
-
+                System.IO.File.WriteAllBytes(@"C:\evoting\Agreement_PDF.pdf", bytes);
+                return @"C:\evoting\Agreement_PDF.pdf";
 
 
 
