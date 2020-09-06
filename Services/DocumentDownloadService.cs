@@ -27,19 +27,9 @@ namespace evoting.Services
                 _context = context;
             }
 
-        public async Task<DataTable> AgreementUpload_Details(int doc_id, string Token)
-        {
-            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
+        
 
-            dictUserDetail.Add("@doc_id", doc_id);
-            dictUserDetail.Add("@token", Token);
-
-            DataSet ds = new DataSet();
-            ds = await AppDBCalls.GetDataSet("sp_Upload_Agreement", dictUserDetail);
-            return Reformatter.Validate_DataTable(ds.Tables[0]);
-        }
-
-        public async Task<DataTable> AgreementGenerator(int Event_No, string Token)
+        public async Task<DataTable> AgreementGenerator( string Token)
         {
             DataTable dt = await GetAgreementHtmlContent( Token);
             //ExportToPDF();

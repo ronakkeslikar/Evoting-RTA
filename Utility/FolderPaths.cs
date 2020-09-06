@@ -207,5 +207,9 @@ namespace evoting.Utility
             ROM,
             Agreement
         }
+        public enum DownloadType
+        {
+            Agreement
+        }
     }
 }

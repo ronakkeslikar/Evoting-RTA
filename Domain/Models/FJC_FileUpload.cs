@@ -26,10 +26,10 @@ public class FJC_FileUpload
     public class FJC_DOC_Upload 
     { 
          public int doc_id {get;set;} //required
-       
-        public int event_id {get;set;}  //required
-      
-       
+
+        public string upload_type { get; set; }
+
+
     }   
  
 }
