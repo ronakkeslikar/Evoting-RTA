@@ -35,8 +35,7 @@ namespace evoting.Controllers
         {
             try
             { 
-                var result=(DataTable)null;                  
-                result = await _listService.GetList_Details(str);
+                var result=  await _listService.GetList_Details(str);
                 return Ok(Reformatter.Response_Object("Records retrieved successfully", ref result));  
             }
             catch (Exception ex)
