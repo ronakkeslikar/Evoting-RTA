@@ -15,7 +15,7 @@ using evoting.Utility;
 
 namespace evoting.Controllers
 {
-    [Route("api/list")]
+    [Route("api/event-list")]
     [Produces("application/json")]
     [ApiController]
      
