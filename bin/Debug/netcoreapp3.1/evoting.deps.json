@@ -30,6 +30,7 @@
           "Newtonsoft.Json": "12.0.3",
           "System.ComponentModel.Annotations": "4.7.0",
           "iTextSharp": "5.5.13.1",
+          "itextsharp.xmlworker": "5.5.13.1",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -316,6 +317,20 @@
         },
         "compile": {
           "lib/itextsharp.dll": {}
+        }
+      },
+      "itextsharp.xmlworker/5.5.13.1": {
+        "dependencies": {
+          "iTextSharp": "5.5.13.1"
+        },
+        "runtime": {
+          "lib/itextsharp.xmlworker.dll": {
+            "assemblyVersion": "5.5.13.1",
+            "fileVersion": "5.5.13.1"
+          }
+        },
+        "compile": {
+          "lib/itextsharp.xmlworker.dll": {}
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -2866,6 +2881,13 @@
       "sha512": "sha512-xqzsYEYW/nMDjCtAXM5cl9fWil/Ju3HEGbsmoTKtltJc3M/9HNJzg++bCIOHm5uZITvRmZJWMO+S2u1yNG0gQg==",
       "path": "itextsharp/5.5.13.1",
       "hashPath": "itextsharp.5.5.13.1.nupkg.sha512"
+    },
+    "itextsharp.xmlworker/5.5.13.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uGxlL39YGVgFuBOdw1WmGs5j4JxDeSG2QNLqBS1CG+q/57suw6fUFQGbwccIpUbQz1Y3FAO6NjkWgaS6QAswzw==",
+      "path": "itextsharp.xmlworker/5.5.13.1",
+      "hashPath": "itextsharp.xmlworker.5.5.13.1.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",

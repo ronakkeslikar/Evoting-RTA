@@ -64,7 +64,6 @@ D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\System.Collections.Immutable.dll
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\System.Linq.Dynamic.dll
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\System.Runtime.Caching.dll
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
@@ -87,3 +86,5 @@ D:\WindowsApp\evoting-new\evoting\obj\Release\netcoreapp3.1\staticwebassets\evot
 D:\WindowsApp\evoting-new\evoting\obj\Release\netcoreapp3.1\evoting.dll
 D:\WindowsApp\evoting-new\evoting\obj\Release\netcoreapp3.1\evoting.pdb
 D:\WindowsApp\evoting-new\evoting\obj\Release\netcoreapp3.1\evoting.genruntimeconfig.cache
+D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\itextsharp.dll
+D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\itextsharp.xmlworker.dll
