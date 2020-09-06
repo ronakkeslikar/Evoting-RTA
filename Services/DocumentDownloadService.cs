@@ -15,7 +15,7 @@ namespace evoting.Services
     
         public interface IDocumentDownloadService
         {
-            Task<DataTable> AgreementGenerator(int Event_No, string Token);
+            Task<DataTable> AgreementGenerator( string Token);
         }
 
         public class DocumentDownloadService : IDocumentDownloadService
@@ -41,16 +41,15 @@ namespace evoting.Services
 
         public async Task<DataTable> AgreementGenerator(int Event_No, string Token)
         {
-            DataTable dt = await GetAgreementHtmlContent(Event_No, Token);
+            DataTable dt = await GetAgreementHtmlContent( Token);
             //ExportToPDF();
             return dt;
 
         }
-        private async Task<DataTable> GetAgreementHtmlContent(int Event_No, string Token)
+        private async Task<DataTable> GetAgreementHtmlContent( string Token)
         {
             Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
             
-            dictUserDetail.Add("@EVENT_NO", Event_No);
             dictUserDetail.Add("@token", Token);
 
 
