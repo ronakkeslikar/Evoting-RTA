@@ -22,6 +22,7 @@ namespace evoting.Services
     {  
        
         Task<DataTable> FileUpload_Details(FJC_FileUpload _fjc_fileupload,string Token);
+        Task<DataTable> GetFileDetails(int doc_id, string Token);
     }
 
     public class FileUploadService : IFileUploadService
@@ -47,11 +48,24 @@ namespace evoting.Services
             else{
                 throw new CustomException.InvalidFileType();
             }
-        }  
-  
-   
-        
-        
+        }
+
+        public async Task<DataTable> GetFileDetails(int doc_id, string Token)
+        {
+            Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
+            dictfileUpld.Add("@doc_id", doc_id);
+            dictfileUpld.Add("@flag", 1);
+            dictfileUpld.Add("@token", Token);
+
+
+            DataSet ds = new DataSet();
+            ds = await AppDBCalls.GetDataSet("Evote_spFileUpload", dictfileUpld);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+        }
+
+
+
+
     }
 }
  

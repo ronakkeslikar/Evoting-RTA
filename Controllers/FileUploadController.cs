@@ -32,11 +32,11 @@ namespace evoting.Controllers
             _fileUploadService = fileUploadService;
         }
 
-            [HttpPost]
-            [Consumes("multipart/form-data")]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]  
-            public async Task<IActionResult> FileUpload([FromForm] FJC_FileUpload _fjc_fileupload)
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> FileUpload([FromForm] FJC_FileUpload _fjc_fileupload)
         {
             try
             {
@@ -44,11 +44,29 @@ namespace evoting.Controllers
                 var result = await _fileUploadService.FileUpload_Details(_fjc_fileupload, Token);
                 return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
             }
-           catch (Exception ex)
+            catch (Exception ex)
             {
                 return (new HandleCatches()).ManageExceptions(ex);
-            } 
-        }   
+            }
+        }
+
+
+            [HttpGet]            
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status404NotFound)]
+            public async Task<IActionResult> FetchFile([FromForm] int doc_id)
+            {
+                try
+                {
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var result = await _fileUploadService.GetFileDetails(doc_id, Token);
+                    return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
+                }
+                catch (Exception ex)
+                {
+                    return (new HandleCatches()).ManageExceptions(ex);
+                }
+            }   
             
     }
 }

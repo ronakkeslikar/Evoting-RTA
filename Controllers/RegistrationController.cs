@@ -65,11 +65,11 @@ namespace evoting.Controllers
          [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> GetRegistrationID([FromQuery] int SR_NO)
+        public async Task<IActionResult> GetRegistrationID([FromQuery] int aud_id)
         {
             try
             {
-                var result = await _registrationService.GetRegistrationIDData(SR_NO);
+                var result = await _registrationService.GetRegistrationIDData(aud_id);
                 return Ok(Reformatter.Response_Object("Registration Detail retrieved Successfully", ref result));
             }
              catch (Exception ex)

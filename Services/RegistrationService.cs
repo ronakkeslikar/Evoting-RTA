@@ -35,7 +35,7 @@ namespace evoting.Services
          public async Task<DataTable> Registration_InsertData(FJC_Registration fJC_Registration)
         {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();                            
-                dictRegis.Add("@SR_No", 0);
+                dictRegis.Add("@aud_id", 0);
                 dictRegis.Add("@REG_TYPE_ID",fJC_Registration.reg_type_id);
                 dictRegis.Add("@NAME", fJC_Registration.name); 
                 dictRegis.Add("@REG_NO", fJC_Registration.reg_no);
@@ -60,9 +60,10 @@ namespace evoting.Services
                 dictRegis.Add("@CS_TEL_NO", fJC_Registration.cs_tel_no);
                 dictRegis.Add("@CS_FAX_NO", fJC_Registration.cs_fax_no); 
                 dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.cs_mobile_no);   
-                dictRegis.Add("@PANID",fJC_Registration.panid);                       
+                dictRegis.Add("@PANID",fJC_Registration.panid);
+                dictRegis.Add("@alt_mob_num", fJC_Registration.alt_mob_num);
 
-                DataSet ds=new DataSet();
+            DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
               return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
@@ -70,7 +71,7 @@ namespace evoting.Services
         {            
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();   
                 // dictRegis.Add("@Mode", "U");               
-                dictRegis.Add("@SR_No", fJC_Registration.SR_NO);
+                dictRegis.Add("@aud_id", fJC_Registration.aud_id);
                dictRegis.Add("@REG_TYPE_ID",fJC_Registration.reg_type_id);
                 dictRegis.Add("@NAME", fJC_Registration.name); 
                 dictRegis.Add("@REG_NO", fJC_Registration.reg_no);
@@ -95,17 +96,16 @@ namespace evoting.Services
                 dictRegis.Add("@CS_TEL_NO", fJC_Registration.cs_tel_no);
                 dictRegis.Add("@CS_FAX_NO", fJC_Registration.cs_fax_no); 
                 dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.cs_mobile_no);   
-                dictRegis.Add("@PANID",fJC_Registration.panid);                
-                DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
+                dictRegis.Add("@PANID",fJC_Registration.panid);
+                dictRegis.Add("@alt_mob_num", fJC_Registration.alt_mob_num);
+                DataSet ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
              return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
          public async Task<DataTable> GetRegistrationIDData(int SR_NO)
         {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();               
                 dictRegis.Add("@SR_No", SR_NO);               
-                DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);
+                DataSet ds = await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);
               return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
         
