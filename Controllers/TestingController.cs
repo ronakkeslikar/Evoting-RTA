@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using evoting.Domain.Models;
 using evoting.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,18 +20,18 @@ namespace evoting.Controllers
         {
             _TestingService = TestService;
         }
-        [HttpGet("fjc_Name/{fjc_Name}")]
+        [HttpGet]
         public string GetByClassName([FromQuery] string fjc_Name)
         {
             var result =  _TestingService.GetClassToJSON(fjc_Name);
             return result;
         }
 
-        [HttpGet]
-        public string GetByClassName()
+        [HttpPost]
+        public string CheckResolutionJSON(FJC_CompanyUpdate_Event fJC_ )
         {
-            var result = _TestingService.DBCheck();
-            return result;
+            return "okay";
         }
+        
     }
 }

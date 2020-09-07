@@ -51,7 +51,7 @@ public class FJC_CompanyUpdate_Event
 
         public int enter_nof_resolution { get; set; }
 
-        public FJC_Resolutions_Data[] resolutions_Datas { get; set; }
+        public FJC_Resolutions_Data[] resolutions { get; set; }
 
     }
  

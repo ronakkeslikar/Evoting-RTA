@@ -71,7 +71,7 @@ namespace evoting.Services
           public async Task<DataSet> EVENTDetail(FJC_CompanyUpdate_Event fJC_CompanyUpdate_Event, string Token)
         {
             DataSet ds = new DataSet();
-            ds = await AppDBCalls.GetDataSet("EVOTE_companyEVENT_DETAIL", CommonSpParam(fJC_CompanyUpdate_Event, Token), PassResolutionArray(fJC_CompanyUpdate_Event.resolutions_Datas));
+            ds = await AppDBCalls.GetDataSet("EVOTE_companyEVENT_DETAIL", CommonSpParam(fJC_CompanyUpdate_Event, Token), PassResolutionArray(fJC_CompanyUpdate_Event.resolutions));
             return Reformatter.Validate_Dataset(ds);
         }
         private Dictionary<string,object> CommonSpParam(FJC_UpdateEVENT fJC_EVENT, string Token)
