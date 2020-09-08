@@ -30,7 +30,7 @@ namespace evoting.Controllers
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);                
                 var result = await _documentDownloadService.AgreementGenerator(Token);
-                return Ok(new { status = true, message = "File generated succesfully" });
+                return Ok(Reformatter.Response_Object("File Downloaded successfully", ref result));
             }
             catch (Exception ex)
             {
