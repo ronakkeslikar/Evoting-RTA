@@ -47,6 +47,12 @@ namespace evoting.Utility
                 return new { StatusCode = 200, message = _response_message, data = Return_DynamicType_ListElement(_dt) };
             }
         }
+        public static object Response_ArrayObject(string _response_message, ref DataTable _dt)
+        {
+            
+                return new { StatusCode = 200, message = _response_message, data = Return_DynamicType_ListElement(_dt) };
+            
+        }
         public static object Response_ResolutionObject(string _response_message, ref DataSet _ds)
         {
             return new { StatusCode = 200, message = _response_message, 

@@ -33,8 +33,7 @@ namespace evoting.Services
         { 
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();               
                
-                dictRegis.Add("@str", str);
-                 dictRegis.Add("@currenteventflag", "Current");
+                dictRegis.Add("@str", str);                 
                 dictRegis.Add("@token", Token);
 
                 DataSet ds = new DataSet();

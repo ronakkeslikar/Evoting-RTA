@@ -37,7 +37,7 @@ namespace evoting.Controllers
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);                                     
                 var result = await _eventListService.GetEventList_Details(str,Token);
-                return Ok(Reformatter.Response_Object("Records retrieved successfully", ref result));
+                return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));
             }        
             catch (Exception ex)
             {

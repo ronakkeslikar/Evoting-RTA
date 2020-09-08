@@ -12,13 +12,13 @@ namespace evoting.Domain.Models
         public int aud_id { get; set;}
         public int reg_type_id { get; set;}
 
-        [Required (ErrorMessage ="Enter Entity Name") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
+        [Required (ErrorMessage ="Enter Entity Name") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string name { get; set;}  
 
-        [Required (ErrorMessage ="Enter Reg. No.") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
+        [Required (ErrorMessage ="Enter Reg. No.") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string reg_no { get; set;}
                 
-        [Required (ErrorMessage ="Enter Registered Office Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
+        [Required (ErrorMessage ="Enter Registered Office Address") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string reg_add1 { get; set;}
          
         public string reg_add2 { get; set;}
@@ -31,10 +31,10 @@ namespace evoting.Domain.Models
 
         public string reg_pincode { get; set;}
            [Required (ErrorMessage ="Enter State")] 
-        public string reg_state_id { get; set;}
+        public int reg_state_id { get; set;}
            [Required (ErrorMessage ="Enter Country")] 
-        public string reg_country { get; set;}       
-        [Required (ErrorMessage ="Enter Correspondence Address") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
+        public int reg_country { get; set;}       
+        [Required (ErrorMessage ="Enter Correspondence Address") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string corres_add1 { get; set;}
         public string corres_add2 { get; set;}
         public string corres_add3 { get; set;}
@@ -45,11 +45,11 @@ namespace evoting.Domain.Models
          [MaxLength(6, ErrorMessage = "Pincode Cannot be more than 6 digit")] 
         public string corres_pincode { get; set;}
           [Required (ErrorMessage ="Enter State")] 
-        public string corres_state_id { get; set;}
+        public int corres_state_id { get; set;}
              [Required (ErrorMessage ="Enter Country")] 
-        public string corres_country { get; set;}
+        public int corres_country { get; set;}
         public string pcs_no { get; set;}
-         [Required (ErrorMessage ="Enter NAME") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
+         [Required (ErrorMessage ="Enter NAME") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string cs_name { get; set;}
          [Required (ErrorMessage ="Enter EMAIL_ID") ,RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
         public string cs_email_id { get; set;}
