@@ -81,7 +81,7 @@ namespace evoting.Services
                 dictfileDnld.Add("@token", Token);
 
                 DataSet ds = new DataSet();
-                ds = await AppDBCalls.GetDataSet("Evote_Agreement_Download2", dictfileDnld);
+                ds = await AppDBCalls.GetDataSet("Evote_SpAgreement_Download", dictfileDnld);
                 return Reformatter.Validate_DataTable(ds.Tables[0]);
                 //
 
