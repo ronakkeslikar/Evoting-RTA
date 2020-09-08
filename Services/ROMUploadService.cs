@@ -36,7 +36,7 @@ namespace evoting.Services
 //////////////////////////////////////////ROM File Upload ////////////////////////////////////////////////////
         public async Task<DataTable> ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token)
         {
-                        
+            //validation job            
             return await InsertBulkFileUpload(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token);
         }  
   
@@ -46,7 +46,7 @@ namespace evoting.Services
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
                 dictUserDetail.Add("@DocumentID", DocID);   
                 dictUserDetail.Add("@GENERATEDEVENTNO", Event_No);
-            dictUserDetail.Add("@token", Token);
+                dictUserDetail.Add("@token", Token);
             DataSet ds=  await AppDBCalls.GetDataSet("SP_IMPORTTEXTFILE", dictUserDetail);
            return Reformatter.Validate_DataTable(ds.Tables[0]);   
                 
