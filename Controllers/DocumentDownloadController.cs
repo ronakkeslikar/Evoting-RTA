@@ -24,13 +24,39 @@ namespace evoting.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GenerateAgreement([FromForm] string DownloadType)
+        public async Task<IActionResult> Download_Document(string DownloadType)
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);                
-                var result = await _documentDownloadService.AgreementGenerator(Token);
-                return Ok(Reformatter.Response_Object("File Downloaded successfully", ref result));
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                switch(DownloadType)
+                    {
+                        case "Agreement":
+                        var result = await _documentDownloadService.AgreementGenerator(Token);
+                        return Ok(Reformatter.Response_Object("File Downloaded successfully", ref result));
+                        break;
+                        default:
+                        throw new CustomException.InvalidActivity();
+                    }
+                             
+              
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+        }
+
+         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetDownload_Document([FromQuery] string DownloadType)
+        {
+            try
+            {
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _documentDownloadService.GetDocumentDownload(Token);
+                return Ok(Reformatter.Response_Object("File Detail retieved successfully", ref result));              
             }
             catch (Exception ex)
             {

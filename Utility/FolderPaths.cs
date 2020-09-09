@@ -18,24 +18,28 @@ namespace evoting.Utility
 
             public static string ROMUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "ROM");
+                return createAndappendDateFolder( SubCategoryPath, "ROM");
             }
             public static string AgreementUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
-            }            
+                return createAndappendDateFolder( SubCategoryPath, "Upload_Agreement");
+            }  
+             public static string AgreementDownload()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "Download_Agreement");
+            }           
             
             public static string LogoUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+                 return createAndappendDateFolder( SubCategoryPath, "Logo");
             }
              public static string ResolutionFileUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+                 return createAndappendDateFolder( SubCategoryPath, "ResolutionFile");
             }
               public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
+                 return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
 
         } 
@@ -46,23 +50,27 @@ namespace evoting.Utility
 
             public static string ROMUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "ROM");
+                return createAndappendDateFolder( SubCategoryPath, "ROM");
             }
             public static string AgreementUpload()
+            {               
+                return createAndappendDateFolder( SubCategoryPath, "Upload_Agreement");
+            }  
+             public static string AgreementDownload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
-            }            
+                return createAndappendDateFolder( SubCategoryPath, "Download_Agreement");
+            }             
              public static string LogoUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+                 return createAndappendDateFolder( SubCategoryPath, "Logo");
             }
              public static string ResolutionFileUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+                 return createAndappendDateFolder( SubCategoryPath, "ResolutionFile");
             }
               public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
+                 return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
 
         } 
@@ -73,24 +81,24 @@ namespace evoting.Utility
 
             public static string ROMUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "ROM");
+                return createAndappendDateFolder( SubCategoryPath, "ROM");
             }
             public static string AgreementUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
+                return createAndappendDateFolder( SubCategoryPath, "Agreement");
             }            
              public static string LogoUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+                 return createAndappendDateFolder( SubCategoryPath, "Logo");
             }
 
             public static string ResolutionFileUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+                 return createAndappendDateFolder( SubCategoryPath, "ResolutionFile");
             }
               public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
+                 return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
 
         } 
@@ -101,23 +109,23 @@ namespace evoting.Utility
 
             public static string ROMUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "ROM");
+                return createAndappendDateFolder( SubCategoryPath, "ROM");
             }
             public static string AgreementUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
+                return createAndappendDateFolder( SubCategoryPath, "Agreement");
             }            
              public static string LogoUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+                 return createAndappendDateFolder( SubCategoryPath, "Logo");
             }
             public static string ResolutionFileUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+                 return createAndappendDateFolder( SubCategoryPath, "ResolutionFile");
             }
               public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
+                 return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
 
         } 
@@ -128,23 +136,23 @@ namespace evoting.Utility
 
             public static string ROMUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "ROM");
+                return createAndappendDateFolder( SubCategoryPath, "ROM");
             }
             public static string AgreementUpload()
             {
-                return Path.Combine(MainFolderPath, SubCategoryPath, "Agreement");
+                return createAndappendDateFolder( SubCategoryPath, "Agreement");
             }            
              public static string LogoUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Logo");
+                 return createAndappendDateFolder( SubCategoryPath, "Logo");
             }
              public static string ResolutionFileUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "ResolutionFile");
+                 return createAndappendDateFolder( SubCategoryPath, "ResolutionFile");
             }
               public static string NoticeUpload()
             {
-                 return Path.Combine(MainFolderPath, SubCategoryPath, "Notice");
+                 return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
 
         } 
@@ -161,17 +169,17 @@ namespace evoting.Utility
                 if(_checkPath !=null)
                 {
                     string getFullFilepath="";
-                      _checkPath =  Path.Combine(_checkPath,System.DateTime.Now.ToString("yyyy-MM-dd")); 
-                    if (!Directory.Exists(_checkPath))  
-                        {                         
-                            Directory.CreateDirectory(_checkPath);
-                        }                                        
-                        using (var fileStream = new FileStream(Path.Combine(_checkPath,_filenamewithdatetime), FileMode.Create,FileAccess.Write)) 
-                        {                            
-                            fileUpload.files.CopyTo(fileStream);
-                            getFullFilepath=fileStream.Name.ToString();
-                        }
-                         return getFullFilepath;
+                   createAndappendDateFolder("","", _checkPath);
+                  
+                    using (var fileStream = new FileStream(Path.Combine(_checkPath,_filenamewithdatetime), FileMode.Create,FileAccess.Write)) 
+                    {                            
+                        fileUpload.files.CopyTo(fileStream);
+                        getFullFilepath=fileStream.Name.ToString();
+                    }
+                        return getFullFilepath;
+                   
+                                                     
+                       
                 }
                 else
                 {
@@ -183,6 +191,25 @@ namespace evoting.Utility
                 return null;    
              }       
              
+        }
+
+        private static string createAndappendDateFolder( string SubCategoryPath, string process_type, string pathformatted = "")
+        {
+            //MainFolderPath, SubCategoryPath, "Download_Agreement"
+           string _checkPath = "";
+           if(pathformatted.Trim()!="")
+           {
+               _checkPath = pathformatted;
+           }
+           else
+           {
+               _checkPath =   Path.Combine(MainFolderPath, SubCategoryPath, process_type ,System.DateTime.Now.ToString("yyyy-MM-dd")); 
+           }           
+                    if (!Directory.Exists(_checkPath))  
+                        {                         
+                            Directory.CreateDirectory(_checkPath);
+                        } 
+            return _checkPath;
         }
           
 

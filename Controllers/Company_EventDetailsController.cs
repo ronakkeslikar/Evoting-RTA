@@ -24,7 +24,7 @@ namespace evoting.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> EVENTDetailUser([FromForm] FJC_CompanyUpdate_Event fJC_CompanyUpdate_Event)
+        public async Task<IActionResult> EVENTDetailUser(FJC_CompanyUpdate_Event fJC_CompanyUpdate_Event)
 
         {
             try
@@ -43,7 +43,7 @@ namespace evoting.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update_EVENTDetail([FromForm] FJC_CompanyUpdate_Event fJC_CompanyUpdate_Event)
+        public async Task<IActionResult> Update_EVENTDetail(FJC_CompanyUpdate_Event fJC_CompanyUpdate_Event)
 
         {
             try

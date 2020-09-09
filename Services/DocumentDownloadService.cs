@@ -16,6 +16,7 @@ namespace evoting.Services
         public interface IDocumentDownloadService
         {
             Task<DataTable> AgreementGenerator( string Token);
+            Task<DataTable> GetDocumentDownload( string Token);
         }
 
         public class DocumentDownloadService : IDocumentDownloadService
@@ -65,11 +66,8 @@ namespace evoting.Services
                 memoryStream.Close();
 
                 //convert byte to pdf and save
-                string actPath=@"C:\evoting\Agreement\";
-                 if (!Directory.Exists(actPath))  
-                        {                         
-                            Directory.CreateDirectory(actPath);
-                        }  
+                string actPath= FolderPaths.Company.AgreementDownload();//@"C:\evoting\Agreement\";
+               
                 string pdffilename=System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Agreement_PDF.pdf";
                 System.IO.File.WriteAllBytes(actPath + pdffilename, bytes);
                 string filePath=actPath + pdffilename;
@@ -83,15 +81,19 @@ namespace evoting.Services
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_SpAgreement_Download", dictfileDnld);
                 return Reformatter.Validate_DataTable(ds.Tables[0]);
-                //
+                //return @"C:\evoting\Agreement\Agreement_PDF.pdf";
+            }             
 
-                //return @"C:\evoting\Agreement_PDF.pdf";
+        }
 
+        public async Task<DataTable> GetDocumentDownload(string Token)
+        {
+            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();            
+            dictUserDetail.Add("@token", Token);
 
-
-            }
-             
-
+            DataSet ds = new DataSet();
+            ds = await AppDBCalls.GetDataSet("Evote_GetDocumentDownload", dictUserDetail);           
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
     }
 }
