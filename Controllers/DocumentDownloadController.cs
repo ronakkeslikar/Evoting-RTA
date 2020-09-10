@@ -37,8 +37,7 @@ namespace evoting.Controllers
                         break;
                         default:
                         throw new CustomException.InvalidActivity();
-                    }
-                             
+                    }                           
               
             }
             catch (Exception ex)
@@ -50,7 +49,7 @@ namespace evoting.Controllers
          [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetDownload_Document([FromQuery] string DownloadType)
+        public async Task<IActionResult> GetDownload_Document()
         {
             try
             {
