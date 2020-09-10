@@ -13,6 +13,7 @@ namespace evoting
 {
     public class Startup
     {
+        //readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -22,7 +23,21 @@ namespace evoting
 
         public void ConfigureServices(IServiceCollection services)
         {
-           
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("https://slimlink.io",
+            //                                              "http://localhost:4200");
+            //                      });
+            //});
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddControllers();
 
             services.AddDbContext<AppDbContext>(options =>
@@ -30,9 +45,6 @@ namespace evoting
                 options.UseSqlServer(Configuration.GetConnectionString("sql"));
             });
             AppDBCalls.SetDBConnect();
-
-           
-            
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITestingService, TestingServices>();
             services.AddScoped<ILoginService, LoginService>();
@@ -56,11 +68,12 @@ namespace evoting
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("MyPolicy");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+          
             
 
             app.UseRouting();
@@ -71,6 +84,14 @@ namespace evoting
             {
                 endpoints.MapControllers();
             });
+
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            
+
+            //app.UseCors(MyAllowSpecificOrigins);
+
         }
     }
 }
