@@ -24,13 +24,13 @@ namespace evoting.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UploadAgreement([FromForm] FJC_DOC_Upload fJC_DOC_Upload)
+        public async Task<IActionResult> UploadAgreement(FJC_DOC_Upload fJC_DOC_Upload)
         {
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                 var result = await _documentUploadService.AgreementUpload_Details(fJC_DOC_Upload.doc_id, Token);
-                return Ok(new { status = true, message = "File uploaded succesfully" });
+                return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));  
             }
             catch (Exception ex)
             {
