@@ -12,8 +12,8 @@ public class FJC_CompanyUpdate_Event
  {
         public int event_id { get; set; }
 
-        [Required(ErrorMessage = "Enter ISIN ID"), RegularExpression(@"^[a-zA-Z0-9]*$")]
-        public String isin { get; set; }
+        [Required(ErrorMessage = "Enter ISIN ID")]
+        public string isin { get; set; }
 
         [Required(ErrorMessage = "Enter ISIN Type")]
         public int type_isin { get; set; }

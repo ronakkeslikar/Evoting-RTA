@@ -36,7 +36,7 @@ namespace evoting.Controllers
             
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]  
-            public async Task<IActionResult> ROM([FromForm]FJC_ROMUpload std)
+            public async Task<IActionResult> ROM(FJC_ROMUpload std)
         {
             try
             {

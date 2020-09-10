@@ -54,13 +54,13 @@ namespace evoting.Controllers
             [HttpGet]            
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
-            public async Task<IActionResult> FetchFile([FromForm] int doc_id)
+            public async Task<IActionResult> FetchFile([FromQuery] int doc_id)
             {
                 try
                 {
                     var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                     var result = await _fileUploadService.GetFileDetails(doc_id, Token);
-                    return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
+                    return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));
                 }
                 catch (Exception ex)
                 {

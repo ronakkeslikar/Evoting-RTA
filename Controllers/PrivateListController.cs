@@ -40,7 +40,7 @@ namespace evoting.Controllers
                 var result=(DataTable)null;                
                                                                     
                 result = await _privateListService.Getprivate_List_Details(str,Token);
-                return Ok(Reformatter.Response_Object("Records retrieved successfully", ref result));  
+                return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));  
             }
             catch (Exception ex)
             {
