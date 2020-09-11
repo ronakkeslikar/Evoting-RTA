@@ -22,6 +22,7 @@ namespace evoting.Services
     {  
        
         Task<DataTable> ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token);
+           Task<DataTable> GetROMUpload_Details(string Token);
     }
 
     public class ROMUploadService : IROMUploadService
@@ -36,7 +37,8 @@ namespace evoting.Services
 //////////////////////////////////////////ROM File Upload ////////////////////////////////////////////////////
         public async Task<DataTable> ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token)
         {
-            //validation job            
+            //validation job    
+            await RegisterROM(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,0)  ;     
             return await InsertBulkFileUpload(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token);
         }  
   
@@ -50,7 +52,25 @@ namespace evoting.Services
             DataSet ds=  await AppDBCalls.GetDataSet("SP_IMPORTTEXTFILE", dictUserDetail);
            return Reformatter.Validate_DataTable(ds.Tables[0]);   
                 
-        }      
+        }   
+
+        private async Task<DataTable> RegisterROM(int Event_No,int DocID, string Token,int flag)   
+        {
+             Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
+                dictUserDetail.Add("@doc_id", DocID);   
+                dictUserDetail.Add("@event_id", Event_No);
+                dictUserDetail.Add("@token", Token);
+                dictUserDetail.Add("@flag", flag);
+
+            DataSet ds=  await AppDBCalls.GetDataSet("Evote_Sp_ROM_Register", dictUserDetail);
+          return Reformatter.Validate_DataTable(ds.Tables[0]);
+        }
+
+        ///////////////////////Get//////////////////
+        public async Task<DataTable> GetROMUpload_Details(string Token)
+        {
+           return await RegisterROM(0,0,Token,1);            
+        }
         
         
     }

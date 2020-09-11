@@ -42,7 +42,25 @@ namespace evoting.Controllers
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                 var result = await _romUploadService.ROMUpload_Details(std,Token);
-                return Ok(new { status = true, message = "File Posted Successfully"});
+               return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
+            }
+           catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            } 
+        }   
+
+         [HttpGet]
+            
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status404NotFound)]  
+            public async Task<IActionResult> GetROM()
+        {
+            try
+            {
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _romUploadService.GetROMUpload_Details(Token);
+               return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));
             }
            catch (Exception ex)
             {
