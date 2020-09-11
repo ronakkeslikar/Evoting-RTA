@@ -24,7 +24,7 @@ namespace evoting.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Download_Document(string DownloadType)
+        public async Task<IActionResult> Download_Document([FromBody] string DownloadType)
         {
             try
             {
