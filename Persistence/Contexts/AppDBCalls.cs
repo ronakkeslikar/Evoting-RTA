@@ -34,9 +34,12 @@ namespace evoting.Persistence.Contexts
                         cmd.Parameters.Add(sqlParameter);
                     }
 
-                    if (con.State == ConnectionState.Open) { con.Close(); } else { con.Open(); }
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    da.Fill(_dt);
+                    //if (con.State == ConnectionState.Open) { con.Close(); } else { con.Open(); }
+                    using (SqlDataAdapter _da = new SqlDataAdapter(cmd))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(_dt);
+                    }
                     return _dt;
                 });
             }
@@ -54,8 +57,7 @@ namespace evoting.Persistence.Contexts
                 using (SqlConnection sqlConn =
                     new SqlConnection(ConStr))
                 {
-                    sqlConn.Open();
-                    return (sqlConn.State == ConnectionState.Open);
+                    return true;
                 }
             }
             catch (SqlException)
