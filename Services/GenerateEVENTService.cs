@@ -46,7 +46,7 @@ namespace evoting.Services
         {
                Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
                 dictLogin.Add("@EVENT_ID", fJC_EVSN.event_id);
-                dictLogin.Add("@ISIN", fJC_EVSN.isin);                                
+                dictLogin.Add("@ISIN", fJC_EVSN.isin.Trim());                                
                 dictLogin.Add("@TYPE_ISIN", fJC_EVSN.type_isin);               
                 dictLogin.Add("@TYPE_EVOTING", fJC_EVSN.type_evoting);
                 dictLogin.Add("@TOTAL_NOF_SHARE", fJC_EVSN.total_nof_share);               

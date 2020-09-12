@@ -29,8 +29,34 @@ namespace evoting.Controllers
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result = await _documentUploadService.AgreementUpload_Details(fJC_DOC_Upload.doc_id, Token);
-                return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));  
+                switch (fJC_DOC_Upload.upload_type)
+                {
+                    case "Tri_partiate_agreement":
+                        var result = await _documentUploadService.AgreementUpload_Details(fJC_DOC_Upload.doc_id, Token);
+                        return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));
+                        break;
+                    default:
+                        throw new CustomException.InvalidActivity();
+                }
+
+                  
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+        }
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetDocuments()
+        {
+            try
+            {
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _documentUploadService.AllUploadedDocuments( Token);
+                return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));
+
             }
             catch (Exception ex)
             {

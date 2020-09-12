@@ -24,14 +24,14 @@ namespace evoting.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Download_Document([FromBody] string DownloadType)
+        public async Task<IActionResult> Download_Document([FromQuery] string DownloadType)
         {
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                 switch(DownloadType)
                     {
-                        case "Agreement":
+                        case "Tri_partiate_agreement":
                         var result = await _documentDownloadService.AgreementGenerator(Token);
                         return Ok(Reformatter.Response_Object("File Downloaded successfully", ref result));
                         break;

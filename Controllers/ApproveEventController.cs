@@ -24,7 +24,7 @@ namespace evoting.Controllers
             [HttpPost]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
-            public async Task<IActionResult> RegistrationSave([FromForm] int event_id)
+            public async Task<IActionResult> RegistrationSave([FromQuery] int event_id)
             {
                 try
                 {

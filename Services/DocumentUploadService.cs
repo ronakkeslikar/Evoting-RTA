@@ -11,6 +11,7 @@ namespace evoting.Services
     public interface IDocumentUploadService
     {
         Task<DataTable> AgreementUpload_Details(int doc_id, string Token);
+        Task<DataTable> AllUploadedDocuments(string Token);
     }
     public class DocumentUploadService : IDocumentUploadService
     {
@@ -28,6 +29,15 @@ namespace evoting.Services
 
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("sp_Upload_Agreement", dictUserDetail);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+        }
+        public async Task<DataTable> AllUploadedDocuments( string Token)
+        {
+            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();            
+            dictUserDetail.Add("@token", Token);
+
+            DataSet ds = new DataSet();
+            ds = await AppDBCalls.GetDataSet("sp_uploaded_documents", dictUserDetail);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
     }

@@ -36,7 +36,7 @@ namespace evoting.Services
             //ExportToPDF();
              string htmlstr=dt.Rows[0]["CONTENT"].ToString();
 
-            DataTable dt2=await ExportToPDF(htmlstr,Token);  
+            DataTable dt2= await ExportToPDF(htmlstr,Token);  
             return dt2;
         }
         private async Task<DataTable> GetAgreementHtmlContent( string Token)

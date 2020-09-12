@@ -36,7 +36,7 @@ namespace evoting.Controllers
             try
             {
                 var result = await _registrationService.Registration_UpdateData(fJC_Registration);
-                return Ok(Reformatter.Response_Object("Registration Updated Successfully", ref result));                
+                return Ok(Reformatter.Response_Object("Profile Updated Successfully", ref result));                
              }
              catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace evoting.Controllers
             try
             {
                 var result = await _registrationService.GetRegistrationIDData(aud_id);
-                return Ok(Reformatter.Response_Object("Registration Detail retrieved Successfully", ref result));
+                return Ok(Reformatter.Response_Object("Profile Details retrieved Successfully", ref result));
             }
              catch (Exception ex)
             {
