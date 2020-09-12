@@ -29,14 +29,14 @@ namespace evoting.Controllers
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                switch(DownloadType)
+                switch(DownloadType.ToLower())
                     {
-                        case "Tri_partiate_agreement":
+                        case "tri_partiate_agreement":
                         var result = await _documentDownloadService.AgreementGenerator(Token);
                         return Ok(Reformatter.Response_Object("File Downloaded successfully", ref result));
                         break;
                         default:
-                        throw new CustomException.InvalidActivity();
+                        throw new CustomException.InvalidAttempt();
                     }                           
               
             }
