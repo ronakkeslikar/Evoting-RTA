@@ -6,7 +6,6 @@ using evoting.Domain.Models;
 using evoting.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Xunit;
 
 
 namespace evoting.Controllers
