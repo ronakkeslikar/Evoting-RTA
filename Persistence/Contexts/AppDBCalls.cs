@@ -9,8 +9,10 @@ namespace evoting.Persistence.Contexts
 {
     public class AppDBCalls
     {
-        public static string ConStr1 = "Data Source=192.168.0.251;Initial Catalog=evoting;User ID=sa;Password=bigshare@123";
-        public static string ConStr = "Data Source=BIGSHARE-WEBSVR;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
+        public static string ConStr1 = "Data Source=123.108.50.142;Initial Catalog=evoting;User ID=sa;Password=bigshare@123";
+        //public static string ConStr = "Data Source=BIGSHARE-WEBSVR;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
+        
+        public static string ConStr = "Data Source=123.108.50.142;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
         public static string Rel_connection;
         public static string ErrorMsg;
         public static Task<DataSet> GetDataSet(string procname, Dictionary<string,object> keyValues, SqlParameter sqlParameter = null)
