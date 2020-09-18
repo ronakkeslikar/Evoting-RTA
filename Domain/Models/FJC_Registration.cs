@@ -63,6 +63,7 @@ namespace evoting.Domain.Models
      [Required (ErrorMessage ="Enter PAN ID") ,RegularExpression(@"^[a-zA-Z0-9]*$")] 
         public string panid { get; set;}
         public decimal alt_mob_num{get;set;}
+          public int rta_id{get;set;}
 
     }  
      

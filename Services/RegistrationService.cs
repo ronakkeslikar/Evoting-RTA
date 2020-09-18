@@ -62,6 +62,7 @@ namespace evoting.Services
                 dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.cs_mobile_no);   
                 dictRegis.Add("@PANID",fJC_Registration.panid);
                 dictRegis.Add("@alt_mob_num", fJC_Registration.alt_mob_num);
+                dictRegis.Add("@rta_id", fJC_Registration.rta_id);
 
             DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
@@ -98,6 +99,7 @@ namespace evoting.Services
                 dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.cs_mobile_no);   
                 dictRegis.Add("@PANID",fJC_Registration.panid);
                 dictRegis.Add("@alt_mob_num", fJC_Registration.alt_mob_num);
+                 dictRegis.Add("@rta_id", fJC_Registration.rta_id);
                 DataSet ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
              return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
