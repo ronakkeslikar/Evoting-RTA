@@ -57,10 +57,22 @@ namespace evoting.Utility
             else if(ex is CustomException.InvalidPathReference)
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
-            }//InvalidFileType
+            }
+            else if(ex is CustomException.InvalidFileNotUploaded)
+            {
+                return StatusCode(500, new { status = false, message = ex.Message });
+            }
+            else if(ex is CustomException.InvalidFileRejected)
+            {
+                return StatusCode(500, new { status = false, message = ex.Message });
+            }
             else if (ex is CustomException.InvalidFileType)
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
+            }
+             else if (ex is Microsoft.Data.SqlClient.SqlException)
+            {
+                return StatusCode(500, new { status = false, message = ex.Message });//Later we will change to sql server error
             }
             else
             {
@@ -101,6 +113,10 @@ namespace evoting.Utility
                 throw new CustomException.CommonInvalidCode();
                 case "Document ID doesn't exists":
                 throw new CustomException.InvalidDoCID();
+                case "File was not uploaded,please try again":
+                throw new CustomException.InvalidFileRejected();
+                case "File rejected due technical reason":
+                throw new CustomException.InvalidFileNotUploaded();
             }
         }
     }

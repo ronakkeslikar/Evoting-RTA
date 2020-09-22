@@ -222,5 +222,26 @@ namespace evoting.Utility
                 }
             }
         }//Invalid Document ID
+
+        public class InvalidFileRejected: Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "File rejected due technical reason";
+                }
+            }
+        }
+        public class InvalidFileNotUploaded: Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "File was not uploaded,please try again";
+                }
+            }
+        }       
     }
 }

@@ -27,7 +27,7 @@ namespace evoting.Utility
              public static string AgreementDownload()
             {
                 return createAndappendDateFolder( SubCategoryPath, "Download_Agreement");
-            }           
+            }       
             
             public static string LogoUpload()
             {
@@ -41,6 +41,10 @@ namespace evoting.Utility
             {
                  return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
+              public static string ROMFileError()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "ROM_File_Error");
+            }  
 
         } 
 
@@ -72,6 +76,10 @@ namespace evoting.Utility
             {
                  return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
+              public static string ROMFileError()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "ROM_File_Error");
+            }  
 
         } 
 
@@ -100,6 +108,10 @@ namespace evoting.Utility
             {
                  return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
+              public static string ROMFileError()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "ROM_File_Error");
+            }  
 
         } 
 
@@ -127,6 +139,10 @@ namespace evoting.Utility
             {
                  return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
+              public static string ROMFileError()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "ROM_File_Error");
+            }  
 
         } 
 
@@ -154,6 +170,10 @@ namespace evoting.Utility
             {
                  return createAndappendDateFolder( SubCategoryPath, "Notice");
             }
+              public static string ROMFileError()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "ROM_File_Error");
+            }  
 
         } 
  

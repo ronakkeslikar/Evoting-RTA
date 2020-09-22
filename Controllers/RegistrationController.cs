@@ -38,6 +38,10 @@ namespace evoting.Controllers
                  if(fJC_Registration.reg_type_id == 1 || fJC_Registration.reg_type_id == 2 )
                 {
                   fJC_Registration.panid="XXXXXXXX";  
+                } 
+                 if(fJC_Registration.reg_type_id !=3 )
+                {
+                  fJC_Registration.panid="00000";  
                 }                 
                 var result = await _registrationService.Registration_InsertData(fJC_Registration);               
                   return Ok(Reformatter.Response_Object("New Registration completed Successfully", ref result));              
@@ -47,36 +51,36 @@ namespace evoting.Controllers
                 return (new HandleCatches()).ManageExceptions(ex);
             }           
         }
-        [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> RegistrationUpdate(FJC_Registration fJC_Registration)
-        { 
-            try
-            {
-                var result = await _registrationService.Registration_UpdateData(fJC_Registration);
-                return Ok(Reformatter.Response_Object("Registration Updated Successfully", ref result));                
-             }
-             catch (Exception ex)
-            {
-                return (new HandleCatches()).ManageExceptions(ex);
-            } 
-        }
-         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> GetRegistrationID([FromQuery] int aud_id)
-        {
-            try
-            {
-                var result = await _registrationService.GetRegistrationIDData(aud_id);
-                return Ok(Reformatter.Response_Object("Registration Detail retrieved Successfully", ref result));
-            }
-             catch (Exception ex)
-            {
-                return (new HandleCatches()).ManageExceptions(ex);
-            }
+        // [HttpPut]
+        // [ProducesResponseType(StatusCodes.Status200OK)]
+        // [ProducesResponseType(StatusCodes.Status404NotFound)]       
+        // public async Task<IActionResult> RegistrationUpdate(FJC_Registration fJC_Registration)
+        // { 
+        //     try
+        //     {
+        //         var result = await _registrationService.Registration_UpdateData(fJC_Registration);
+        //         return Ok(Reformatter.Response_Object("Registration Updated Successfully", ref result));                
+        //      }
+        //      catch (Exception ex)
+        //     {
+        //         return (new HandleCatches()).ManageExceptions(ex);
+        //     } 
+        // }
+        //  [HttpGet]
+        // [ProducesResponseType(StatusCodes.Status200OK)]
+        // [ProducesResponseType(StatusCodes.Status404NotFound)]       
+        // public async Task<IActionResult> GetRegistrationID([FromQuery] int aud_id)
+        // {
+        //     try
+        //     {
+        //         var result = await _registrationService.GetRegistrationIDData(aud_id);
+        //         return Ok(Reformatter.Response_Object("Registration Detail retrieved Successfully", ref result));
+        //     }
+        //      catch (Exception ex)
+        //     {
+        //         return (new HandleCatches()).ManageExceptions(ex);
+        //     }
             
-        }
+        // }
     }
 }

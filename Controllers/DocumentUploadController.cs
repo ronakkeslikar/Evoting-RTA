@@ -26,25 +26,20 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UploadAgreement(FJC_DOC_Upload fJC_DOC_Upload)
         {
-            try
-            {
+           
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                switch (fJC_DOC_Upload.upload_type)
+                switch (fJC_DOC_Upload.upload_type.ToLower())
                 {
-                    case "Tri_partiate_agreement":
+                    case "tri_partiate_agreement":
                         var result = await _documentUploadService.AgreementUpload_Details(fJC_DOC_Upload.doc_id, Token);
-                        return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));
+                        return Ok(Reformatter.Response_Object("File uploaded successfully and will be validated soon", ref result));
                         break;
                     default:
                         throw new CustomException.InvalidActivity();
                 }
 
                   
-            }
-            catch (Exception ex)
-            {
-                return (new HandleCatches()).ManageExceptions(ex);
-            }
+           
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
