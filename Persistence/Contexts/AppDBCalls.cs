@@ -9,21 +9,21 @@ namespace evoting.Persistence.Contexts
 {
     public class AppDBCalls
     {
-        public static string ConStr1 = "Data Source=123.108.50.142;Initial Catalog=evoting;User ID=sa;Password=bigshare@123";
+        public static string ConStr = "Data Source=BIGSHARE-WEBSVR;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
         //public static string ConStr = "Data Source=BIGSHARE-WEBSVR;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
-        
-        public static string ConStr = "Data Source=123.108.50.142;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
+
+        public static string ConStr1 = "Data Source=123.108.50.142;Initial Catalog=evoting;User ID=sa;Password=p@ssw0rd@321";
         public static string Rel_connection;
         public static string ErrorMsg;
-        public static Task<DataSet> GetDataSet(string procname, Dictionary<string,object> keyValues, SqlParameter sqlParameter = null)
-        {            
+        public static Task<DataSet> GetDataSet(string procname, Dictionary<string, object> keyValues, SqlParameter sqlParameter = null)
+        {
             try
             {
                 return Task.Run(() =>
-                {                    
+                {
                     DataSet _dt = new DataSet();
                     SqlConnection con = new SqlConnection(Rel_connection);
-                    
+
                     SqlCommand cmd = new SqlCommand(procname, con);
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -31,7 +31,7 @@ namespace evoting.Persistence.Contexts
                     {
                         cmd.Parameters.AddWithValue(item.Key, item.Value);
                     }
-                    if(sqlParameter != null)
+                    if (sqlParameter != null)
                     {
                         cmd.Parameters.Add(sqlParameter);
                     }
@@ -74,7 +74,7 @@ namespace evoting.Persistence.Contexts
 
         public static void SetDBConnect()
         {
-            if(DBConnectionStatus())
+            if (DBConnectionStatus())
             {
                 Rel_connection = ConStr;
             }
