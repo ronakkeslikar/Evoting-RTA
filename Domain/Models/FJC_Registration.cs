@@ -47,8 +47,7 @@ namespace evoting.Domain.Models
           [Required (ErrorMessage ="Enter State")] 
         public int corres_state_id { get; set;}
              [Required (ErrorMessage ="Enter Country")] 
-        public int corres_country { get; set;}
-        [Required (ErrorMessage ="Enter PCS No")] 
+        public int corres_country { get; set;}       
         public string pcs_no { get; set;}
          [Required (ErrorMessage ="Enter NAME") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string cs_name { get; set;}
