@@ -30,7 +30,7 @@ namespace evoting.Controllers
                 {
                     var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                     var result =  await _ShareHolder_RestrictService.ShareHolder_DerestrictData(fjc_SharedHolder_Derestrict,Token);
-                    return Ok(Reformatter.Response_Object("ShareHolder restricted Successfully", ref result));
+                    return Ok(Reformatter.Response_Object("ShareHolder Derestricted Successfully", ref result));
                 }
                 catch (Exception ex)
                 {
