@@ -61,6 +61,7 @@ namespace evoting
             services.AddScoped<IPrivateListService, PrivateListService>();
             services.AddScoped<IListService, ListService>();
              services.AddScoped<IEventListService, EventListService>();
+             services.AddScoped<IShareHolderService, ShareHolderService>();
 
 
             
