@@ -14,43 +14,27 @@ namespace evoting.Controllers
     [ApiController]
     public class ReportsController : ControllerBase
     {
-            private readonly IApproveEventService _ReportsService;
-            public ReportsController(IApproveEventService ReportsService)
+            private readonly IReportsService _ReportsService;
+            public ReportsController(IReportsService ReportsService)
             {
                 _ReportsService = ReportsService;
             }
-
-            // [HttpPost]
-            // [ProducesResponseType(StatusCodes.Status200OK)]
-            // [ProducesResponseType(StatusCodes.Status404NotFound)]
-            // public async Task<IActionResult> Reports([FromQuery] int event_id)
-            // {
-            //     try
-            //     {
-            //         var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-            //         var result = "";
-            //         return Ok(Reformatter.Response_Object("Client Blocked Successfully", ref result));
-            //     }
-            //     catch (Exception ex)
-            //     {
-            //         return (new HandleCatches()).ManageExceptions(ex);
-            //     }
-            // }
-            //  [HttpGet]
-            // [ProducesResponseType(StatusCodes.Status200OK)]
-            // [ProducesResponseType(StatusCodes.Status404NotFound)]
-            // public async Task<IActionResult> GetReports([FromQuery] int event_id)
-            // {
-            //     try
-            //     {
-            //         var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-            //         var result = "";
-            //         return Ok(Reformatter.Response_Object("Client Blocked Successfully", ref result));
-            //     }
-            //     catch (Exception ex)
-            //     {
-            //         return (new HandleCatches()).ManageExceptions(ex);
-            //     }
-            // }
+            
+             [HttpGet]
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status404NotFound)]
+            public async Task<IActionResult> GetReports([FromQuery] int event_id)
+            {
+                try
+                {
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var result = await _ReportsService.ReportsData(event_id,Token); 
+                    return Ok(Reformatter.Response_ArrayObject("Scrutinizer Reports Retrieved Successfully", ref result));
+                }
+                catch (Exception ex)
+                {
+                    return (new HandleCatches()).ManageExceptions(ex);
+                }
+            }
     }
 }
