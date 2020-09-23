@@ -60,9 +60,10 @@ namespace evoting
             services.AddScoped<IFileUploadService, FileUploadService>();
             services.AddScoped<IPrivateListService, PrivateListService>();
             services.AddScoped<IListService, ListService>();
-             services.AddScoped<IEventListService, EventListService>();
-             services.AddScoped<IShareHolderService, ShareHolderService>();
-             services.AddScoped<IReportsService, ReportsService>();
+            services.AddScoped<IEventListService, EventListService>();
+            services.AddScoped<IShareHolderService, ShareHolderService>();
+            services.AddScoped<IReportsService, ReportsService>();
+            services.AddScoped<IVote_InvestorService, Vote_InvestorService>();
 
 
 
