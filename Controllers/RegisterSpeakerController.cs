@@ -40,7 +40,7 @@ namespace evoting.Controllers
                 var result=(DataTable)null;                
                                                                     
                 result = await _RegisterSpeakerService.RegisterSpeakerData(speaker,Token);
-                return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));  
+                return Ok(Reformatter.Response_ArrayObject("Speaker Registered saved successfully", ref result));  
             }
             catch (Exception ex)
             {
