@@ -34,8 +34,9 @@ namespace evoting.Controllers
         public async Task<IActionResult> RegistrationUpdate(FJC_Registration fJC_Registration)
         { 
             try
-            {
-                var result = await _registrationService.Registration_UpdateData(fJC_Registration);
+            { 
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _registrationService.Registration_UpdateData(fJC_Registration,Token);
                 return Ok(Reformatter.Response_Object("Profile Updated Successfully", ref result));                
              }
              catch (Exception ex)
@@ -46,11 +47,12 @@ namespace evoting.Controllers
          [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> GetRegistrationID([FromQuery] int aud_id)
+        public async Task<IActionResult> GetRegistrationID()
         {
             try
             {
-                var result = await _registrationService.GetRegistrationIDData(aud_id);
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _registrationService.GetRegistrationIDData(Token);
                 return Ok(Reformatter.Response_Object("Profile Details retrieved Successfully", ref result));
             }
              catch (Exception ex)

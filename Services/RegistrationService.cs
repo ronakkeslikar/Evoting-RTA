@@ -19,8 +19,8 @@ namespace evoting.Services
     public interface IRegistrationService
     {     
         Task<DataTable> Registration_InsertData(FJC_Registration fJC_Registration);
-        Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration);
-        Task<DataTable> GetRegistrationIDData(int SR_NO);
+        Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration,string Token);
+        Task<DataTable> GetRegistrationIDData(string Token);
         
     }
 
@@ -68,12 +68,10 @@ namespace evoting.Services
                 ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
               return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
-         public async Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration)
+         public async Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration,string Token)
         {            
-                Dictionary<string, object> dictRegis = new Dictionary<string, object>();   
-                // dictRegis.Add("@Mode", "U");               
-                dictRegis.Add("@aud_id", fJC_Registration.aud_id);
-               dictRegis.Add("@REG_TYPE_ID",fJC_Registration.reg_type_id);
+                Dictionary<string, object> dictRegis = new Dictionary<string, object>(); 
+                dictRegis.Add("@REG_TYPE_ID",fJC_Registration.reg_type_id);
                 dictRegis.Add("@NAME", fJC_Registration.name); 
                 dictRegis.Add("@REG_NO", fJC_Registration.reg_no);
                 dictRegis.Add("@REG_ADD1",fJC_Registration.reg_add1);
@@ -99,14 +97,18 @@ namespace evoting.Services
                 dictRegis.Add("@CS_MOBILE_NO",fJC_Registration.cs_mobile_no);   
                 dictRegis.Add("@PANID",fJC_Registration.panid);
                 dictRegis.Add("@alt_mob_num", fJC_Registration.alt_mob_num);
-                 dictRegis.Add("@rta_id", fJC_Registration.rta_id);
-                DataSet ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
+                dictRegis.Add("@rta_id", fJC_Registration.rta_id);
+                dictRegis.Add("@token", Token);
+                dictRegis.Add("@flag", "put");
+                
+                DataSet ds= await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);                              
              return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
-         public async Task<DataTable> GetRegistrationIDData(int SR_NO)
+         public async Task<DataTable> GetRegistrationIDData(string Token)
         {
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>();               
-                dictRegis.Add("@SR_No", SR_NO);               
+                dictRegis.Add("@token", Token); 
+                 dictRegis.Add("@flag", "get");              
                 DataSet ds = await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);
               return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
