@@ -22,7 +22,8 @@ namespace evoting.Domain.Models.Validate
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StringValidate))]
         public string ISIN { get; set; } 
 
-        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.NumberCumpulsoryValidate))]
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.EmptyStringValidate))]
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.NumberValidate))]        
         // [RegularExpression(@"^[0-9]*$", ErrorMessage = "Invalid EventNo.")] //Only numbers
         public string Event_No { get; set; } //int
         
@@ -39,6 +40,7 @@ namespace evoting.Domain.Models.Validate
         public string DPCL { get; set; }  
 
         // [RegularExpression(@"[A-Z]{5}\d{4}[A-Z]{1}", ErrorMessage = "* Invalid PAN")]
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.EmptyStringValidate))]
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.PanValidate))]
         public string PAN { get; set; }  
 
@@ -51,7 +53,8 @@ namespace evoting.Domain.Models.Validate
 
         // [RegularExpression(@"^[0-9]+$", ErrorMessage = "Invalid Shares.")] //Only Numbers
         // [Required(ErrorMessage = "Shares is required.")]
-        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.NumberCumpulsoryValidate))]
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.EmptyStringValidate))]
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.NumberValidate))]
         public string shares { get; set; }  //int
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid NAME")]
@@ -99,7 +102,7 @@ namespace evoting.Domain.Models.Validate
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.MobileNoValidate))]
         public string Mobile { get; set; }  
         
-        // [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        //[EmailAddress(ErrorMessage = "Invalid Email Address")]
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.EmailValidate))]
         public string Email { get; set; }  
         public string Unkn4 { get; set; }                  
@@ -197,12 +200,23 @@ namespace evoting.Domain.Models.Validate
         }
         public void WriteErrorFile(List<CommonValidation.ErrorFile_list> _error)
         {
-            string actPath= FolderPaths.RTA.ROMFileError();    
-           string default_path = actPath + "\\Error.txt" ;//@"C:\evoting\ErrorFile\Error.txt"; 
-           if (!Directory.Exists(default_path))  
-                {                         
-                    Directory.CreateDirectory(default_path);
-                } 
+            //string default_path = @"D:\Evoting\ErrorFile\Error.txt"; 
+            
+            string default_path= FolderPaths.RTA.ROMFileError()+ "\\"+System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";  
+               
+                   
+          //-Start-Error file created
+           if (File.Exists(default_path))  
+           {
+
+           } 
+           else
+           {
+                FileStream fs = File.Create(default_path);
+                fs.Flush();
+                fs.Close();
+           } 
+         //-End-Error file created
             StringBuilder bs = new StringBuilder();
             foreach(var item in _error)
             {
@@ -222,25 +236,26 @@ namespace evoting.Domain.Models.Validate
             }
             File.WriteAllText(default_path, bs.ToString());
         }
+
+        private void createAndappendDateFolder(string v1, string v2, object checkPath)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class CommonValidation
-    {
-        public static ValidationResult NumberCumpulsoryValidate(string _str)
-        {
-            return Regex.IsMatch(_str, @"^[0-9]*$") == true ? ValidationResult.Success : new ValidationResult("Number not in correct format or Missing");
-        }
+    {     
         public static ValidationResult StringValidate(string _str)
         {
             return Regex.IsMatch(_str, @"^[a-zA-Z0-9]*$") == true ? ValidationResult.Success : new ValidationResult("String not in correct format");
         }
         public static ValidationResult StirngAndSpecialCharValidate(string _str)
         {
-            return Regex.IsMatch(_str, @"^[a-zA-Z0-9 !@#&\(\)]*$") == true ? ValidationResult.Success : new ValidationResult("String not in correct format");
+            return Regex.IsMatch(_str, @"^[a-zA-Z0-9!@#$&()-_+{}|\\`.,;:'\ ""]*$") == true ? ValidationResult.Success : new ValidationResult("String not in correct format");
         }
         public static ValidationResult NumberValidate(string _str)
         {
-            return Regex.IsMatch(_str, @"^[0-9]*$") == true ? ValidationResult.Success : new ValidationResult("Numeric not in correct format");
+            return Regex.IsMatch(_str, @"^[0-9X]+$|^$") == true ? ValidationResult.Success : new ValidationResult("Numeric not in correct format");
         }
         public static ValidationResult PanValidate(string _str)
         {
@@ -248,13 +263,16 @@ namespace evoting.Domain.Models.Validate
         }
         public static ValidationResult MobileNoValidate(string _str)
         {
-            return Regex.IsMatch(_str, @"^([0-9]{10})$") == true ? ValidationResult.Success : new ValidationResult("Mobile No. not in correct format");
+            return Regex.IsMatch(_str, @"^([0-9]{10})$|^(?![\s\S])") == true ? ValidationResult.Success : new ValidationResult("Mobile No. not in correct format");
         }
         public static ValidationResult EmailValidate(string _str)
         {
-            return Regex.IsMatch(_str, @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$") == true ? ValidationResult.Success : new ValidationResult("Email not in correct format");
+            return Regex.IsMatch(_str, @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$|^(?![\s\S])") == true ? ValidationResult.Success : new ValidationResult("Email not in correct format");
         }        
-
+        public static ValidationResult EmptyStringValidate(string _str)
+        {
+            return (_str != "" ? ValidationResult.Success : new ValidationResult("Field Required"));
+        }
         public static List<string> GetHeaderErrors(Header _obj)
         {
             List<string> ErrorResult = new List<string>();
@@ -294,5 +312,4 @@ namespace evoting.Domain.Models.Validate
             public int LineNum {get;set;}
             public List<string> ErrorResponse {get;set;}
         } 
-    }
-}
+    }}

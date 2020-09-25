@@ -229,7 +229,7 @@ namespace evoting.Utility
             {
                 get
                 {
-                    return "File rejected due technical reason";
+                    return "File rejected due to technical reason";
                 }
             }
         }
