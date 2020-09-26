@@ -33,7 +33,7 @@ namespace evoting.Domain.Models
            [Required (ErrorMessage ="Enter State")] 
         public int reg_state_id { get; set;}
            [Required (ErrorMessage ="Enter Country")] 
-        public int reg_country { get; set;}       
+        public int reg_country_id { get; set;}       
         [Required (ErrorMessage ="Enter Correspondence Address") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string corres_add1 { get; set;}
         public string corres_add2 { get; set;}
@@ -47,7 +47,7 @@ namespace evoting.Domain.Models
           [Required (ErrorMessage ="Enter State")] 
         public int corres_state_id { get; set;}
              [Required (ErrorMessage ="Enter Country")] 
-        public int corres_country { get; set;}       
+        public int corres_country_id { get; set;}       
         public string pcs_no { get; set;}
          [Required (ErrorMessage ="Enter NAME") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string cs_name { get; set;}
