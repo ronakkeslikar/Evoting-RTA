@@ -13,7 +13,8 @@ namespace evoting.Services
 {
     public interface IVote_InvestorService
     {
-        Task<DataSet> Vote_Investor_data(FJC_Vote_Investor fjc_Vote_Investor, string Token);        
+        Task<DataSet> Vote_Investor_data(FJC_Vote_Investor fjc_Vote_Investor, string Token);   
+        Task<DataTable> Vote_Investor_Getdata(string Token);      
     }
     public class Vote_InvestorService : IVote_InvestorService
     {
@@ -21,7 +22,18 @@ namespace evoting.Services
         public Vote_InvestorService(AppDbContext context)
         {
             _context = context;
-        }       
+        }  
+        ////////////////////////////Get/////////////////////////
+         public async Task<DataTable> Vote_Investor_Getdata(string Token)
+        {
+          Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
+            dictLogin.Add("@token", Token);
+            DataSet ds = new DataSet();
+            ds = await AppDBCalls.GetDataSet("Evote_Vote_Investor", dictLogin);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+        }
+
+        //////////////////////////POST//////////////////////////////     
          public async Task<DataSet> Vote_Investor_data(FJC_Vote_Investor fjc_Vote_Investor, string Token)
         {
            DataSet ds = new DataSet();
