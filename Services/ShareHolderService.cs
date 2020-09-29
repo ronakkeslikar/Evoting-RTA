@@ -31,7 +31,7 @@ namespace evoting.Services
             dictLogin.Add("@event_id", fjc_SharedHolder_Restrict.event_id);
             dictLogin.Add("@dpcl",fjc_SharedHolder_Restrict.dpcl);
             dictLogin.Add("@remark", fjc_SharedHolder_Restrict.remark); 
-            dictLogin.Add("@getflag", "0");             
+            dictLogin.Add("@getflag", "2");             
             dictLogin.Add("@token", token);
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_ShareHolder_Restrict", dictLogin);

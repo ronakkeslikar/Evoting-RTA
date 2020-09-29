@@ -57,7 +57,7 @@ namespace evoting.Services
             }
 
             SqlParameter parameter = new SqlParameter();
-            parameter.ParameterName = "@ResolutionDataArray";
+            parameter.ParameterName = "@ResolutionVoteArray";
             parameter.SqlDbType = SqlDbType.Structured;
             parameter.Value = _dt;
             return parameter;
