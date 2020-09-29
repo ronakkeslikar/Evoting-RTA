@@ -29,7 +29,7 @@ namespace evoting.Controllers
             _RegisterSpeakerService = RegisterSpeakerService; 
         }       
         
-         [HttpPost]
+         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> RegisterSpeaker([FromQuery] string speaker)
@@ -40,6 +40,26 @@ namespace evoting.Controllers
                 var result=(DataTable)null;                
                                                                     
                 result = await _RegisterSpeakerService.RegisterSpeakerData(speaker,Token);
+                return Ok(Reformatter.Response_ArrayObject("Speaker Registered saved successfully", ref result));  
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+            
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
+        public async Task<IActionResult> RegisterGetSpeaker([FromQuery] string speaker)
+        {
+            try
+            {   
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result=(DataTable)null;                
+                                                                    
+                result = await _RegisterSpeakerService.RegisterGetSpeakerData(speaker,Token);
                 return Ok(Reformatter.Response_ArrayObject("Speaker Registered saved successfully", ref result));  
             }
             catch (Exception ex)

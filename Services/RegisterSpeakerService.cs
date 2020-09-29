@@ -11,6 +11,7 @@ namespace evoting.Services
     public interface IRegisterSpeakerService
     {
         Task<DataTable> RegisterSpeakerData(string speaker, string Token); 
+         Task<DataTable> RegisterGetSpeakerData(string speaker, string Token); 
 
     }
     public class RegisterSpeakerService : IRegisterSpeakerService
@@ -25,6 +26,18 @@ namespace evoting.Services
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
             dictLogin.Add("@speaker", speaker);
+            dictLogin.Add("@flag", "post");
+            dictLogin.Add("@token", token);
+
+            DataSet ds = new DataSet();
+            ds = await AppDBCalls.GetDataSet("Evote_InvestortSpeaker", dictLogin);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+        }  
+        public async Task<DataTable> RegisterGetSpeakerData(string speaker, string token)
+        {
+            Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
+            dictLogin.Add("@speaker", speaker);
+            dictLogin.Add("@flag", "get");
             dictLogin.Add("@token", token);
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_InvestortSpeaker", dictLogin);
