@@ -30,7 +30,7 @@ namespace evoting.Controllers
                 {
                     var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                     var result = await _FinalizeEventService.FinalizeEVENT(event_id, Token);
-                    return Ok(Reformatter.Response_Object("Event Finalize Sccessfully", ref result));
+                    return Ok(Reformatter.Response_Object("Event Finalize Successfully", ref result));
                 }
                 catch (Exception ex)
                 {

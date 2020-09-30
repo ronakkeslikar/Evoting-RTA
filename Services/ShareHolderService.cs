@@ -31,7 +31,7 @@ namespace evoting.Services
             dictLogin.Add("@event_id", fjc_SharedHolder_Restrict.event_id);
             dictLogin.Add("@dpcl",fjc_SharedHolder_Restrict.dpcl);
             dictLogin.Add("@remark", fjc_SharedHolder_Restrict.remark); 
-            dictLogin.Add("@getflag", "2");             
+            dictLogin.Add("@flag", 2);             
             dictLogin.Add("@token", token);
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_ShareHolder_Restrict", dictLogin);
@@ -41,7 +41,7 @@ namespace evoting.Services
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
             dictLogin.Add("@event_id", event_id);    
-            dictLogin.Add("@getflag", "1");             
+            dictLogin.Add("@flag", 1);             
             dictLogin.Add("@token", token);
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_ShareHolder_Restrict", dictLogin);
@@ -54,7 +54,7 @@ namespace evoting.Services
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
             dictLogin.Add("@event_id", fjc_SharedHolder_Derestrict.event_id);
             dictLogin.Add("@dpcl",fjc_SharedHolder_Derestrict.dpcl);           
-            dictLogin.Add("@getflag", "3");             
+            dictLogin.Add("@flag", 3);             
             dictLogin.Add("@token", token);
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_ShareHolder_Restrict", dictLogin);

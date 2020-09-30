@@ -62,7 +62,7 @@ namespace evoting.Controllers
                 {
                     var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                     var result = await _ShareHolder_RestrictService.GetShareHolder_RestrictData(event_id, Token);
-                    return Ok(Reformatter.Response_Object("ShareHolder restricted data retrieved Successfully", ref result));
+                    return Ok(Reformatter.Response_ArrayObject("ShareHolder restricted data retrieved Successfully", ref result));
                 }
                 catch (Exception ex)
                 {

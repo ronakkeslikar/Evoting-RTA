@@ -242,6 +242,16 @@ namespace evoting.Utility
                     return "File was not uploaded,please try again";
                 }
             }
+        }  
+        public class InvalidDpclNotExists: Exception 
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid dpcl/dpcl does not exits";
+                }
+            }
         }       
     }
 }

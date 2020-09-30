@@ -74,6 +74,10 @@ namespace evoting.Utility
             {
                 return StatusCode(500, new { status = false, message = ex.Message });//Later we will change to sql server error
             }
+            else if(ex is CustomException.InvalidDpclNotExists)
+            {
+                return StatusCode(416, new { status = false, message = ex.Message });
+            }
             else
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
@@ -117,6 +121,8 @@ namespace evoting.Utility
                 throw new CustomException.InvalidFileRejected();
                 case "File rejected due technical reason":
                 throw new CustomException.InvalidFileNotUploaded();
+                case "Invalid dpcl":
+                throw new CustomException.InvalidDpclNotExists();
             }
         }
     }
