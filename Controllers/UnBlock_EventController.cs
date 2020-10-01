@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace evoting.Controllers
 {
-    [Route("api/event")]     
+    [Route("api/event123")]     
     [Produces("application/json")]
     [ApiController]
     public class UnBlock_EventController : ControllerBase

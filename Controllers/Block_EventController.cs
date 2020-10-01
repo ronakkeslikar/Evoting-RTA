@@ -36,5 +36,22 @@ namespace evoting.Controllers
                     return (new HandleCatches()).ManageExceptions(ex);
                 }
             }
+            [HttpPost("unblock")]
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status404NotFound)]
+            public async Task<IActionResult> UnBlock_Event([FromQuery] int event_id)
+            {
+                try
+                {
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var result = await _Block_EventService.UnBlockEventData(event_id, Token);
+                    return Ok(Reformatter.Response_Object("Event Unblocked Successfully", ref result));
+                }
+                catch (Exception ex)
+                {
+                    return (new HandleCatches()).ManageExceptions(ex);
+                }
+            }
+
     }
 }
