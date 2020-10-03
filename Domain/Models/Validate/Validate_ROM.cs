@@ -4,52 +4,51 @@ using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Text;
-using System.ComponentModel.DataAnnotations; 
+using System.ComponentModel.DataAnnotations;
 using evoting.Domain.Models;
 using evoting.Utility;
-  
+
 namespace evoting.Domain.Models.Validate
-{ 
+{
     public class Header
-    {           
+    {
         //[RegularExpression(@"^[0-9]*$", ErrorMessage = "Invalid BatchNo.")] //Only Numbers 
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.NumberValidate))]
         public string Batch_No { get; set; } //int   
 
         //[RegularExpression(@"^[a-zA-Z0-9]*$", ErrorMessage = "Invalid ISIN.")] //Numbers and Alphabet
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StringValidate))]
-        public string ISIN { get; set; } 
+        public string ISIN { get; set; }
 
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.EmptyStringValidate))]
-        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.NumberValidate))]        
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.NumberValidate))]
         // [RegularExpression(@"^[0-9]*$", ErrorMessage = "Invalid EventNo.")] //Only numbers
         public string Event_No { get; set; } //int
-        
+
     }
 
     public class Detail
-    {        
+    {
         public string Sr_no { get; set; }  //^[a-zA-Z0-9 !@#&\(\)]*$  //int
-        public string Unkn1 { get; set; }  
+        public string Unkn1 { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid DPCL")]
         // [StringLength(16, MinimumLength = 16, ErrorMessage = "DPCL must be 16 characters")]
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StringValidate))]
-        public string DPCL { get; set; }  
+        public string DPCL { get; set; }
 
         // [RegularExpression(@"[A-Z]{5}\d{4}[A-Z]{1}", ErrorMessage = "* Invalid PAN")]
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.EmptyStringValidate))]
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.PanValidate))]
-        public string PAN { get; set; }  
+        public string PAN { get; set; }
 
         // [RegularExpression(@"^[0-9]+$", ErrorMessage = "Invalid AccNo.")] //Only Numbers
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.NumberValidate))]
-        public string AccNo { get; set; }  
+        public string AccNo { get; set; }
 
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StringValidate))]
-        public string Unkn2 { get; set; }  
+        public string Unkn2 { get; set; }
 
         // [RegularExpression(@"^[0-9]+$", ErrorMessage = "Invalid Shares.")] //Only Numbers
         // [Required(ErrorMessage = "Shares is required.")]
@@ -59,54 +58,54 @@ namespace evoting.Domain.Models.Validate
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid NAME")]
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
-        public string Name { get; set; } 
+        public string Name { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid JT1")] 
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
-        public string JT1 { get; set; }  
+        public string JT1 { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid JT2")]
-        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))] 
-        public string JT2 { get; set; }  
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
+        public string JT2 { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid ADD1")] 
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
-        public string ADD1 { get; set; }  
+        public string ADD1 { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid ADD2")]
-        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))] 
-        public string ADD2 { get; set; }  
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
+        public string ADD2 { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid ADD3")]
-        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))] 
-        public string ADD3 { get; set; }  
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
+        public string ADD3 { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid City")] 
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
-        public string City { get; set; }  
+        public string City { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid State")] 
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
-        public string state { get; set; }  
+        public string state { get; set; }
 
         // [RegularExpression(@"^[a-zA-Z0-9 !@#&\(\)]*$", ErrorMessage = "* Invalid Country")]
-        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))] 
-        public string Country { get; set; }  
+        [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
+        public string Country { get; set; }
 
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.StirngAndSpecialCharValidate))]
-        public string Pin { get; set; }  
+        public string Pin { get; set; }
         public string DOB { get; set; } //datetime
-        public string Unkn3 { get; set; }  
+        public string Unkn3 { get; set; }
 
         // [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.MobileNoValidate))]
-        public string Mobile { get; set; }  
-        
+        public string Mobile { get; set; }
+
         //[EmailAddress(ErrorMessage = "Invalid Email Address")]
         [CustomValidation(typeof(CommonValidation), nameof(CommonValidation.EmailValidate))]
-        public string Email { get; set; }  
-        public string Unkn4 { get; set; }                  
-    }    
+        public string Email { get; set; }
+        public string Unkn4 { get; set; }
+    }
 
     public class Validate_ROM
     {
@@ -115,16 +114,17 @@ namespace evoting.Domain.Models.Validate
             // List<string>ErrorFile = new List<string>();
             int LineNum = 1;
             List<CommonValidation.ErrorFile_list> _ErrorFile = new List<CommonValidation.ErrorFile_list>();
-            
-            foreach(string Line in File.ReadAllLines(_fileName))
+
+            foreach (string Line in File.ReadAllLines(_fileName))
             {
-                string record_type = Line.Substring(0,2);
+                string record_type = Line.Substring(0, 2);
                 string NewLine = Line.Remove(0, 3);
-                try{
-                    switch(record_type)
+                try
+                {
+                    switch (record_type)
                     {
-                        case "00" :
-                        string[] _obj_array = NewLine.Split('~');
+                        case "00":
+                            string[] _obj_array = NewLine.Split('~');
                             Header _objHeader = new Header()
                             {
                                 Batch_No = _obj_array[0],
@@ -132,14 +132,18 @@ namespace evoting.Domain.Models.Validate
                                 Event_No = _obj_array[2]
                             };
 
-                        // ErrorFile.AddRange(CommonValidation.GetHeaderErrors(_obj));
-                        CommonValidation.ErrorFile_list new_objHeader = new CommonValidation.ErrorFile_list();
-                        new_objHeader.LineNum = LineNum;
-                        new_objHeader.ErrorResponse = CommonValidation.GetHeaderErrors(_objHeader);
-                        _ErrorFile.Add(new_objHeader);
-                        break;
+                            // ErrorFile.AddRange(CommonValidation.GetHeaderErrors(_obj));
+                            CommonValidation.ErrorFile_list new_objHeader = new CommonValidation.ErrorFile_list();
+                            new_objHeader.LineNum = LineNum;
+                            new_objHeader.ErrorResponse = CommonValidation.GetHeaderErrors(_objHeader);
+                            if (new_objHeader.ErrorResponse.Count > 0)
+                            {
+                                _ErrorFile.Add(new_objHeader);
+                            }
 
-                        case "01" : 
+                            break;
+
+                        case "01":
                             // var checkDetail = NewLine.Split('~').Cast<Detail>();
                             string[] _obj_DetailArray = NewLine.Split('~');
                             Detail _ObjDetail = new Detail()
@@ -171,18 +175,21 @@ namespace evoting.Domain.Models.Validate
                             CommonValidation.ErrorFile_list new_objDetail = new CommonValidation.ErrorFile_list();
                             new_objDetail.LineNum = LineNum;
                             new_objDetail.ErrorResponse = CommonValidation.GetDetailErrors(_ObjDetail);
-                            _ErrorFile.Add(new_objDetail);
-                        break;
+                            if (new_objDetail.ErrorResponse.Count > 0)
+                            {
+                                _ErrorFile.Add(new_objDetail);
+                            }
+                            break;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     CommonValidation.ErrorFile_list new_objDetail = new CommonValidation.ErrorFile_list();
                     new_objDetail.LineNum = LineNum;
-                    new_objDetail.ErrorResponse = new List<string>(){ex.Message}; 
+                    new_objDetail.ErrorResponse = new List<string>() { ex.Message };
                 }
                 finally
-                {                    
+                {
                     LineNum++;
                 }
             }
@@ -196,43 +203,43 @@ namespace evoting.Domain.Models.Validate
             {
                 return true;
             }
-               
+
         }
         public void WriteErrorFile(List<CommonValidation.ErrorFile_list> _error)
         {
             //string default_path = @"D:\Evoting\ErrorFile\Error.txt"; 
-            
-            string default_path= FolderPaths.RTA.ROMFileError()+ "\\"+System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";  
-               
-                   
-          //-Start-Error file created
-           if (File.Exists(default_path))  
-           {
 
-           } 
-           else
-           {
+            string default_path = FolderPaths.RTA.ROMFileError() + "\\" + System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";
+
+
+            //-Start-Error file created
+            if (File.Exists(default_path))
+            {
+
+            }
+            else
+            {
                 FileStream fs = File.Create(default_path);
                 fs.Flush();
                 fs.Close();
-           } 
-         //-End-Error file created
+            }
+            //-End-Error file created
             StringBuilder bs = new StringBuilder();
-            foreach(var item in _error)
+            foreach (var item in _error)
             {
                 if (item.ErrorResponse.Count > 0)
                 {
-                    bs.Append("Error on Line No."+ item.LineNum);
-                    foreach(var item1 in item.ErrorResponse)
+                    bs.Append("Error on Line No." + item.LineNum);
+                    foreach (var item1 in item.ErrorResponse)
                     {
-                        bs.Append(" Error description : "+item1);
-                        if (item.ErrorResponse.Count>1)
+                        bs.Append(" Error description : " + item1);
+                        if (item.ErrorResponse.Count > 1)
                         {
                             bs.Append(",");
                         }
                     }
-                bs.AppendLine();
-                }                
+                    bs.AppendLine();
+                }
             }
             File.WriteAllText(default_path, bs.ToString());
         }
@@ -244,7 +251,7 @@ namespace evoting.Domain.Models.Validate
     }
 
     public class CommonValidation
-    {     
+    {
         public static ValidationResult StringValidate(string _str)
         {
             return Regex.IsMatch(_str, @"^[a-zA-Z0-9]*$") == true ? ValidationResult.Success : new ValidationResult("String not in correct format");
@@ -268,7 +275,7 @@ namespace evoting.Domain.Models.Validate
         public static ValidationResult EmailValidate(string _str)
         {
             return Regex.IsMatch(_str, @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$|^(?![\s\S])") == true ? ValidationResult.Success : new ValidationResult("Email not in correct format");
-        }        
+        }
         public static ValidationResult EmptyStringValidate(string _str)
         {
             return (_str != "" ? ValidationResult.Success : new ValidationResult("Field Required"));
@@ -279,11 +286,11 @@ namespace evoting.Domain.Models.Validate
             ValidationContext _context = new ValidationContext(_obj);
             List<ValidationResult> _results = new List<ValidationResult>();
             bool Valid = Validator.TryValidateObject(_obj, _context, _results, true);
-            if(!Valid)
+            if (!Valid)
             {
-                foreach(var item in _results)
+                foreach (var item in _results)
                 {
-                        ErrorResult.Add(item.ErrorMessage);
+                    ErrorResult.Add(item.ErrorMessage);
                 }
             }
             return ErrorResult;
@@ -296,11 +303,11 @@ namespace evoting.Domain.Models.Validate
             ValidationContext _context = new ValidationContext(_obj);
             List<ValidationResult> _results = new List<ValidationResult>();
             bool Valid = Validator.TryValidateObject(_obj, _context, _results, true);
-            if(!Valid)
+            if (!Valid)
             {
-                foreach(var item in _results)
+                foreach (var item in _results)
                 {
-                        ErrorResult.Add(item.ErrorMessage);
+                    ErrorResult.Add(item.ErrorMessage);
                 }
             }
             return ErrorResult;
@@ -309,7 +316,8 @@ namespace evoting.Domain.Models.Validate
 
         public class ErrorFile_list
         {
-            public int LineNum {get;set;}
-            public List<string> ErrorResponse {get;set;}
-        } 
-    }}
+            public int LineNum { get; set; }
+            public List<string> ErrorResponse { get; set; }
+        }
+    }
+}

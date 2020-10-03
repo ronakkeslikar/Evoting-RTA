@@ -31,7 +31,7 @@ namespace evoting.Controllers
                 {
                     var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                     var result = await _vote_InvestorService.Vote_Investor_data(fjc_Vote_Investor, Token);
-                    return Ok(Reformatter.Response_ResolutionObject("Investor Vote submitted Succesfully", ref result));
+                    return Ok(Reformatter.Response_Object("Investor Vote submitted Succesfully", ref result));
                 }
                 catch (Exception ex)
                 {
@@ -41,13 +41,13 @@ namespace evoting.Controllers
             [HttpGet("vote")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
-            public async Task<IActionResult> Vote_InvestorGetSaved()
+            public async Task<IActionResult> Vote_InvestorGetSaved(int event_id)
             {
                 try
                 {
                     var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                    var result = await _vote_InvestorService.Vote_Investor_Getdata(Token);
-                    return Ok(Reformatter.Response_ArrayObject("Investor Vote details retrieved Succesfully", ref result));    
+                    var result = await _vote_InvestorService.Vote_Investor_Getdata(Token, event_id);
+                    return Ok(Reformatter.Response_ResolutionObject("Investor Vote details retrieved Succesfully", ref result));    
                 }
                 catch (Exception ex)
                 {

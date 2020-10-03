@@ -5,10 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using evoting.Persistence.Contexts;
-using evoting.Persistence.Contexts.Sp_SQL_Objects;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.EnvironmentVariables;
-using static evoting.Persistence.Contexts.Sp_SQL_Objects.SP_objectParam;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using evoting.Domain.Models;
@@ -71,9 +67,9 @@ namespace evoting.Services
         {         
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
                 dictUserDetail.Add("@DocumentID", DocID);   
-                dictUserDetail.Add("@GENERATEDEVENTNO", Event_No);
+                dictUserDetail.Add("@event_no", Event_No);
                 dictUserDetail.Add("@token", Token);
-            DataSet ds=  await AppDBCalls.GetDataSet("SP_IMPORTTEXTFILE", dictUserDetail);
+            DataSet ds=  await AppDBCalls.GetDataSet("SP_IMPORTROMFILE", dictUserDetail);
            return Reformatter.Validate_DataTable(ds.Tables[0]);   
                 
         }   

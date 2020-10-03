@@ -13,8 +13,8 @@ namespace evoting.Services
 {
     public interface IVote_InvestorService
     {
-        Task<DataSet> Vote_Investor_data(FJC_Vote_Investor fjc_Vote_Investor, string Token);   
-        Task<DataTable> Vote_Investor_Getdata(string Token);      
+        Task<DataTable> Vote_Investor_data(FJC_Vote_Investor fjc_Vote_Investor, string Token);   
+        Task<DataSet> Vote_Investor_Getdata(string Token, int event_id);      
     }
     public class Vote_InvestorService : IVote_InvestorService
     {
@@ -24,21 +24,23 @@ namespace evoting.Services
             _context = context;
         }  
         ////////////////////////////Get/////////////////////////
-         public async Task<DataTable> Vote_Investor_Getdata(string Token)
+         public async Task<DataSet> Vote_Investor_Getdata(string Token, int event_id)
         {
           Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
             dictLogin.Add("@token", Token);
+            dictLogin.Add("@event_id", event_id);
+            dictLogin.Add("@flag", 1);
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_Vote_Investor", dictLogin);
-            return Reformatter.Validate_DataTable(ds.Tables[0]);
+            return Reformatter.Validate_Dataset(ds);
         }
 
         //////////////////////////POST//////////////////////////////     
-         public async Task<DataSet> Vote_Investor_data(FJC_Vote_Investor fjc_Vote_Investor, string Token)
+         public async Task<DataTable> Vote_Investor_data(FJC_Vote_Investor fjc_Vote_Investor, string Token)
         {
            DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_Vote_Investor", CommonSpParam(fjc_Vote_Investor, Token), PassResolutionArray(fjc_Vote_Investor.resolutions));
-            return Reformatter.Validate_Dataset(ds);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
          private Dictionary<string,object> CommonSpParam(FJC_Vote_Investor fjc_Vote_Investor, string Token)

@@ -61,6 +61,7 @@ namespace evoting.Utility
                 resolution = Return_DynamicType_ListElement(_ds.Tables[1]) };
             
         }
+
         public static DataTable Validate_DataTable(DataTable _dt)
         {
             if (!_dt.Columns.Contains("Error"))

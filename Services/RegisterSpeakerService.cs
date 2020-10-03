@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using evoting.Domain.Models;
 
 namespace evoting.Services
 {
     public interface IRegisterSpeakerService
     {
-        Task<DataTable> RegisterSpeakerData(string speaker, string Token); 
-         Task<DataTable> RegisterGetSpeakerData(string speaker, string Token); 
+        Task<DataTable> RegisterSpeakerData(FJC_SpeakerRegister fJC_Speaker, string Token); 
+         Task<DataTable> RegisterGetSpeakerData( string Token); 
 
     }
     public class RegisterSpeakerService : IRegisterSpeakerService
@@ -22,25 +23,26 @@ namespace evoting.Services
             _context = context;
         }
 
-        public async Task<DataTable> RegisterSpeakerData(string speaker, string token)
+        public async Task<DataTable> RegisterSpeakerData(FJC_SpeakerRegister fJC_Speaker, string token)
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
-            dictLogin.Add("@speaker", speaker);
-            dictLogin.Add("@flag", "post");
+            dictLogin.Add("@event_id", fJC_Speaker.event_id);
+            dictLogin.Add("@email", fJC_Speaker.email);
+            dictLogin.Add("@flag", 1);
             dictLogin.Add("@token", token);
 
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_InvestortSpeaker", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }  
-        public async Task<DataTable> RegisterGetSpeakerData(string speaker, string token)
+        public async Task<DataTable> RegisterGetSpeakerData( string token)
         {
-            Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
-            dictLogin.Add("@speaker", speaker);
-            dictLogin.Add("@flag", "get");
+            Dictionary<string, object> dictLogin = new Dictionary<string, object>();
+           
+            dictLogin.Add("@flag", 2);
             dictLogin.Add("@token", token);
             DataSet ds = new DataSet();
-            ds = await AppDBCalls.GetDataSet("Evote_InvestortSpeaker", dictLogin);
+            ds = await AppDBCalls.GetDataSet("Evote_InvestortSpeaker_get", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }         
 

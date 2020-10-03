@@ -32,15 +32,15 @@ namespace evoting.Controllers
          [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> RegisterSpeaker([FromQuery] string speaker)
+        public async Task<IActionResult> RegisterSpeaker(FJC_SpeakerRegister fJC_Speaker)
         {
             try
             {   
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                 var result=(DataTable)null;                
                                                                     
-                result = await _RegisterSpeakerService.RegisterSpeakerData(speaker,Token);
-                return Ok(Reformatter.Response_ArrayObject("Speaker Registered saved successfully", ref result));  
+                result = await _RegisterSpeakerService.RegisterSpeakerData(fJC_Speaker, Token);
+                return Ok(Reformatter.Response_Object("Speaker Registered saved successfully", ref result));  
             }
             catch (Exception ex)
             {
@@ -52,14 +52,14 @@ namespace evoting.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> RegisterGetSpeaker([FromQuery] string speaker)
+        public async Task<IActionResult> RegisterGetSpeaker()
         {
             try
             {   
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                 var result=(DataTable)null;                
                                                                     
-                result = await _RegisterSpeakerService.RegisterGetSpeakerData(speaker,Token);
+                result = await _RegisterSpeakerService.RegisterGetSpeakerData(Token);
                 return Ok(Reformatter.Response_ArrayObject("Speaker Registered saved successfully", ref result));  
             }
             catch (Exception ex)
