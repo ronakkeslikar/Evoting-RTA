@@ -42,6 +42,11 @@ namespace evoting.Utility
                         getpath = FolderPaths.RTA.ROMUpload();
                      dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
+                    case ProcessType.Custodian_ROMUpload:
+                    getpath = FolderPaths.Custodian.ROMUpload();
+                    dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+
+                    break;
                     case ProcessType.EvotingAgency_ROMUpload:
                         getpath = FolderPaths.EvotingAgency.ROMUpload();
                     dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
@@ -71,6 +76,10 @@ namespace evoting.Utility
                         case "RTA":
                                 _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.RTA_ROMUpload, Token);
                                     break;
+                       //Need to confirm for Custodian ROM upload             
+                        case "Custodian":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Custodian_ROMUpload, Token);
+                                break;
 
                     }
                 break;
