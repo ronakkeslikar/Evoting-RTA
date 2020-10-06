@@ -194,7 +194,20 @@ namespace evoting.Domain.Models.Validate
 
         public void WriteErrorFile(List<CommonValidation.ErrorFile_list> _error)
         {
-            string default_path = @"D:\Evoting\ErrorFile\CustodianError.txt"; 
+           // string default_path = @"D:\Evoting\ErrorFile\CustodianError.txt";
+            //string default_path = @"D:\Evoting\ErrorFile\Error.txt"; 
+
+            string default_path = FolderPaths.Custodian.ROMFileError() + "\\" + System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";
+
+
+            //-Start-Error file created
+            if (!File.Exists(default_path))           
+            {
+                FileStream fs = File.Create(default_path);
+                fs.Flush();
+                fs.Close();
+            }
+            //-End-Error file created 
             StringBuilder bs = new StringBuilder();
             foreach(var item in _error)
             {
