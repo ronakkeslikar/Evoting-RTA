@@ -43,6 +43,7 @@ namespace evoting.Controllers
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
                 var result = await _CustodianROMUploadService.Cutodian_ROMUpload_Details(std,Token);
+                WorkbookClass bs = new WorkbookClass();
                return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
             }
            catch (Exception ex)
