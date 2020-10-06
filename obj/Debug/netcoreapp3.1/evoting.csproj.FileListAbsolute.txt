@@ -410,7 +410,5 @@ D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.genruntimeconf
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csprojAssemblyReference.cache
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\itextsharp.dll
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\itextsharp.xmlworker.dll
-D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csproj.CoreCompileInputs.cache
-D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\itextsharp.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\itextsharp.xmlworker.dll
