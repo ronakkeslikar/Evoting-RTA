@@ -240,6 +240,7 @@ namespace evoting.Utility
             Company_ROMUpload,
             RTA_AgreementUpload,
             RTA_ROMUpload,
+            Custodian_ROMUpload,
             EvotinAgency_AgreementUpload,
             EvotingAgency_ROMUpload
         }
