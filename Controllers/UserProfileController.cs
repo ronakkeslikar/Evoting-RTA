@@ -61,5 +61,22 @@ namespace evoting.Controllers
             }
             
         }
+        [HttpGet("investor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetRegistrationID_investor()
+        {
+            try
+            {
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var result = await _registrationService.GetRegistrationInvestorData(Token);
+                return Ok(Reformatter.Response_InvestorObject("Profile Details retrieved Successfully", ref result));
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+
+        }
     }
 }

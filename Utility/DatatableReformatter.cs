@@ -61,6 +61,17 @@ namespace evoting.Utility
                 resolution = Return_DynamicType_ListElement(_ds.Tables[1]) };
             
         }
+        public static object Response_InvestorObject(string _response_message, ref DataSet _ds)
+        {
+            return new
+            {
+                StatusCode = 200,
+                message = _response_message,
+                data = Return_DynamicType_RowElement(_ds.Tables[0]),
+                joint_shareholders = Return_DynamicType_ListElement(_ds.Tables[1])
+            };
+
+        }
 
         public static DataTable Validate_DataTable(DataTable _dt)
         {
