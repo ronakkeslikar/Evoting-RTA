@@ -143,6 +143,10 @@ namespace evoting.Utility
             {
                 return createAndappendDateFolder( SubCategoryPath, "ROM_File_Error");
             }  
+             public static string Scrutinizer_Reports()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "Scrutinizer_Reports");
+            }
 
         } 
 

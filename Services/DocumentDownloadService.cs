@@ -69,8 +69,8 @@ namespace evoting.Services
                 string actPath= FolderPaths.Company.AgreementDownload();//@"C:\evoting\Agreement\";
                
                 string pdffilename=System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Agreement_PDF.pdf";
-                System.IO.File.WriteAllBytes(actPath + pdffilename, bytes);
-                string filePath=actPath + pdffilename;
+                System.IO.File.WriteAllBytes(Path.Combine(actPath,pdffilename), bytes);
+                string filePath=Path.Combine(actPath , pdffilename);
 
                 //Saving PDF to Folder and database
                   Dictionary<string, object> dictfileDnld = new Dictionary<string, object>();               

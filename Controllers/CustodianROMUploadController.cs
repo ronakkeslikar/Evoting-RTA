@@ -16,7 +16,8 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Microsoft.Office.Interop.Excel;
+using ClosedXML.Excel;
+//using Microsoft.Office.Interop.Excel;
 
 namespace evoting.Controllers
 {
@@ -42,17 +43,16 @@ namespace evoting.Controllers
             try
             {
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result = await _CustodianROMUploadService.Cutodian_ROMUpload_Details(std,Token);
-                WorkbookClass bs = new WorkbookClass();
+                var result = await _CustodianROMUploadService.Cutodian_ROMUpload_Details(std,Token);              
                return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
             }
            catch (Exception ex)
             {
                 return (new HandleCatches()).ManageExceptions(ex);
             } 
-        }   
+        }             
 
-         [HttpGet]
+        [HttpGet]
             
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]  

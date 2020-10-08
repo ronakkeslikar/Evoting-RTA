@@ -12,7 +12,6 @@ using evoting.Domain.Models.Validate;
 using evoting.Utility;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-
 namespace evoting.Services
 {
     public interface ICustodianROMUploadService
@@ -20,6 +19,7 @@ namespace evoting.Services
        
         Task<DataTable> Cutodian_ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token);
            Task<DataTable> GetCustodian_ROMUpload_Details(string Token);
+         
     }
 
     public class CustodianROMUploadService : ICustodianROMUploadService
@@ -34,10 +34,9 @@ namespace evoting.Services
 //////////////////////////////////////////ROM File Upload ////////////////////////////////////////////////////
         public async Task<DataTable> Cutodian_ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token)
         {
-            //validation job          
-               
-                //Here Validate bulk file
-                DataTable dt1=new DataTable();
+            //validation job            
+            //Here Validate bulk file
+            DataTable dt1 =new DataTable();
                 dt1= await RegisterCustodianROM(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,0)  ; 
                 if(dt1.Rows.Count>0)
                 {
@@ -106,12 +105,12 @@ namespace evoting.Services
           return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
-        ///////////////////////Get//////////////////
+        /////////////////////Get//////////////////
         public async Task<DataTable> GetCustodian_ROMUpload_Details(string Token)
         {
            return await RegisterCustodianROM(0,0,Token,1);            
         }
-        
+
         
     }
 }
