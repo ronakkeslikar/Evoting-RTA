@@ -91,6 +91,10 @@ namespace evoting.Utility
             {
                 return createAndappendDateFolder( SubCategoryPath, "ROM");
             }
+            public static string POA()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "POA");
+            }
             public static string AgreementUpload()
             {
                 return createAndappendDateFolder( SubCategoryPath, "Agreement");
@@ -245,6 +249,7 @@ namespace evoting.Utility
             RTA_AgreementUpload,
             RTA_ROMUpload,
             Custodian_ROMUpload,
+            Custodian_POA,
             EvotinAgency_AgreementUpload,
             EvotingAgency_ROMUpload
         }
@@ -252,12 +257,14 @@ namespace evoting.Utility
         {
             Company,
             RTA,
+            Custodian, 
             EvotingAgency
         }
         public enum UploadType
         {
             ROM,
-            Agreement
+            Agreement,
+            POA
         }
     }
 }

@@ -16,7 +16,7 @@ namespace evoting.Services
         public interface IDocumentDownloadService
         {
             Task<DataTable> AgreementGenerator( string Token);
-            Task<DataTable> GetDocumentDownload( string Token);
+            Task<DataTable> GetDocumentDownload( string Token);           
         }
 
         public class DocumentDownloadService : IDocumentDownloadService
@@ -29,7 +29,7 @@ namespace evoting.Services
             }
 
         
-
+////////////////////////////Agreement Generator////////////////////////
         public async Task<DataTable> AgreementGenerator(string Token)
         {
             DataTable dt = await GetAgreementHtmlContent(Token);
@@ -48,6 +48,7 @@ namespace evoting.Services
             ds = await AppDBCalls.GetDataSet("SP_GETDOCUMENTCONTENT", dictUserDetail);           
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
+              ///////////Export To PDF /////////////
         private async Task<DataTable> ExportToPDF(string sb,string Token)
         { 
             StringReader sr = new StringReader(sb.ToString());
@@ -95,5 +96,7 @@ namespace evoting.Services
             ds = await AppDBCalls.GetDataSet("Evote_GetDocumentDownload", dictUserDetail);           
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
+
+
     }
 }
