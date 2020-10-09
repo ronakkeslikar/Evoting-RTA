@@ -28,17 +28,22 @@ namespace evoting.Controllers
         {
            
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                 var result=(System.Data.DataTable)null;
                 switch (fJC_DOC_Upload.upload_type.ToLower())
                 {
                     case "tri_partiate_agreement":
-                        var result = await _documentUploadService.AgreementUpload_Details(fJC_DOC_Upload.doc_id, Token);
+                        result = await _documentUploadService.AgreementUpload_Details(fJC_DOC_Upload.doc_id, Token);
                         return Ok(Reformatter.Response_Object("File uploaded successfully and will be validated soon", ref result));
                         break;
+
+                    case "power_of_attorney":
+                        result = await _documentUploadService.PowerOfAttorneyDownload(fJC_DOC_Upload.doc_id,Token);
+                        return Ok(Reformatter.Response_Object("File uploaded successfully", ref result));
+                        break;
+
                     default:
                         throw new CustomException.InvalidActivity();
-                }
-
-                  
+                }                  
            
         }
         [HttpGet]
