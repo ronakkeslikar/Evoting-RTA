@@ -66,6 +66,8 @@ namespace evoting
             services.AddScoped<IVote_InvestorService, Vote_InvestorService>();
             services.AddScoped<IRegisterSpeakerService, RegisterSpeakerService>();
             services.AddScoped<ICustodianROMUploadService, CustodianROMUploadService>();
+            services.AddScoped<IAccountSearchService, AccountSearchService>();
+
 
 
 
