@@ -67,6 +67,8 @@ namespace evoting
             services.AddScoped<IRegisterSpeakerService, RegisterSpeakerService>();
             services.AddScoped<ICustodianROMUploadService, CustodianROMUploadService>();
             services.AddScoped<IAccountSearchService, AccountSearchService>();
+            services.AddScoped<ILockEventService, LockEventService>();
+
 
 
 

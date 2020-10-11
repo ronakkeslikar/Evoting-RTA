@@ -35,7 +35,7 @@ namespace evoting.Controllers
             try
             {
                 var result = await _loginService.LoginDataUser(fJC_Login);
-                return Ok(Reformatter.Response_Object("User logged in succesfuly", ref result));
+                return Ok(Reformatter.Response_Object("User logged in Successfully", ref result));
             }
             catch (Exception ex)
             {
