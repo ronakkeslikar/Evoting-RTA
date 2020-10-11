@@ -21,6 +21,8 @@ namespace evoting.Services
        Task<DataTable> GetSearch_Details(FJC_AccountSearch fJC_AccountSearch,string Token); 
        Task<DataTable> GetAudience_Details(int aud_id,string Token); 
        Task<DataTable> Verify_AccountData(int aud_id,string Token);
+       Task<DataTable> GetAccountList_Details(int user_type,string Token); 
+
     }
 
     public class AccountSearchService : IAccountSearchService
@@ -72,8 +74,20 @@ namespace evoting.Services
                 ds = await AppDBCalls.GetDataSet("Evote_GetAudienceDetails", dictRegis);                            
               return Reformatter.Validate_DataTable(ds.Tables[0]); 
         }
+
+         /////////////////Get Account List Details using "List" get method //////////////////////////
         
-        
+         public async Task<DataTable> GetAccountList_Details(int user_type,string Token)
+        { 
+                Dictionary<string, object> dictRegis = new Dictionary<string, object>(); 
+                
+                dictRegis.Add("@user_type", user_type);
+                dictRegis.Add("@token", Token);
+
+                DataSet ds = new DataSet();
+                ds = await AppDBCalls.GetDataSet("Evote_GetAccountList", dictRegis);                            
+              return Reformatter.Validate_DataTable(ds.Tables[0]); 
+        }
     }
 }
  
