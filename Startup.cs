@@ -8,6 +8,11 @@ using Microsoft.Extensions.Hosting;
 using evoting.Persistence.Contexts;
 using evoting.Services;
 using evoting.Domain.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using evoting.Utility;
+using System.Threading.Tasks;
 
 namespace evoting
 {
@@ -23,6 +28,7 @@ namespace evoting
 
         public void ConfigureServices(IServiceCollection services)
         {
+            JWT_SetupServices(services);
             //services.AddCors(options =>
             //{
             //    options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -79,6 +85,10 @@ namespace evoting
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("MyPolicy");
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -102,6 +112,36 @@ namespace evoting
 
             //app.UseCors(MyAllowSpecificOrigins);
 
+        }
+
+        public void JWT_SetupServices(IServiceCollection _services)
+        {
+            var issuer = "https://evoting.bigshareonline.com";
+            _services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+          .AddJwtBearer(options =>
+          {
+              options.TokenValidationParameters = new TokenValidationParameters
+              {
+                  ValidateIssuer = true,
+                  ValidateAudience = true,
+                  ValidateIssuerSigningKey = true,
+                  ValidIssuer = issuer,
+                  ValidAudience = issuer,
+                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Token_Handling.key))
+              };
+
+              options.Events = new JwtBearerEvents
+              {
+                  OnAuthenticationFailed = context =>
+                  {
+                      if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                      {
+                          context.Response.Headers.Add("Token-Expired", "true");
+                      }
+                      return Task.CompletedTask;
+                  }
+              };
+          });
         }
     }
 }

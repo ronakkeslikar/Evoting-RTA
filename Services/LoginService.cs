@@ -37,7 +37,7 @@ namespace evoting.Services
                 dictLogin.Add("@IP_Address", fJC_Login.system_ip);                                 
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_LoginSession_Details", dictLogin);
-            return Reformatter.Validate_DataTable(ds.Tables[0]);            
+            return ds.Tables[0];            
         }
         public async Task<DataTable> ChangePasswordData(FJC_ChangePassword fJC_changePwd, string token)
         {

@@ -35,8 +35,17 @@ namespace evoting.Controllers
             try
             {
                 var result = await _loginService.LoginDataUser(fJC_Login);
-                //var check = result.AsEnumerable().Cast<BSC_LoginResponse>().First()
-                return Ok(Reformatter.Response_Object("User logged in succesfuly", ref result));
+                BSC_LoginResponse loginResponse =
+                        new BSC_LoginResponse()
+                        {
+                            Error = result.Rows[0]["Error"].ToString(),
+                            Audience = result.Rows[0]["Audience"].ToString(),
+                            EmailID = result.Rows[0]["EmailID"].ToString(),
+                            Name = result.Rows[0]["Name"].ToString(),
+                            Token = result.Rows[0]["Token"].ToString()
+                        };
+                loginResponse.Token = Token_Handling.Generate_token(loginResponse);
+                return Ok(new { message= "User logged in succesfully", data = loginResponse });
             }
             catch (Exception ex)
             {

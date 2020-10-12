@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using evoting.Domain.Models;
 using evoting.Services;
 using evoting.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace evoting.Controllers
 {
+
     [Route("api/CompanyEVENTDetails")]
     [Produces("application/json")]
     [ApiController]
@@ -21,6 +24,7 @@ namespace evoting.Controllers
             {
                 _GenerateEVENTService = GenerateEVENTService;
             }
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -39,7 +43,7 @@ namespace evoting.Controllers
             }
 
         }
-
+        [Authorize]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,7 +62,7 @@ namespace evoting.Controllers
             }
 
         }
-
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -67,7 +71,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
                 var result = await _GenerateEVENTService.GetCompanyEVENTDetail(event_id, Token);
                 return Ok(Reformatter.Response_ResolutionObject("Event-Details has been submitted succesfully", ref result));
             }
