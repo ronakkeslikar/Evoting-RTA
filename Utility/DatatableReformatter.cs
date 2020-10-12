@@ -50,7 +50,12 @@ namespace evoting.Utility
         public static object Response_ArrayObject(string _response_message, ref DataTable _dt)
         {
             if (_dt.Rows.Count > 0)
-                return new { StatusCode = 200, message = _response_message, data = Return_DynamicType_ListElement(_dt) };
+                if(_response_message.Trim()!=string.Empty)
+                    return new { StatusCode = 200, message = _response_message, data = Return_DynamicType_ListElement(_dt) };
+                    else{
+                    return new { StatusCode = 200, data = Return_DynamicType_ListElement(_dt) };
+
+                    }
             else
                 return new { StatusCode = 200, message = "List has not elements", data = new Array[0] };
         }

@@ -30,9 +30,13 @@ namespace evoting.Utility
             {
                 return StatusCode(401, new { status = false, message = ex.Message });
             }
-            else if(ex is CustomException.InvalidEventId)
+            // else if(ex is CustomException.InvalidEventId)
+            // {
+            //     return Unauthorized(ex.Message);
+            // }
+             else if(ex is CustomException.InvalidEventId)
             {
-                return Unauthorized(ex.Message);
+                return StatusCode(401, new { status = false, message = ex.Message });
             }
             else if(ex is CustomException.EventIDExists)
             {
