@@ -74,10 +74,29 @@ namespace evoting.Controllers
         {
             try
             {   
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result=(DataTable)null;                
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);                               
                                                                     
-                result = await _accountSearchService.GetAudience_Details(aud_id,Token);
+              var  result = await _accountSearchService.GetAudience_Details(aud_id,Token);
+                return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));  
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+            
+        }
+
+        [HttpGet("list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]       
+        public async Task<IActionResult> GetAccountList([FromQuery] int user_type  )
+        {
+            try
+            {   
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                             
+                                                                    
+               var result = await _accountSearchService.GetAccountList_Details(user_type,Token);
                 return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));  
             }
             catch (Exception ex)
