@@ -85,10 +85,11 @@ namespace evoting.Services
          private async Task<DataTable> InsertBulkFileUpload(int Event_No,int DocID, string Token)
         {         
                 Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
-                dictUserDetail.Add("@DocumentID", DocID);   
-                dictUserDetail.Add("@event_no", Event_No);
+                dictUserDetail.Add("@DocumentID", DocID);                
                 dictUserDetail.Add("@token", Token);
-            DataSet ds=  await AppDBCalls.GetDataSet("SP_IMPORTROMFILE", dictUserDetail);
+                dictUserDetail.Add("@Flag", 0);
+                
+            DataSet ds=  await AppDBCalls.GetDataSet("Sp_ValidateAndInsert_CustodianROM", dictUserDetail);
            return Reformatter.Validate_DataTable(ds.Tables[0]);   
                 
         }   
