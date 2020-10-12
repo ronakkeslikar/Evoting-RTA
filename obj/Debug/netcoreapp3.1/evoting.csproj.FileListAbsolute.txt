@@ -352,7 +352,6 @@ D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\staticwebassets\evotin
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.dll
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.pdb
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.genruntimeconfig.cache
-D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csprojAssemblyReference.cache
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\itextsharp.dll
 D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\itextsharp.xmlworker.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\appsettings.Development.json
@@ -416,3 +415,13 @@ C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\ClosedXML.d
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\ExcelNumberFormat.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\ClosedXML.dll
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\ExcelNumberFormat.dll
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+D:\WindowsApp\evoting-new\evoting\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csproj.CoreCompileInputs.cache
+D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.MvcApplicationPartsAssemblyInfo.cache

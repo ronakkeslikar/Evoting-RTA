@@ -35,6 +35,7 @@ namespace evoting.Controllers
             try
             {
                 var result = await _loginService.LoginDataUser(fJC_Login);
+                //var check = result.AsEnumerable().Cast<BSC_LoginResponse>().First()
                 return Ok(Reformatter.Response_Object("User logged in succesfuly", ref result));
             }
             catch (Exception ex)
