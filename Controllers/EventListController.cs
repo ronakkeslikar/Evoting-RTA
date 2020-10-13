@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 using evoting.Services;
 using Microsoft.AspNetCore.Http;
 using System.Data;
@@ -28,14 +31,16 @@ namespace evoting.Controllers
             _eventListService = eventListService; 
         }       
         
-         [HttpGet]
+        [Authorize]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> GetList([FromQuery] string str)
         {  
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);                                     
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);                                     
                 var result = await _eventListService.GetEventList_Details(str,Token);
                 return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));
             }        

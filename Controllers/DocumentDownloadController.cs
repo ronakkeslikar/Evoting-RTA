@@ -7,6 +7,8 @@ using evoting.Services;
 using evoting.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -21,6 +23,7 @@ namespace evoting.Controllers
             _documentDownloadService = documentDownloadService;
         }
 
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -28,7 +31,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                 switch(DownloadType.ToLower())
                     {
                         case "tri_partiate_agreement":
@@ -46,14 +50,16 @@ namespace evoting.Controllers
             }
         }
 
-         [HttpGet]
+        [Authorize]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDownload_Document()
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                 var result = await _documentDownloadService.GetDocumentDownload(Token);
                 return Ok(Reformatter.Response_Object("File Detail retieved successfully", ref result));              
             }

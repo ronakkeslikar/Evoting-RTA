@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
 using evoting.Utility;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -29,17 +31,18 @@ namespace evoting.Controllers
             _privateListService = privateListService; 
         }       
         
-         [HttpGet]
+        [Authorize]
+        [HttpGet]        
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> GetCommonUtitlity([FromQuery] string str)
         {
             try
             {   
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                var result=(DataTable)null;                
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);                     
                                                                     
-                result = await _privateListService.Getprivate_List_Details(str,Token);
+                var result = await _privateListService.Getprivate_List_Details(str,Token);
                 return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));  
             }
             catch (Exception ex)

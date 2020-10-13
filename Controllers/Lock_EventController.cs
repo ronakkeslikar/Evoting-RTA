@@ -6,6 +6,8 @@ using evoting.Services;
 using evoting.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -20,6 +22,7 @@ namespace evoting.Controllers
                 _Lock_EventService = Lock_EventService;
             }
 
+            [Authorize]
             [HttpPost("lock")]             
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -27,7 +30,8 @@ namespace evoting.Controllers
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                     var result = await _Lock_EventService.LockEventData(event_id, Token);
                     return Ok(Reformatter.Response_Object("Event Locked Successfully", ref result));
                 }
@@ -36,6 +40,8 @@ namespace evoting.Controllers
                     return (new HandleCatches()).ManageExceptions(ex);
                 }
             }
+
+            [Authorize]
             [HttpPost("unlock")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -43,7 +49,8 @@ namespace evoting.Controllers
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                     var result = await _Lock_EventService.UnlockEventData(event_id, Token);
                     return Ok(Reformatter.Response_Object("Event Unlocked Successfully", ref result));
                 }

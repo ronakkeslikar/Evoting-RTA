@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 using evoting.Services;
 using Microsoft.AspNetCore.Http;
 using System.Data;
@@ -28,6 +31,7 @@ namespace evoting.Controllers
             _registrationService = registrationService; 
         }       
         
+        [Authorize]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
@@ -35,7 +39,8 @@ namespace evoting.Controllers
         { 
             try
             { 
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _registrationService.Registration_UpdateData(fJC_Registration,Token);
                 return Ok(Reformatter.Response_Object("Profile Updated Successfully", ref result));                
              }
@@ -44,14 +49,17 @@ namespace evoting.Controllers
                 return (new HandleCatches()).ManageExceptions(ex);
             } 
         }
-         [HttpGet]
+
+        [Authorize]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> GetRegistrationID()
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _registrationService.GetRegistrationIDData(Token);
                 return Ok(Reformatter.Response_Object("Profile Details retrieved Successfully", ref result));
             }
@@ -61,6 +69,7 @@ namespace evoting.Controllers
             }
             
         }
+        [Authorize]
         [HttpGet("investor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -68,7 +77,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _registrationService.GetRegistrationInvestorData(Token);
                 return Ok(Reformatter.Response_InvestorObject("Profile Details retrieved Successfully", ref result));
             }

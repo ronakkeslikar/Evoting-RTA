@@ -6,6 +6,8 @@ using evoting.Services;
 using evoting.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -20,14 +22,16 @@ namespace evoting.Controllers
                 _ReportsService = ReportsService;
             }
             
-             [HttpGet]
+            [Authorize]
+            [HttpGet]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
             public async Task<IActionResult> GetReports([FromQuery] int event_id)
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                     var result = await _ReportsService.ReportsGetData(event_id,Token); 
                     return Ok(Reformatter.Response_ArrayObject("Scrutinizer Reports Retrieved Successfully", ref result));
                 }
@@ -36,6 +40,8 @@ namespace evoting.Controllers
                     return (new HandleCatches()).ManageExceptions(ex);
                 }
             }
+
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -43,7 +49,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _ReportsService.ReportsData(event_id, Token);
                 return Ok(Reformatter.Response_Object("Reports will be generated now", ref result));
             }

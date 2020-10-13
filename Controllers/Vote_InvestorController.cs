@@ -7,6 +7,8 @@ using evoting.Services;
 using evoting.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -22,6 +24,7 @@ namespace evoting.Controllers
                 _vote_InvestorService = vote_InvestorService;
             }
 
+            [Authorize]
             [HttpPost("vote")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -29,7 +32,8 @@ namespace evoting.Controllers
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                     var result = await _vote_InvestorService.Vote_Investor_data(fjc_Vote_Investor, Token);
                     return Ok(Reformatter.Response_Object("Investor Vote submitted Succesfully", ref result));
                 }
@@ -38,6 +42,8 @@ namespace evoting.Controllers
                     return (new HandleCatches()).ManageExceptions(ex);
                 }
             }
+
+            [Authorize]
             [HttpGet("vote")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -45,7 +51,8 @@ namespace evoting.Controllers
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                     var result = await _vote_InvestorService.Vote_Investor_Getdata(Token, event_id);
                     return Ok(Reformatter.Response_ResolutionObject("Investor Vote details retrieved Succesfully", ref result));    
                 }

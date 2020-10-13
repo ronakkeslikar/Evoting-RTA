@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
 using evoting.Utility;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -28,6 +30,7 @@ namespace evoting.Controllers
             _GenerateEVENTService = GenerateEVENTService;
         }
 
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
@@ -36,7 +39,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _GenerateEVENTService.EVENTDetail(fJC_EVSN, Token);
                 return Ok(Reformatter.Response_ResolutionObject("Event-Details has been submitted succesfully", ref result));
             }
@@ -47,6 +51,7 @@ namespace evoting.Controllers
 
         } 
 
+        [Authorize]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
@@ -55,7 +60,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _GenerateEVENTService.EVENTDetail(fJC_EVSN, Token);
                 return Ok(Reformatter.Response_ResolutionObject("Event-Details has been updated succesfully", ref result));
             }
@@ -66,6 +72,7 @@ namespace evoting.Controllers
 
         }
         
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
@@ -74,7 +81,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _GenerateEVENTService.GetEVENTDetail(event_id, Token);
                 return Ok(Reformatter.Response_ResolutionObject("Event-Details list generated successfully", ref result));
             }

@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
 using evoting.Utility;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -27,14 +29,17 @@ namespace evoting.Controllers
             _loginService = loginService;
         }
 
-        [HttpPost]
+        [Authorize]
+        [HttpPost]      
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> LoginUser(FJC_LoginRequest fJC_Login)
         {
             try
             {
-                var result = await _loginService.LoginDataUser(fJC_Login);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
+                var result=(System.Data.DataTable)null;
                 BSC_LoginResponse loginResponse =
                         new BSC_LoginResponse()
                         {

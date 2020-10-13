@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
 using evoting.Utility;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -25,6 +27,7 @@ namespace evoting.Controllers
             _loginService = loginService;
         }
 
+        [Authorize]
         [HttpPost] 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
@@ -32,7 +35,8 @@ namespace evoting.Controllers
         {
           try
           {
-            var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+            var identity = (ClaimsIdentity)User.Identity;  
+            var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
             var result = await _loginService.ChangePasswordData(fJC_changePwd,Token);
             return Ok(Reformatter.Response_Object("Password Changed successfully", ref result));                  
           }

@@ -29,11 +29,11 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EVENTDetailUser(FJC_CompanyUpdate_Event fJC_CompanyUpdate_Event)
-
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
                 var result = await _GenerateEVENTService.EVENTDetail(fJC_CompanyUpdate_Event, Token);
                 return Ok(Reformatter.Response_ResolutionObject("Event-Details has been submitted succesfully", ref result));
             }
@@ -48,11 +48,11 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update_EVENTDetail(FJC_CompanyUpdate_Event fJC_CompanyUpdate_Event)
-
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
                 var result = await _GenerateEVENTService.EVENTDetail(fJC_CompanyUpdate_Event, Token);
                 return Ok(Reformatter.Response_ResolutionObject("Event-Details has been updated succesfully", ref result));
             }
@@ -67,7 +67,6 @@ namespace evoting.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get_CompanyEventdetail([FromQuery] int event_id)
-
         {
             try
             {

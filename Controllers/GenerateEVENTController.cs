@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 using evoting.Services;
 using Microsoft.AspNetCore.Http;
 using System.Data;
@@ -28,7 +31,7 @@ namespace evoting.Controllers
             _GenerateEVENTService = GenerateEVENTService;
         }
        
-
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
@@ -36,7 +39,8 @@ namespace evoting.Controllers
         {            
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                 var result = await _GenerateEVENTService.GenerateEVENT(fJC_EVSN, Token);
                 return Ok(Reformatter.Response_Object("Event has been generated succesfully", ref result));
             }

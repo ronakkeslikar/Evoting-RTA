@@ -16,6 +16,8 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -31,7 +33,7 @@ namespace evoting.Controllers
         {
             _fileUploadService = fileUploadService;
         }
-
+        [Authorize]
         [HttpPost]
         [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -40,7 +42,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                 var result = await _fileUploadService.FileUpload_Details(_fjc_fileupload, Token);
                 return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
             }
@@ -50,7 +53,7 @@ namespace evoting.Controllers
             }
         }
 
-
+            [Authorize]
             [HttpGet]            
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,7 +61,8 @@ namespace evoting.Controllers
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                     var result = await _fileUploadService.GetFileDetails(doc_id, Token);
                     return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));
                 }

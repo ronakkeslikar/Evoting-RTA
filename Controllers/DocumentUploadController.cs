@@ -7,6 +7,8 @@ using evoting.Services;
 using evoting.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -21,14 +23,16 @@ namespace evoting.Controllers
             _documentUploadService = documentDownloadService;
         }
 
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UploadAgreement(FJC_DOC_Upload fJC_DOC_Upload)
         {
            
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
-                 var result=(System.Data.DataTable)null;
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
+                var result=(System.Data.DataTable)null;
                 switch (fJC_DOC_Upload.upload_type.ToLower())
                 {
                     case "tri_partiate_agreement":
@@ -46,6 +50,8 @@ namespace evoting.Controllers
                 }                  
            
         }
+
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -53,7 +59,8 @@ namespace evoting.Controllers
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                 var result = await _documentUploadService.AllUploadedDocuments( Token);
                 return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));
 

@@ -7,6 +7,8 @@ using evoting.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using evoting.Domain.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -21,6 +23,7 @@ namespace evoting.Controllers
                 _ShareHolder_RestrictService = ShareHolder_RestrictService;
             }
 
+            [Authorize]
             [HttpPost("restrict")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -28,7 +31,8 @@ namespace evoting.Controllers
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                     var result =  await _ShareHolder_RestrictService.ShareHolder_RestrictData(fjc_SharedHolder_Restrict,Token);
                     return Ok(Reformatter.Response_Object("ShareHolder restricted Successfully", ref result));
                 }
@@ -37,6 +41,8 @@ namespace evoting.Controllers
                     return (new HandleCatches()).ManageExceptions(ex);
                 }
             }
+
+            [Authorize]
             [HttpPut("derestrict")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -44,7 +50,8 @@ namespace evoting.Controllers
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                     var result =  await _ShareHolder_RestrictService.ShareHolder_DerestrictData(fjc_SharedHolder_Derestrict,Token);
                     return Ok(Reformatter.Response_Object("ShareHolder Derestricted Successfully", ref result));
                 }
@@ -53,14 +60,17 @@ namespace evoting.Controllers
                     return (new HandleCatches()).ManageExceptions(ex);
                 }
             }
-             [HttpGet("restricted")]
+
+            [Authorize]
+            [HttpGet("restricted")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
             public async Task<IActionResult> GetShareHolder_Restricted([FromQuery] int event_id)
             {
                 try
                 {
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                    var identity = (ClaimsIdentity)User.Identity;  
+                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                     var result = await _ShareHolder_RestrictService.GetShareHolder_RestrictData(event_id, Token);
                     return Ok(Reformatter.Response_ArrayObject("ShareHolder restricted data retrieved Successfully", ref result));
                 }

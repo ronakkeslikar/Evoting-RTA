@@ -16,6 +16,8 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting.Controllers
 {
@@ -32,15 +34,16 @@ namespace evoting.Controllers
             _romUploadService = romUploadService;
         }
 
-            [HttpPost]
-            
+            [Authorize]
+            [HttpPost]            
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]  
             public async Task<IActionResult> ROM(FJC_ROMUpload std)
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _romUploadService.ROMUpload_Details(std,Token);
                return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
             }
@@ -50,15 +53,16 @@ namespace evoting.Controllers
             } 
         }   
 
-         [HttpGet]
-            
+            [Authorize]
+            [HttpGet]            
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]  
             public async Task<IActionResult> GetROM()
         {
             try
             {
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers);
+                var identity = (ClaimsIdentity)User.Identity;  
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _romUploadService.GetROMUpload_Details(Token);
                return Ok(Reformatter.Response_Object("File Details retrieved successfully", ref result));
             }
