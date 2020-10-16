@@ -40,7 +40,7 @@ namespace evoting.Services
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
         ////////////////////////PUT Method for Pane List//////////////////////////
-        public async Task<DataTable> PaneListDataUpdate(FJC_PaneList fJC_PaneList, string token)
+        public async Task<DataTable> PaneListUpdateData(FJC_PaneList fJC_PaneList, string token)
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();
             dictLogin.Add("@event_id", fJC_PaneList.event_id);
