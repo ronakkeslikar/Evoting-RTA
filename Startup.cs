@@ -74,12 +74,14 @@ namespace evoting
             services.AddScoped<ICustodianROMUploadService, CustodianROMUploadService>();
             services.AddScoped<IAccountSearchService, AccountSearchService>();
             services.AddScoped<ILockEventService, LockEventService>();
+            services.AddScoped<IVideoConfService, VideoConfService>();
 
 
 
 
 
-            
+
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
