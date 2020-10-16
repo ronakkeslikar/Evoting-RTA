@@ -75,6 +75,8 @@ namespace evoting
             services.AddScoped<IAccountSearchService, AccountSearchService>();
             services.AddScoped<ILockEventService, LockEventService>();
             services.AddScoped<IVideoConfService, VideoConfService>();
+            services.AddScoped<ISpeakerListService, SpeakerListService>();
+
 
 
 
