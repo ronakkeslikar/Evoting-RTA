@@ -40,19 +40,7 @@ namespace evoting.Utility
                 }        
             
         }
-        public static string Get_Token_FromHeader(IHeaderDictionary _customHeads)
-        {
-
-            if (_customHeads.ContainsKey("Token"))
-            {
-                return _customHeads["Token"];
-            }
-            else
-            {
-                throw new CustomException.MissingToken();
-            }
-
-        }
+        
         public static string Generate_token(BSC_LoginResponse loginResponse)
         {
             //normally this will be your site URL    

@@ -45,8 +45,23 @@ namespace evoting.Controllers
                             Name = result.Rows[0]["Name"].ToString(),
                             Token = result.Rows[0]["Token"].ToString()
                         };
-                loginResponse.Token = Token_Handling.Generate_token(loginResponse);
-                return Ok(new { message= "User logged in succesfully", data = loginResponse });
+                if (loginResponse.Error.Trim() == string.Empty)
+                {
+                    loginResponse.Token = Token_Handling.Generate_token(loginResponse);
+                    return Ok(new { message = "User logged in succesfully", data = loginResponse });
+                }
+                else
+                {
+                    switch(loginResponse.Error)
+                    {
+                        case "Multiple login requests":
+                            throw new CustomException.MultipleRequests();
+                        case "Invalid User ID OR Password":
+                            throw new CustomException.InvalidPassword();
+                        default: throw new CustomException.InvalidAttempt();
+                           
+                    }
+                }
             }
             catch (Exception ex)
             {

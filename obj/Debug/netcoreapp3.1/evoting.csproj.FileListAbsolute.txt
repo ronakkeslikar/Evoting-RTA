@@ -435,3 +435,4 @@ C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.I
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csprojAssemblyReference.cache

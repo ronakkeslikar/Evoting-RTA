@@ -96,3 +96,6 @@ D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\Microsoft.IdentityMo
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\System.IO.Packaging.dll
+D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+D:\WindowsApp\evoting-new\evoting\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
