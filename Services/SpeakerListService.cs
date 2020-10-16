@@ -11,8 +11,10 @@ namespace evoting.Services
 {
     public interface ISpeakerListService
     {
-        Task<DataTable> SpeakerListData(FJC_SpeakerList fJC_SpeakerList, string Token); 
-         Task<DataTable> GetSpeakerList( int event_id,string Token); 
+        Task<DataTable> SpeakerListData(FJC_SpeakerList fJC_SpeakerList, string Token);
+        Task<DataTable> SpeakerListUpdateData(FJC_SpeakerList fJC_SpeakerList, string Token);
+
+        Task<DataTable> GetSpeakerList( int event_id,string Token); 
 
     }
     public class SpeakerListService : ISpeakerListService
@@ -23,6 +25,7 @@ namespace evoting.Services
             _context = context;
         }
 
+        ////////////////////////POST Method for Speaker List//////////////////////////
         public async Task<DataTable> SpeakerListData(FJC_SpeakerList fJC_SpeakerList, string token)
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
@@ -35,7 +38,22 @@ namespace evoting.Services
             DataSet ds = new DataSet();
             ds = await AppDBCalls.GetDataSet("Evote_SpeakerList", dictLogin);
             return Reformatter.Validate_DataTable(ds.Tables[0]);
-        }  
+        }
+        ////////////////////////PUT Method for Speaker List//////////////////////////
+        public async Task<DataTable> SpeakerListDataUpdate(FJC_SpeakerList fJC_SpeakerList, string token)
+        {
+            Dictionary<string, object> dictLogin = new Dictionary<string, object>();
+            dictLogin.Add("@event_id", fJC_SpeakerList.event_id);
+            dictLogin.Add("@email_id", fJC_SpeakerList.email_id);
+            dictLogin.Add("@name", fJC_SpeakerList.name);
+            dictLogin.Add("@id", fJC_SpeakerList.id);
+            dictLogin.Add("@flag", 3);
+            dictLogin.Add("@token", token);
+
+            DataSet ds = new DataSet();
+            ds = await AppDBCalls.GetDataSet("Evote_SpeakerList", dictLogin);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+        }
         public async Task<DataTable> GetSpeakerList( int event_id,string token)
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();

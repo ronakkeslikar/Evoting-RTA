@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace evoting.Domain.Models
 {
-    public class FJC_SpeakerList
-    {        
-        public string event_id { get; set; }        
-        public string email_id { get; set; }  
-        public string name { get; set; } 
+    
+    public class FJC_PaneList
+    {
+        public string event_id { get; set; }
+        public string email_id { get; set; }
+        public string name { get; set; }
         public int id { get; set; }
-
-    }    
+    }
 }

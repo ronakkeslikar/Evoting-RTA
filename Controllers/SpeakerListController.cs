@@ -51,6 +51,26 @@ namespace evoting.Controllers
             }
             
         }
+        [Authorize]
+        [HttpPut("speaker")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> SpeakerListUpdate(FJC_SpeakerList fJC_Speaker)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
+
+                var result = await _speakerListService.SpeakerListUpdateData(fJC_Speaker, Token);
+                return Ok(Reformatter.Response_Object("Speaker details Updated successfully", ref result));
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+
+        }
 
         [Authorize]
         [HttpGet("speakerlist")]
