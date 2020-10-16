@@ -21,29 +21,29 @@ namespace evoting.Controllers
     [Produces("application/json")]
     [ApiController]
      
-    public class SpeakerListController : ControllerBase
+    public class PaneListController : ControllerBase
     {
 
-        private readonly ISpeakerListService _speakerListService;
+        private readonly IPaneListService _PaneListService;
 
-        public SpeakerListController(ISpeakerListService speakerListService)
+        public PaneListController(IPaneListService PaneListService)
         {
-            _speakerListService = speakerListService; 
+            _PaneListService = PaneListService; 
         }       
         
         [Authorize]
-        [HttpPost("speaker")]
+        [HttpPost("panelist")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> SpeakerList(FJC_SpeakerList fJC_Speaker)
+        public async Task<IActionResult> PaneList(FJC_PaneList fJC_PaneList)
         {
             try
             {   
                 var identity = (ClaimsIdentity)User.Identity;  
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);                              
                                                                     
-                var result = await _speakerListService.SpeakerListData(fJC_Speaker, Token);
-                return Ok(Reformatter.Response_Object("Speaker added successfully", ref result));  
+                var result = await _PaneListService.PaneListData(fJC_PaneList, Token);
+                return Ok(Reformatter.Response_Object("Panelist added successfully", ref result));  
             }
             catch (Exception ex)
             {
@@ -52,18 +52,38 @@ namespace evoting.Controllers
             
         }
         [Authorize]
-        [HttpPut("speaker")]
+        [HttpPut("panelist")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> SpeakerListUpdate(FJC_SpeakerList fJC_Speaker)
+        public async Task<IActionResult> PaneListUpdate(FJC_PaneList fJC_PaneList)
         {
             try
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
 
-                var result = await _speakerListService.SpeakerListUpdateData(fJC_Speaker, Token);
-                return Ok(Reformatter.Response_Object("Speaker details Updated successfully", ref result));
+                var result = await _PaneListService.PaneListUpdateData(fJC_PaneList, Token);
+                return Ok(Reformatter.Response_Object("Panelist details Updated successfully", ref result));
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+
+        }
+        [Authorize]
+        [HttpDelete("panelist")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PaneListDelete(FJC_PaneList fJC_PaneList)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
+
+                var result = await _PaneListService.PaneListDeleteData(fJC_PaneList, Token);
+                return Ok(Reformatter.Response_Object("Panelist Removed Successfully", ref result));
             }
             catch (Exception ex)
             {
@@ -73,38 +93,17 @@ namespace evoting.Controllers
         }
 
         [Authorize]
-        [HttpDelete("speaker")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> SpeakerListDelete(FJC_SpeakerList fJC_Speaker)
-        {
-            try
-            {
-                var identity = (ClaimsIdentity)User.Identity;
-                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
-
-                var result = await _speakerListService.SpeakerListDeleteData(fJC_Speaker, Token);
-                return Ok(Reformatter.Response_Object("Speaker details Updated successfully", ref result));
-            }
-            catch (Exception ex)
-            {
-                return (new HandleCatches()).ManageExceptions(ex);
-            }
-
-        }
-
-        [Authorize]
-        [HttpGet("speakerlist")]
+        [HttpGet("Panelist")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
-        public async Task<IActionResult> GetSpeakerListDetails([FromQuery] int event_id)
+        public async Task<IActionResult> GetPaneListDetails([FromQuery] int event_id)
         {
             try
             {   
                 var identity = (ClaimsIdentity)User.Identity;  
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);                
                                                                     
-                var result = await _speakerListService.GetSpeakerList(event_id,Token);
+                var result = await _PaneListService.GetPaneList(event_id,Token);
                 return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));  
             }
             catch (Exception ex)
