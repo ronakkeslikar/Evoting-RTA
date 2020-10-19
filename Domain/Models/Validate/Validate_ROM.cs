@@ -8,6 +8,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 using evoting.Domain.Models;
 using evoting.Utility;
+using System.Data;
 
 namespace evoting.Domain.Models.Validate
 {
@@ -109,7 +110,7 @@ namespace evoting.Domain.Models.Validate
 
     public class Validate_ROM
     {
-        public bool Validate_File(string _fileName)
+        public bool Validate_File(string _fileName,string Token)
         {
             // List<string>ErrorFile = new List<string>();
             int LineNum = 1;
@@ -196,7 +197,7 @@ namespace evoting.Domain.Models.Validate
 
             if (_ErrorFile.Count > 0)
             {
-                WriteErrorFile(_ErrorFile);
+                WriteErrorFile(_ErrorFile, Token);
                 return false;
             }
             else
@@ -205,19 +206,30 @@ namespace evoting.Domain.Models.Validate
             }
 
         }
-        public void WriteErrorFile(List<CommonValidation.ErrorFile_list> _error)
+        public void WriteErrorFile(List<CommonValidation.ErrorFile_list> _error,string Token)
         {
             //string default_path = @"D:\Evoting\ErrorFile\Error.txt"; 
+            DataTable dtUserType = new DataTable();
+            dtUserType = (DataTable)(new ManageFileUpload()).GetUserDetailsByTokenID(Token).Result;
+            string default_path = string.Empty;
 
-            string default_path = FolderPaths.RTA.ROMFileError() + "\\" + System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";
+            switch (dtUserType.Rows[0]["type"])
+            {
+                case "Issuer Company":
+                    default_path = FolderPaths.Company.ROMFileError() + "\\" + System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";
+
+                    break;
+                case "RTA":
+                    default_path = FolderPaths.RTA.ROMFileError() + "\\" + System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";
+                    break;            
+
+            }
+
+            //string default_path = FolderPaths.RTA.ROMFileError() + "\\" + System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";
 
 
             //-Start-Error file created
-            if (File.Exists(default_path))
-            {
-
-            }
-            else
+            if (!File.Exists(default_path))
             {
                 FileStream fs = File.Create(default_path);
                 fs.Flush();

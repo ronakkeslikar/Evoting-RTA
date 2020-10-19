@@ -112,7 +112,7 @@ namespace evoting.Utility
             }
             return _return_Dt;
         }
-        private async Task<DataTable> GetUserDetailsByTokenID(string TokenID)
+        public async Task<DataTable> GetUserDetailsByTokenID(string TokenID)
         {
             Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
             dictUserDetail.Add("@Token", TokenID);
