@@ -43,7 +43,7 @@ namespace evoting.Controllers
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);                     
                                                                     
                 var result = await _privateListService.Getprivate_List_Details(str,Token);
-                return Ok(Reformatter.Response_ArrayObject("Records retrieved successfully", ref result));  
+                return Ok(Reformatter.Response_ArrayObject("", ref result));  
             }
             catch (Exception ex)
             {

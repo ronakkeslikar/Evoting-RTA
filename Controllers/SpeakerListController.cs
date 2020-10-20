@@ -84,7 +84,7 @@ namespace evoting.Controllers
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
 
                 var result = await _speakerListService.SpeakerListDeleteData(fJC_Speaker, Token);
-                return Ok(Reformatter.Response_Object("Speaker details Updated successfully", ref result));
+                return Ok(Reformatter.Response_Object("Speaker details Deleted successfully", ref result));
             }
             catch (Exception ex)
             {
