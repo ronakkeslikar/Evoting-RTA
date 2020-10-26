@@ -9,7 +9,7 @@ namespace evoting.Domain.Models
     public class FJC_SpeakerRegister
     {
         [Required(ErrorMessage = "Enter event ID")]
-        public string event_id { get; set; }
+        public int event_id { get; set; }
 
         [Required(ErrorMessage = "Enter email address")]
         public string email { get; set; }       

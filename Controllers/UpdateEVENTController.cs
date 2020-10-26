@@ -42,7 +42,7 @@ namespace evoting.Controllers
                 var identity = (ClaimsIdentity)User.Identity;  
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _GenerateEVENTService.EVENTDetail(fJC_EVSN, Token);
-                return Ok(Reformatter.Response_ResolutionObject("", ref result));
+                return Ok(Reformatter.Response_ResolutionObject("Event-Details has been submitted succesfully", ref result));
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace evoting.Controllers
                 var identity = (ClaimsIdentity)User.Identity;  
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _GenerateEVENTService.EVENTDetail(fJC_EVSN, Token);
-                return Ok(Reformatter.Response_ResolutionObject("Event-Details has been updated succesfully", ref result));
+                return Ok(Reformatter.Response_ResolutionObject("Event ID "+ result.Tables[0].Rows[0][0] +"Details has been updated succesfully", ref result));
             }
             catch (Exception ex)
             {
