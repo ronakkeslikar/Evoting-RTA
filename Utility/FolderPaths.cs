@@ -98,6 +98,10 @@ namespace evoting.Utility
             public static string AgreementUpload()
             {
                 return createAndappendDateFolder( SubCategoryPath, "Agreement");
+            } 
+            public static string AgreementDownload()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "Download_Agreement");
             }            
              public static string LogoUpload()
             {
@@ -130,7 +134,11 @@ namespace evoting.Utility
             public static string AgreementUpload()
             {
                 return createAndappendDateFolder( SubCategoryPath, "Agreement");
-            }            
+            } 
+             public static string AgreementDownload()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "Download_Agreement");
+            }           
              public static string LogoUpload()
             {
                  return createAndappendDateFolder( SubCategoryPath, "Logo");

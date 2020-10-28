@@ -67,7 +67,30 @@ namespace evoting.Services
                 memoryStream.Close();
 
                 //convert byte to pdf and save
-                string actPath= FolderPaths.Company.AgreementDownload();//@"C:\evoting\Agreement\";
+                //Folder path with Switch case
+                    string actPath=string.Empty;
+
+                    DataTable dtUserType = new DataTable();
+                    dtUserType = (DataTable)(new ManageFileUpload()).GetUserDetailsByTokenID(Token).Result;           
+
+                    switch (dtUserType.Rows[0]["type"])
+                    {
+                        case "Issuer Company":
+                            actPath = FolderPaths.Company.AgreementDownload();
+                            break;
+                        case "RTA":
+                            actPath = FolderPaths.RTA.AgreementDownload();
+                            break;
+                        case "Scrutinizer":
+                            actPath = FolderPaths.Scrutinizer.AgreementDownload();
+                            break;
+                        case "Custodian":
+                            actPath = FolderPaths.Custodian.AgreementDownload();
+                            break;            
+
+                    }
+                //
+               // string actPath= FolderPaths.Company.AgreementDownload();//@"C:\evoting\Agreement\";
                
                 string pdffilename=System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Agreement_PDF.pdf";
                 System.IO.File.WriteAllBytes(Path.Combine(actPath,pdffilename), bytes);
