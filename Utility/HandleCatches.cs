@@ -50,6 +50,10 @@ namespace evoting.Utility
             {
                 return StatusCode(400, new { status = false, message = ex.Message });
             }
+            else if(ex is CustomException.InvalidVote)
+            {
+                return StatusCode(400, new { status = false, message = ex.Message });
+            }
             else if(ex is CustomException.DeletedRecord)
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
@@ -127,6 +131,8 @@ namespace evoting.Utility
                 throw new CustomException.InvalidFileNotUploaded();
                 case "Invalid dpcl":
                 throw new CustomException.InvalidDpclNotExists();
+                case "Invalid Vote":
+                throw new CustomException.InvalidVote();
             }
         }
     }

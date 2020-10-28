@@ -252,6 +252,16 @@ namespace evoting.Utility
                     return "Invalid dpcl/dpcl does not exits";
                 }
             }
-        }       
+        } 
+        public class InvalidVote: Exception 
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Vote already submitted";
+                }
+            }
+        }      
     }
 }
