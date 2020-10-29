@@ -259,7 +259,14 @@ namespace evoting.Utility
             Custodian_ROMUpload,
             Custodian_POA,
             EvotinAgency_AgreementUpload,
-            EvotingAgency_ROMUpload
+            EvotingAgency_ROMUpload,
+            Company_Logo,
+            Comapny_ResolutionFile,
+            Company_Notice,
+            RTA_Logo,
+            RTA_ResolutionFile,
+            RTA_Notice
+            
         }
         public enum AudienceType
         {
@@ -272,7 +279,11 @@ namespace evoting.Utility
         {
             ROM,
             Agreement,
-            POA
+            POA,
+            Logo,
+            ResolutionFile,
+            Notice
+
         }
     }
 }

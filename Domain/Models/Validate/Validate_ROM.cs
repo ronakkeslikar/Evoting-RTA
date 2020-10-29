@@ -110,7 +110,7 @@ namespace evoting.Domain.Models.Validate
 
     public class Validate_ROM
     {
-        public bool Validate_File(string _fileName,string Token)
+        public bool Validate_File(string _fileName,string Token,int _event_id)
         {
             // List<string>ErrorFile = new List<string>();
             int LineNum = 1;
@@ -134,15 +134,23 @@ namespace evoting.Domain.Models.Validate
                             };
 
                             // ErrorFile.AddRange(CommonValidation.GetHeaderErrors(_obj));
-                            CommonValidation.ErrorFile_list new_objHeader = new CommonValidation.ErrorFile_list();
-                            new_objHeader.LineNum = LineNum;
-                            new_objHeader.ErrorResponse = CommonValidation.GetHeaderErrors(_objHeader);
-                            if (new_objHeader.ErrorResponse.Count > 0)
+                            if(_event_id!=Convert.ToInt32(_obj_array[2]))
                             {
-                                _ErrorFile.Add(new_objHeader);
+                                    throw new CustomException.InvalidFileRejected();
+                                    
                             }
-
-                            break;
+                            else
+                            {
+                                CommonValidation.ErrorFile_list new_objHeader = new CommonValidation.ErrorFile_list();
+                                new_objHeader.LineNum = LineNum;
+                                new_objHeader.ErrorResponse = CommonValidation.GetHeaderErrors(_objHeader);
+                                if (new_objHeader.ErrorResponse.Count > 0)
+                                {
+                                _ErrorFile.Add(new_objHeader);
+                                }
+                                break;
+                            }
+                           
 
                         case "01":
                             // var checkDetail = NewLine.Split('~').Cast<Detail>();

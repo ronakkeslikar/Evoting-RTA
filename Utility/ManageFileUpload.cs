@@ -54,6 +54,30 @@ namespace evoting.Utility
                         getpath = FolderPaths.EvotingAgency.ROMUpload();
                     dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
+                    case ProcessType.Company_Logo:
+                        getpath = FolderPaths.Company.LogoUpload();
+                        dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                        break;
+                    case ProcessType.Comapny_ResolutionFile:
+                        getpath = FolderPaths.Company.ResolutionFileUpload();
+                        dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                        break;
+                    case ProcessType.Company_Notice:
+                        getpath = FolderPaths.Company.NoticeUpload();
+                        dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                        break;
+                    case ProcessType.RTA_Logo:
+                        getpath = FolderPaths.RTA.LogoUpload();
+                        dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                        break;
+                    case ProcessType.RTA_ResolutionFile:
+                        getpath = FolderPaths.RTA.ResolutionFileUpload();
+                        dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                        break;
+                    case ProcessType.RTA_Notice:
+                        getpath = FolderPaths.RTA.NoticeUpload();
+                        dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                        break;
                 }
                 return dtFileDetails;
             }
@@ -106,6 +130,39 @@ namespace evoting.Utility
                     {
                          case "Custodian":
                                 _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Custodian_POA, Token);
+                                break;
+                    }
+                break;
+                case UploadType.Logo: 
+                    switch (dt.Rows[0]["type"])
+                    {
+                         case "Issuer Company":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Company_Logo, Token);
+                                break;
+                        case "RTA":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.RTA_Logo, Token);
+                                break;
+                    }
+                break;
+                case UploadType.ResolutionFile: 
+                    switch (dt.Rows[0]["type"])
+                    {
+                         case "Issuer Company":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Comapny_ResolutionFile, Token);
+                                break;
+                        case "RTA":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.RTA_ResolutionFile, Token);
+                                break;
+                    }
+                break;
+                case UploadType.Notice: 
+                    switch (dt.Rows[0]["type"])
+                    {
+                         case "Issuer Company":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Company_Notice, Token);
+                                break;
+                        case "RTA":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.RTA_Notice, Token);
                                 break;
                     }
                 break;
