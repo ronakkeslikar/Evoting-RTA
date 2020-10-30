@@ -61,7 +61,7 @@ namespace evoting.Controllers
                 var identity = (ClaimsIdentity)User.Identity;  
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
                 var result = await _documentDownloadService.GetDocumentDownload(Token);
-                return Ok(Reformatter.Response_Object("File Detail retieved successfully", ref result));              
+                return Ok(Reformatter.Response_ArrayObject("File Detail retieved successfully", ref result));              
             }
             catch (Exception ex)
             {
