@@ -265,7 +265,8 @@ namespace evoting.Utility
             Company_Notice,
             RTA_Logo,
             RTA_ResolutionFile,
-            RTA_Notice
+            RTA_Notice,
+            Scrutinizer_AgreementUpload
             
         }
         public enum AudienceType
@@ -273,7 +274,8 @@ namespace evoting.Utility
             Company,
             RTA,
             Custodian, 
-            EvotingAgency
+            EvotingAgency,
+            Scrutinizer
         }
         public enum UploadType
         {
