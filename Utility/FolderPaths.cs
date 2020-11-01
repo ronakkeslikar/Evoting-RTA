@@ -20,6 +20,10 @@ namespace evoting.Utility
             {
                 return createAndappendDateFolder( SubCategoryPath, "ROM");
             }
+             public static string ROM_IntimationUpload()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "ROM_Intimation");
+            }
             public static string AgreementUpload()
             {
                 return createAndappendDateFolder( SubCategoryPath, "Upload_Agreement");
@@ -55,6 +59,10 @@ namespace evoting.Utility
             public static string ROMUpload()
             {
                 return createAndappendDateFolder( SubCategoryPath, "ROM");
+            }
+            public static string ROM_IntimationUpload()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "ROM_Intimation");
             }
             public static string AgreementUpload()
             {               
@@ -254,8 +262,10 @@ namespace evoting.Utility
         {
             Company_AgreementUpload,
             Company_ROMUpload,
+            Company_ROM_IntimationUpload,
             RTA_AgreementUpload,
             RTA_ROMUpload,
+            RTA_ROM_IntimationUpload,
             Custodian_ROMUpload,
             Custodian_POA,
             EvotinAgency_AgreementUpload,
@@ -280,6 +290,7 @@ namespace evoting.Utility
         public enum UploadType
         {
             ROM,
+            ROM_Intimation,
             Agreement,
             POA,
             Logo,

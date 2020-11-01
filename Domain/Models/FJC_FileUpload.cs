@@ -20,6 +20,8 @@ public class FJC_FileUpload
          public int doc_id {get;set;} //required
        
         public int event_id {get;set;}  //required
+
+        public string upload_type{get;set;}//For ROM Intimation only
       
        
     }  

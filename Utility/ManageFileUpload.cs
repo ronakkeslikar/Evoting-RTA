@@ -38,6 +38,10 @@ namespace evoting.Utility
                         getpath = FolderPaths.Company.ROMUpload();
                     dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
+                    case ProcessType.Company_ROM_IntimationUpload:
+                        getpath = FolderPaths.Company.ROMUpload();
+                    dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                        break;
                     case ProcessType.RTA_ROMUpload:
                         getpath = FolderPaths.RTA.ROMUpload();
                         dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
@@ -112,6 +116,17 @@ namespace evoting.Utility
                                 _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Custodian_ROMUpload, Token);
                                 break;
 
+                    }
+                break;
+                case UploadType.ROM_Intimation: 
+                    switch (dt.Rows[0]["type"])
+                    {
+                        case "Issuer Company":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Company_ROM_IntimationUpload, Token);
+                                    break;
+                        case "RTA":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.RTA_ROM_IntimationUpload, Token);
+                                    break;
                     }
                 break;
                 case UploadType.Agreement: 
