@@ -37,7 +37,7 @@ namespace evoting.Services
             switch (fjc_ROMUpload.upload_type.ToLower())
                 {
                 //////////////////////////////ROM Intimation////////////////////////
-                    case "rom_intimation":                          
+                    case "intimation":                          
                         DataTable dt1=new DataTable();
                         dt1= await RegisterROM_Intimation(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,0)  ; // GetROMUpload_Details(Token);
                         if(dt1.Rows.Count>0)

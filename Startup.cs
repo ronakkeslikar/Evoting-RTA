@@ -13,6 +13,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using evoting.Utility;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
+using System.Web.Http;
+
 
 namespace evoting
 {
@@ -37,15 +40,18 @@ namespace evoting
             //                          builder.WithOrigins("https://slimlink.io",
             //                                              "http://localhost:4200");
             //                      });
-            //});
+            //});            
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
-                       .AllowAnyHeader();
+                       .AllowAnyHeader()
+                       
+                       ;
             }));
+          
             services.AddControllers();
-
+            
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("sql"));
@@ -78,19 +84,12 @@ namespace evoting
             services.AddScoped<ISpeakerListService, SpeakerListService>();
             services.AddScoped<IPaneListService, PaneListService>();
 
-
-
-
-
-
-
-
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("MyPolicy");
+            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -149,5 +148,7 @@ namespace evoting
               };
           });
         }
+
+        
     }
 }

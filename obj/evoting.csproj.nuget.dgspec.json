@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[0.95.3, )"
             },
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.8, )"
@@ -59,6 +63,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.5, )"
+            },
+            "Microsoft.Owin": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            },
+            "Microsoft.Owin.Cors": {
+              "target": "Package",
+              "version": "[4.1.1, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
