@@ -86,6 +86,10 @@ namespace evoting.Utility
                         getpath = FolderPaths.Scrutinizer.AgreementUpload();
                         dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                         break;
+                    case ProcessType.VCFileUpload:
+                        getpath = FolderPaths.EvotingAgency.VCFileUpload();
+                        dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                        break;
                 }
                 return dtFileDetails;
             }
@@ -185,6 +189,14 @@ namespace evoting.Utility
                                 break;
                         case "RTA":
                                 _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.RTA_Notice, Token);
+                                break;
+                    }
+                break;
+                  case UploadType.VC_File: 
+                    switch (dt.Rows[0]["type"])
+                    {
+                         case "Evoting Agency":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.VCFileUpload, Token);
                                 break;
                     }
                 break;
