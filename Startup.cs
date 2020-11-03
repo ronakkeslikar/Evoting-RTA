@@ -83,6 +83,8 @@ namespace evoting
             services.AddScoped<IVideoConfService, VideoConfService>();
             services.AddScoped<ISpeakerListService, SpeakerListService>();
             services.AddScoped<IPaneListService, PaneListService>();
+            services.AddScoped<IIntimationService, IntimationService>();
+
 
         }
 

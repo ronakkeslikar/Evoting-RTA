@@ -198,6 +198,10 @@ namespace evoting.Utility
             {
                 return createAndappendDateFolder( SubCategoryPath, "ROM_File_Error");
             }  
+             public static string VCFileUpload()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "VC_File");
+            }  
 
         } 
  
@@ -276,7 +280,8 @@ namespace evoting.Utility
             RTA_Logo,
             RTA_ResolutionFile,
             RTA_Notice,
-            Scrutinizer_AgreementUpload
+            Scrutinizer_AgreementUpload,
+            VCFileUpload
             
         }
         public enum AudienceType
@@ -295,7 +300,8 @@ namespace evoting.Utility
             POA,
             Logo,
             ResolutionFile,
-            Notice
+            Notice,
+            VC_File
 
         }
     }
