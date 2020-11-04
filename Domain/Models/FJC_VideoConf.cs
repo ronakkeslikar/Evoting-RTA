@@ -16,7 +16,7 @@ namespace evoting.Domain.Models
         public string investor_url { get; set; }
         public string vc_title { get; set; }
         public string vc_datetime { get; set; }
-        public string vc_file { get; set; }
+        public int vc_file { get; set; }
         public string vc_handler { get; set; }
 
 
