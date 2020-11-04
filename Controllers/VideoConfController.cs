@@ -43,7 +43,7 @@ namespace evoting.Controllers
                 var identity = (ClaimsIdentity)User.Identity;
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
                 var result = await _videoConfService.VideoConf_Update(FJC_VideoConf, Token);
-                return Ok(Reformatter.Response_ArrayObject("VC Details updated in event successfully", ref result));
+                return Ok(Reformatter.Response_Object("VC Details updated in event successfully", ref result));
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace evoting.Controllers
                 var identity = (ClaimsIdentity)User.Identity;
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
                 var result = await _videoConfService.Get_VideoConf(event_id, Token);
-                return Ok(Reformatter.Response_ArrayObject("VC Details updated in event successfully", ref result));
+                return Ok(Reformatter.Response_Object("VC Details updated in event successfully", ref result));
             }
             catch (Exception ex)
             {
