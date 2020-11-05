@@ -13,9 +13,9 @@ namespace evoting.Domain.Models
     {
         public int event_id { get; set;}         
         public string event_name { get; set; }
-        public DateTime notice_date { get; set; }
+        public string notice_date { get; set; }
         public string rom_file { get; set; }
-        public DateTime email_sent_date { get; set; }
-        public DateTime post_sent_date { get; set; }
+        public string email_sent_date { get; set; }
+        public string post_sent_date { get; set; }
     }
 }
