@@ -18,7 +18,9 @@ namespace evoting.Services
 {
     public interface INoticeService
     {  
-       Task<DataTable> GetNotice_Details(FJC_Notice fjc_notice);        
+       Task<DataTable> GetNotice_Details(FJC_Notice fjc_notice);  
+       Task<DataTable> GetIssuer_Details(string str);        
+
     }
 
     public class NoticeService : INoticeService
@@ -29,6 +31,8 @@ namespace evoting.Services
         {
             _context = context;
         }   
+
+        ////////////////Get For Notice Controller/////////////////
          public async Task<DataTable> GetNotice_Details(FJC_Notice fjc_notice)
         { 
             Dictionary<string, object> dictRegis = new Dictionary<string, object>(); 
@@ -41,7 +45,16 @@ namespace evoting.Services
             ds = await AppDBCalls.GetDataSet("Evote_notice_result_fetch", dictRegis);                            
             return Reformatter.Validate_DataTable(ds.Tables[0]); 
         }
-        
+       ////////////////////get For Issuer Controller///////////////////
+       public async Task<DataTable> GetIssuer_Details(string str)
+        { 
+            Dictionary<string, object> dictRegis = new Dictionary<string, object>(); 
+            dictRegis.Add("@getCh", str);           
+
+            DataSet ds = new DataSet();
+            ds = await AppDBCalls.GetDataSet("Evote_GetList", dictRegis);                            
+            return Reformatter.Validate_DataTable(ds.Tables[0]); 
+        } 
         
     }
 }
