@@ -85,6 +85,8 @@ namespace evoting
             services.AddScoped<IPaneListService, PaneListService>();
             services.AddScoped<IIntimationService, IntimationService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<INoticeService, NoticeService>();
+
 
 
 
