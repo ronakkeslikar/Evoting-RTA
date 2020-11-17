@@ -63,7 +63,7 @@ namespace evoting.Services
             }
             else
             {
-              return DateTime.Parse(date_param).ToString("yyyy-MM-dd hh:mm:ss:fff"); 
+              return DateTime.Parse(date_param).ToString("yyyy-MM-dd HH:mm:ss:fff"); 
             }
         }
 
