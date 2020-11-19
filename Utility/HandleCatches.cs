@@ -15,8 +15,8 @@ namespace evoting.Utility
                 return Unauthorized(new { status = false, message = ex.Message });
             }
              else if(ex is CustomException.InvalidPANID)
-            {
-                return Unauthorized(new { status = false, message = ex.Message });
+            {              
+                return StatusCode(400, new { status = false, message = ex.Message });
             }
             else if(ex is CustomException.InvalidEmailID)
             {
