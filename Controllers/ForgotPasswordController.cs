@@ -36,15 +36,14 @@ namespace evoting.Controllers
             try
             {                
                 var result = (DataTable)null;   
-                if(fJC_forgot.TypeOfUser == 'S' || fJC_forgot.TypeOfUser == 'T' || fJC_forgot.TypeOfUser == 'H' 
-                            || (fJC_forgot.TypeOfUser == 'I' && fJC_forgot.TypeOfUpdate!='E'  ))
+                if((fJC_forgot.TypeOfUser == 'I' && fJC_forgot.TypeOfUpdate!='E'  ))
                 {
                     if(!Regex.IsMatch(fJC_forgot.PAN_ID, @"^[a-zA-Z0-9]*$"))
                     {
                         throw new CustomException.InvalidPanPattern();
                     }
                 }
-                else if(fJC_forgot.TypeOfUser == 'C' || fJC_forgot.TypeOfUser == 'R')
+                else //if(fJC_forgot.TypeOfUser == 'C' || fJC_forgot.TypeOfUser == 'R' || fJC_forgot.TypeOfUser == 'S' || fJC_forgot.TypeOfUser == 'T' || fJC_forgot.TypeOfUser == 'H')
                 {
                     fJC_forgot.PAN_ID = "XXXXXXXX";
                 }

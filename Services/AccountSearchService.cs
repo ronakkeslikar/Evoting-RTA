@@ -21,7 +21,7 @@ namespace evoting.Services
        Task<DataTable> GetSearch_Details(FJC_AccountSearch fJC_AccountSearch,string Token); 
        Task<DataTable> GetAudience_Details(int aud_id,string Token); 
        Task<DataTable> Verify_AccountData(FJC_VerifyAccount verifyAccount, string Token);
-       Task<DataTable> GetAccountList_Details(int user_type,string Token); 
+       Task<DataTable> GetAccountList_Details(int user_type,string status, string Token); 
 
     }
 
@@ -79,11 +79,12 @@ namespace evoting.Services
 
          /////////////////Get Account List Details using "List" get method //////////////////////////
         
-         public async Task<DataTable> GetAccountList_Details(int user_type,string Token)
+         public async Task<DataTable> GetAccountList_Details(int user_type,string status, string Token)
         { 
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>(); 
                 
                 dictRegis.Add("@user_type", user_type);
+                dictRegis.Add("@status", status);
                 dictRegis.Add("@token", Token);
 
                 DataSet ds = new DataSet();
