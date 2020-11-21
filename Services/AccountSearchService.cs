@@ -20,7 +20,7 @@ namespace evoting.Services
     {  
        Task<DataTable> GetSearch_Details(FJC_AccountSearch fJC_AccountSearch,string Token); 
        Task<DataTable> GetAudience_Details(int aud_id,string Token); 
-       Task<DataTable> Verify_AccountData(int aud_id,string Token);
+       Task<DataTable> Verify_AccountData(FJC_VerifyAccount verifyAccount, string Token);
        Task<DataTable> GetAccountList_Details(int user_type,string Token); 
 
     }
@@ -49,14 +49,16 @@ namespace evoting.Services
         }
 
         //////////////////Verify Account using POST method///////////////////////////
-          public async Task<DataTable> Verify_AccountData(int aud_id,string Token)
+          public async Task<DataTable> Verify_AccountData(FJC_VerifyAccount verifyAccount, string Token)
         { 
                 Dictionary<string, object> dictRegis = new Dictionary<string, object>(); 
                 
-                dictRegis.Add("@aud_id", aud_id);
+                dictRegis.Add("@doc_id", verifyAccount.doc_id);
                 dictRegis.Add("@token", Token);
+                dictRegis.Add("@result", verifyAccount.result);
+                dictRegis.Add("@remark_desc", verifyAccount.remark_desc);
 
-                DataSet ds = new DataSet();
+            DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_VerifyAccount", dictRegis);                            
               return Reformatter.Validate_DataTable(ds.Tables[0]); 
         }
