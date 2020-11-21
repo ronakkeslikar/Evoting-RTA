@@ -36,7 +36,7 @@ namespace evoting.Controllers
             try
             { 
                 var result=  await _noticeService.GetNotice_Details(fjc_notice);
-                return Ok(Reformatter.Response_Object("Notice details retrieved successfully", ref result));  
+                return Ok(Reformatter.Response_ArrayObject("Notice details retrieved successfully", ref result));  
             }
             catch (Exception ex)
             {
