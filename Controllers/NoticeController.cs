@@ -28,7 +28,7 @@ namespace evoting.Controllers
             _noticeService = noticeService; 
         }       
         
-         [HttpGet]
+         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> GetNotice(FJC_Notice fjc_notice)
