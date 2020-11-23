@@ -50,6 +50,10 @@ namespace evoting.Utility
                         getpath = FolderPaths.Custodian.ROMUpload();
                         dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
                     break;
+                    case ProcessType.Custodian_AgreementUpload:
+                        getpath = FolderPaths.Custodian.AgreementUpload();
+                        dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
+                    break;
                     case ProcessType.Custodian_POA:
                         getpath = FolderPaths.Custodian.POA();
                         dtFileDetails= await UploadToDatabase(getpath, fjc_FileUpload, Token);
@@ -147,6 +151,9 @@ namespace evoting.Utility
                         break;
                          case "Scrutinizer":
                                 _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Scrutinizer_AgreementUpload, Token);
+                        break;
+                        case "Custodian":
+                                _return_Dt = await SaveFile(fJC_FileUpload, ProcessType.Custodian_AgreementUpload, Token);
                         break;
 
                     }

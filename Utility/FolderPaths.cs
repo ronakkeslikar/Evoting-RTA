@@ -264,24 +264,34 @@ namespace evoting.Utility
        
         public enum ProcessType
         {
+            //Comapny
             Company_AgreementUpload,
             Company_ROMUpload,
             Company_ROM_IntimationUpload,
-            RTA_AgreementUpload,
-            RTA_ROMUpload,
-            RTA_ROM_IntimationUpload,
-            Custodian_ROMUpload,
-            Custodian_POA,
-            EvotinAgency_AgreementUpload,
-            EvotingAgency_ROMUpload,
             Company_Logo,
             Comapny_ResolutionFile,
             Company_Notice,
+            //RTA
+            RTA_AgreementUpload,
+            RTA_ROMUpload,
+            RTA_ROM_IntimationUpload,
             RTA_Logo,
             RTA_ResolutionFile,
             RTA_Notice,
+
+            //Scrutinizer
             Scrutinizer_AgreementUpload,
-            VCFileUpload
+
+            //Custodian
+            Custodian_ROMUpload,
+            Custodian_POA,
+            VCFileUpload,
+            Custodian_AgreementUpload,
+
+            //Evoting Agency
+            EvotinAgency_AgreementUpload,
+            EvotingAgency_ROMUpload,          
+            
             
         }
         public enum AudienceType
