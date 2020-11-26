@@ -37,7 +37,7 @@ namespace evoting.Controllers
             {   
                  if(fJC_Registration.reg_type_id == 1 || fJC_Registration.reg_type_id == 2 )
                 {
-                  fJC_Registration.panid="XXXXXXXX";  
+                  fJC_Registration.panid="XXXXX0000X";  
                 }                                
                 var result = await _registrationService.Registration_InsertData(fJC_Registration);               
                   return Ok(Reformatter.Response_Object("UserID: "+ result.Rows[0][0] + " generated. New Registration completed Successfully", ref result));              
