@@ -17,6 +17,16 @@ namespace evoting.Utility
                 }
             }
         }
+        public class InvalidRegNo : Exception
+        {
+            public override string Message
+            {
+                get
+                {
+                    return "Invalid Reg No.";
+                }
+            }
+        }
         public class MultipleRequests : Exception
         {
             public override string Message

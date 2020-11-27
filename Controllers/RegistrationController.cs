@@ -45,7 +45,7 @@ namespace evoting.Controllers
                 {
                     if(!Regex.IsMatch(fJC_Registration.reg_no, @"^[a-zA-Z0-9 -,_]*$"))
                     {
-                        throw new CustomException.InvalidValue();
+                        throw new CustomException.InvalidRegNo();
                     }
                 }                               
                 var result = await _registrationService.Registration_InsertData(fJC_Registration);               

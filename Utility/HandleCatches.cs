@@ -62,6 +62,10 @@ namespace evoting.Utility
             {
                 return StatusCode(400, new { status = false, message = ex.Message });
             }
+            else if(ex is CustomException.InvalidRegNo)
+            {
+                return StatusCode(400, new { status = false, message = ex.Message });
+            }
             else if(ex is CustomException.InvalidPathReference)
             {
                 return StatusCode(500, new { status = false, message = ex.Message });
@@ -133,6 +137,9 @@ namespace evoting.Utility
                 throw new CustomException.InvalidDpclNotExists();
                 case "Invalid Vote":
                 throw new CustomException.InvalidVote();
+                case "Invalid Reg. No":
+                throw new CustomException.InvalidRegNo();
+                
             }
         }
     }
