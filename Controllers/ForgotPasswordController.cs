@@ -45,7 +45,7 @@ namespace evoting.Controllers
                 }
                 else //if(fJC_forgot.TypeOfUser == 'C' || fJC_forgot.TypeOfUser == 'R' || fJC_forgot.TypeOfUser == 'S' || fJC_forgot.TypeOfUser == 'T' || fJC_forgot.TypeOfUser == 'H')
                 {
-                    fJC_forgot.PAN_ID = "XXXXXXXX";
+                    fJC_forgot.PAN_ID = "XXXXX0000X";
                 }
                          
                 
