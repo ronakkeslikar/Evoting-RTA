@@ -73,6 +73,12 @@ namespace evoting.Services
                     //wb.Worksheets.Add(ds.Tables[0],"Details Report");
                     summarysheet1.Style.Font.FontColor=XLColor.Black;
                     summarysheet1.SetAutoFilter(false);
+                    summarysheet1.Tables.FirstOrDefault().Theme=XLTableTheme.None;
+                    
+                       
+                    summarysheet1.Rows(1, 1).Style.Font.Bold = true;
+                    summarysheet1.Columns().Width = 20;
+                    summarysheet1.Columns().Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                   
                      //Add Records for  Summary Report worksheet
                     var col1 = summarysheet.Column("A");
