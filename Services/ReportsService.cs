@@ -76,9 +76,15 @@ namespace evoting.Services
                   
                      //Add Records for  Summary Report worksheet
                     var col1 = summarysheet.Column("A");
+                    var colB = summarysheet.Column("B");
+                    var colC = summarysheet.Column("C");
+
+
                     //col1.Style.Font.Bold = true;
                     col1.Style.Font.FontColor=XLColor.Black;
                     col1.Width = 60;
+                    colB.Width=20;
+                    colC.Width=30;
                    var secondsheetstyle= summarysheet.Cell(1, 1).SetValue("Report Generation Date and Time : " + ds.Tables[1].Rows[0]["report_generated_date"].ToString()).Style.Font.Bold=true;
  
                     summarysheet.Cell(3, 1).SetValue("EVSN").Style.Font.Bold=true;
