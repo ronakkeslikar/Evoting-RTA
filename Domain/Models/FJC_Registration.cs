@@ -15,7 +15,7 @@ namespace evoting.Domain.Models
         [Required (ErrorMessage ="Enter Entity Name") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string name { get; set;}  
 
-        [Required (ErrorMessage ="Enter Reg. No.") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
+        //[Required (ErrorMessage ="Enter Reg. No.") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 
         public string reg_no { get; set;}
                 
         [Required (ErrorMessage ="Enter Registered Office Address") ,RegularExpression(@"^[a-zA-Z0-9 -,_]*$")] 

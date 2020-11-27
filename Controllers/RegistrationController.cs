@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
 using evoting.Utility;
+using System.Text.RegularExpressions;
 
 namespace evoting.Controllers
 {
@@ -38,7 +39,15 @@ namespace evoting.Controllers
                  if(fJC_Registration.reg_type_id == 1 || fJC_Registration.reg_type_id == 2 )
                 {
                   fJC_Registration.panid="XXXXX0000X";  
-                }                                
+                } 
+
+                if(fJC_Registration.reg_type_id != 3)
+                {
+                    if(!Regex.IsMatch(fJC_Registration.reg_no, @"^[a-zA-Z0-9 -,_]*$"))
+                    {
+                        throw new CustomException.InvalidValue();
+                    }
+                }                               
                 var result = await _registrationService.Registration_InsertData(fJC_Registration);               
                   return Ok(Reformatter.Response_Object("UserID: "+ result.Rows[0][0] + " generated. New Registration completed Successfully", ref result));              
             }
