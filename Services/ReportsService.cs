@@ -88,8 +88,13 @@ namespace evoting.Services
 
                     //col1.Style.Font.Bold = true;
                     col1.Style.Font.FontColor=XLColor.Black;
+                    summarysheet.Cell(1,1).Style.Fill.BackgroundColor=XLColor.Gray;
+
                     col1.Width = 60;
                     colB.Width=20;
+                   summarysheet.Range("A3:B3").Style.Fill.BackgroundColor=XLColor.Gray;
+
+
                     colC.Width=30;
                    var secondsheetstyle= summarysheet.Cell(1, 1).SetValue("Report Generation Date and Time : " + ds.Tables[1].Rows[0]["report_generated_date"].ToString()).Style.Font.Bold=true;
  
@@ -108,13 +113,14 @@ namespace evoting.Services
                     summarysheet.Cell(9, 1).SetValue("Voting Finalisation Date and Time: " + ds.Tables[1].Rows[0]["Voting Finalisation Date and Time"].ToString());
 
                     //Row start from ROW 11
-                     summarysheet.Cell(11, 1).SetValue("Res. No.").Style.Font.Bold=true;
-                     summarysheet.Cell(11, 2).SetValue("Yes Count").Style.Font.Bold=true;
-                     summarysheet.Cell(11, 3).SetValue("Yes (%)").Style.Font.Bold=true;
-                     summarysheet.Cell(11, 4).SetValue("No Count").Style.Font.Bold=true;
-                     summarysheet.Cell(11, 5).SetValue("No (%)").Style.Font.Bold=true;
-                     summarysheet.Cell(11, 6).SetValue("TotalCount").Style.Font.Bold=true;
-                     summarysheet.Cell(11, 7).SetValue("Total").Style.Font.Bold=true;
+                    int rowint=11;
+                     summarysheet.Cell(rowint, 1).SetValue("Res. No.").Style.Font.Bold=true;
+                     summarysheet.Cell(rowint, 2).SetValue("Yes Count").Style.Font.Bold=true;
+                     summarysheet.Cell(rowint, 3).SetValue("Yes (%)").Style.Font.Bold=true;
+                     summarysheet.Cell(rowint, 4).SetValue("No Count").Style.Font.Bold=true;
+                     summarysheet.Cell(rowint, 5).SetValue("No (%)").Style.Font.Bold=true;
+                     summarysheet.Cell(rowint, 6).SetValue("TotalCount").Style.Font.Bold=true;
+                     summarysheet.Cell(rowint, 7).SetValue("Total").Style.Font.Bold=true;
                      summarysheet.Range("A11:G11").Style.Fill.BackgroundColor=XLColor.Gray;
                     //summarysheet.Cell(ds.Tables[2].Rows.Count, ds.Tables[2].Columns.Count).SetValue(ds.Tables[2]);
                int a=12;
