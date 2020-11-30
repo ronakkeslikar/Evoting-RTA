@@ -64,6 +64,13 @@ namespace evoting.Services
                 dictForgotPwd.Add("@EMAILID", fJC_forgot.EmailID);                            
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
+
+                 //mailing contents are here 
+                    SendMail sendmail=new SendMail();
+                    string EmailerType="ForgotPasswordEmailer";
+                    int row_id= Convert.ToInt32(ds.Tables[0].Rows[0]["rowid"]) ; 
+                    sendmail.SendLetterMail(0,EmailerType,0,row_id);                             
+
                 return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 

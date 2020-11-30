@@ -67,7 +67,13 @@ namespace evoting.Services
                 dictRegis.Add("@rta_id", fJC_Registration.rta_id);
 
             DataSet ds=new DataSet();
-                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis);                              
+                ds= await AppDBCalls.GetDataSet("Evote_Registration_Details", dictRegis); 
+
+                //mailing contents are here 
+                    SendMail sendmail=new SendMail();
+                    string EmailerType="RegistrationEmailer";
+                    int aud_id= Convert.ToInt32(ds.Tables[0].Rows[0]["aud_id"]) ; 
+                    sendmail.SendLetterMail(0,EmailerType,aud_id,0); 
               return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
          public async Task<DataTable> Registration_UpdateData(FJC_Registration fJC_Registration,string Token)
@@ -103,7 +109,12 @@ namespace evoting.Services
                 dictRegis.Add("@token", Token);
                 dictRegis.Add("@flag", "put");
                 
-                DataSet ds= await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);                              
+                DataSet ds= await AppDBCalls.GetDataSet("Evote_GetRegistrationIDData", dictRegis);  
+                //mailing contents are here 
+                    SendMail sendmail=new SendMail();
+                    string EmailerType="RegistrationEmailer";
+                    int aud_id= Convert.ToInt32(ds.Tables[0].Rows[0]["aud_id"]) ; 
+                    sendmail.SendLetterMail(0,EmailerType,aud_id,0);                             
              return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
          public async Task<DataTable> GetRegistrationIDData(string Token)
