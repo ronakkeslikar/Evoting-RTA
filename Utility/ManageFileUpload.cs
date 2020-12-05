@@ -222,7 +222,7 @@ namespace evoting.Utility
         {
             string filenamewithdatetime, SaveToFolder;
             //File name with time stamp and Event no 
-            filenamewithdatetime = System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-" + fjc_FileUpload.files.FileName;
+            filenamewithdatetime = System.DateTime.Now.ToString("yyyyMMdd-HHmmssfff") + "-" + fjc_FileUpload.files.FileName;
             //Return Full file path to save to database
             SaveToFolder = FolderPaths.CreateSpecificFolder(getpath, filenamewithdatetime.ToString(), fjc_FileUpload);
 

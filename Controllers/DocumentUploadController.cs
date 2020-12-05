@@ -35,7 +35,7 @@ namespace evoting.Controllers
                 var result=(System.Data.DataTable)null;
                 switch (fJC_DOC_Upload.upload_type.ToLower())
                 {
-                    case "tri_partiate_agreement":
+                    case "agreement":
                         result = await _documentUploadService.AgreementUpload_Details(fJC_DOC_Upload.doc_id, Token);
                         return Ok(Reformatter.Response_Object("File uploaded successfully and will be validated soon", ref result));
                         break;
