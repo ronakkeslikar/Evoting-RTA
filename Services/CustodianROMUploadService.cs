@@ -39,8 +39,12 @@ namespace evoting.Services
             //validation job            
             //Here Validate bulk file
             DataTable dt1 =new DataTable();
-                dt1= await RegisterCustodianROM(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,0)  ;
-            return dt1;
+            DataTable dt2 =new DataTable();
+            dt1= await RegisterCustodianROM(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,0)  ;
+            ManageErrorUploads dd=new ManageErrorUploads();
+            dt2=dd.Manage_ROM_ErrorUploads(dt1, FolderPaths.ProcessType.Custodian_ROMUpload,fjc_ROMUpload.doc_id,fjc_ROMUpload.event_id,Token);
+
+            return dt2;
         }
         /// <summary>
         /// ////////////////////////////Check Custodian Vote file and return Error-Remark //////////////////////
