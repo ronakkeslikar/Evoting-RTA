@@ -58,6 +58,8 @@ namespace evoting.Controllers
                             throw new CustomException.MultipleRequests();
                         case "Invalid User ID OR Password":
                             throw new CustomException.InvalidPassword();
+                        case "Invalid User ID":
+                            throw new CustomException.InvalidUserID();
                         default: throw new CustomException.InvalidAttempt();
                            
                     }
