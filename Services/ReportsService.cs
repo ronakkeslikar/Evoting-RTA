@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using ClosedXML.Excel;
+using System.Text;
 
 namespace evoting.Services
 {
@@ -28,21 +29,30 @@ namespace evoting.Services
         {
             //Export to Excel 
           var getExcelDetail= await exportToExcel(token, event_id);
-          if(getExcelDetail!=null)
-          {
-            Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
-            dictLogin.Add("@event_id", event_id);
-            dictLogin.Add("@flag", 0);
-            dictLogin.Add("@token", token);
-             dictLogin.Add("@doc_no", getExcelDetail.Rows[0]["doc_no"]);
-            DataSet ds = new DataSet();
-            ds = await AppDBCalls.GetDataSet("Evote_Scrutinizer_Report", dictLogin);
-            return Reformatter.Validate_DataTable(ds.Tables[0]);
-          }
-          else
-          {
-               throw new CustomException.InvalidFileRejected();
-          }
+          if(getExcelDetail.Columns.Contains("Error"))
+              {
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
+                dictLogin.Add("@event_id", event_id);
+                dictLogin.Add("@flag", 0);
+                dictLogin.Add("@error", 1003);
+                dictLogin.Add("@token", token);
+                 dictLogin.Add("@doc_no", getExcelDetail.Rows[0]["doc_no"]);
+                DataSet ds = new DataSet();
+                ds = await AppDBCalls.GetDataSet("Evote_Scrutinizer_Report", dictLogin);
+                return Reformatter.Validate_DataTable(ds.Tables[0]);
+              }
+        else
+            {
+                //throw new CustomException.InvalidFileRejected();
+                Dictionary<string, object> dictLogin = new Dictionary<string, object>();
+                dictLogin.Add("@event_id", event_id);
+                dictLogin.Add("@flag", 0);
+                dictLogin.Add("@token", token);
+                dictLogin.Add("@doc_no", getExcelDetail.Rows[0]["doc_no"]);
+                DataSet ds = new DataSet();
+                ds = await AppDBCalls.GetDataSet("Evote_Scrutinizer_Report", dictLogin);
+                return Reformatter.Validate_DataTable(ds.Tables[0]);
+            }
         }
 
         public async Task<DataTable> ReportsGetData(int event_id, string token)
@@ -60,7 +70,9 @@ namespace evoting.Services
         {
             DataSet ds = new DataSet();
             ds = await getExcelData(Token,event_id);
-            if(ds.Tables[0].Rows.Count>0)
+            
+            //if(ds.Tables[0].Rows.Count>0)
+            if(!ds.Tables[1].Columns.Contains("Error_Message"))
             {
                     //Name of File  
                 string fileName = "Scrutinizer_Evoting_Reports.xlsx";
@@ -165,24 +177,74 @@ namespace evoting.Services
                         dictfileDnld.Add("@File_Path", filePath);
                         dictfileDnld.Add("@token", Token);
                         dictfileDnld.Add("@event_id",event_id);
+                        dictfileDnld.Add("@flag",0);
 
                         DataSet ds2 = new DataSet();
                         ds2 = await AppDBCalls.GetDataSet("Evote_SpExcelFile_Download", dictfileDnld);
                         return Reformatter.Validate_DataTable(ds2.Tables[0]);
                         }
+                
                         else
                         {
                             throw new CustomException.InvalidFileRejected();
-                        }
-                        
-
+                        } 
                     }
                 }
             }
-            else
+             else
             {
-                throw new CustomException.InvalidActivity();
+                
+        
+                string filenamewithdatetime;
+                //File name with time stamp and Event no 
+                filenamewithdatetime = System.DateTime.Now.ToString("yyyyMMdd-HHmmssfff") + "-Scrutinizer_Error.txt";
+                //Return Full file path to save to database
+            
+                string default_path = FolderPaths.Scrutinizer.Scrutinizer_FileError() + "\\" + filenamewithdatetime ;
+
+                //////////
+                //-Start-Error file created
+                if (!File.Exists(default_path))
+                {
+                    FileStream fs = File.Create(default_path);
+                    fs.Flush();
+                    fs.Close();
+                }
+                //-End-Error file created 
+                StringBuilder bs = new StringBuilder();
+
+                foreach (DataRow row in ds.Tables[1].Rows)
+                {
+                    foreach (DataColumn column in ds.Tables[1].Columns)
+                    {
+                        bs.Append(column.ColumnName.Replace("Error_Num", "Error Number").Replace("Error_Line", ", Error Line").Replace("Error_Message"," Error Descritpion") + ": ").Append(row[column].ToString());
+                    }
+                    bs.AppendLine();
+                }
+                File.WriteAllText(default_path, bs.ToString());
+                /////////
+
+                //Saving file details to Database 
+                    DataSet ds1 = new DataSet();
+
+                if (default_path != null)
+                {
+                    Dictionary<string, object> dictfileDnld = new Dictionary<string, object>();               
+                    dictfileDnld.Add("@File_Name", filenamewithdatetime);
+                    dictfileDnld.Add("@File_Path", default_path);
+                    dictfileDnld.Add("@token", Token);
+                    dictfileDnld.Add("@event_id",event_id);
+                    dictfileDnld.Add("@flag",1);
+
+                    ds1 = await AppDBCalls.GetDataSet("Evote_SpExcelFile_Download", dictfileDnld);
+                    
+                }
+                return ds1.Tables[0];
             }
+            // else
+            // {
+            //     throw new CustomException.InvalidActivity();
+            // }
             
         }
         public async Task<DataSet> getExcelData(string Token,int event_id)

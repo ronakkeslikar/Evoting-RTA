@@ -167,6 +167,10 @@ namespace evoting.Utility
             {
                 return createAndappendDateFolder( SubCategoryPath, "Scrutinizer_Reports");
             }
+             public static string Scrutinizer_FileError()
+            {
+                return createAndappendDateFolder( SubCategoryPath, "Scrutinizer_File_Error");
+            }
 
         } 
 
@@ -281,7 +285,8 @@ namespace evoting.Utility
 
             //Scrutinizer
             Scrutinizer_AgreementUpload,
-
+            Scrutinizer_Reports,
+            Scrutinizer_FileError,
             //Custodian
             Custodian_ROMUpload,
             Custodian_POA,
