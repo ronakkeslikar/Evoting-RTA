@@ -53,13 +53,13 @@ namespace evoting.Utility
                         UpdateCustodianROM(event_id, dt1.Rows[0]["upload_id"].ToString(), error_log_file_name, default_path, token, 0);//int Event_No,int DocID, string Token,int flag
 
                     }//return (DataTable)ds1.Tables[1].Rows[0]["remark"];
-                    return Reformatter.Validate_DataTable(ds1.Tables[0]);
+                    return Reformatter.Validate_DataTable(ds1.Tables[1]);
 
                 }
                 else
                 {
                     // return (DataTable) ds1.Tables[0].Rows[0]["remark"];
-                    return Reformatter.Validate_DataTable(ds1.Tables[0]);
+                    return Reformatter.Validate_DataTable(ds1.Tables[1]);
 
                 }
 
