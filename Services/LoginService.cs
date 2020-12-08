@@ -53,6 +53,12 @@ namespace evoting.Services
                 
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ChangePassword", dictChangePwd);
+                //mailing contents are here 
+                SendMail sendmail = new SendMail();
+                string EmailerType = "ChangePasswordEmailer";
+                int row_id = Convert.ToInt32(ds.Tables[0].Rows[0]["rowid"]);
+                sendmail.SendLetterMail(0, EmailerType, row_id);
+               
             return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
@@ -66,10 +72,10 @@ namespace evoting.Services
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
 
                  //mailing contents are here 
-                    SendMail sendmail=new SendMail();
-                    string EmailerType="ForgotPasswordEmailer";
-                    int row_id= Convert.ToInt32(ds.Tables[0].Rows[0]["rowid"]) ; 
-                    sendmail.SendLetterMail(0,EmailerType,0,row_id);                             
+                 SendMail sendmail=new SendMail();
+                 string EmailerType="ForgotPasswordEmailer";
+                 int row_id= Convert.ToInt32(ds.Tables[0].Rows[0]["rowid"]) ; 
+                 sendmail.SendLetterMail(0,EmailerType,0,row_id);                             
 
                 return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
@@ -82,7 +88,12 @@ namespace evoting.Services
                 dictForgotPwd.Add("@DOB", fJC_forgot.DOB);
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-            return Reformatter.Validate_DataTable(ds.Tables[0]);             
+                //mailing contents are here 
+                SendMail sendmail = new SendMail();
+                string EmailerType = "ForgotPasswordEmailer";
+                int row_id = Convert.ToInt32(ds.Tables[0].Rows[0]["rowid"]);
+                sendmail.SendLetterMail(0, EmailerType, 0, row_id);
+                return Reformatter.Validate_DataTable(ds.Tables[0]);             
         }
          public async Task<DataTable> ForgotPassword_BANK_ACC_Data(FJC_ForgotPassword fJC_forgot)
         {
@@ -92,7 +103,12 @@ namespace evoting.Services
                 dictForgotPwd.Add("@Bank_AccNo", fJC_forgot.Bank_AccNo);             
                 DataSet ds = new DataSet();
                 ds = await AppDBCalls.GetDataSet("Evote_ForgotPassword", dictForgotPwd);
-            return Reformatter.Validate_DataTable(ds.Tables[0]);
+                //mailing contents are here 
+                SendMail sendmail = new SendMail();
+                string EmailerType = "ForgotPasswordEmailer";
+                int row_id = Convert.ToInt32(ds.Tables[0].Rows[0]["rowid"]);
+                sendmail.SendLetterMail(0, EmailerType, 0, row_id);
+                return Reformatter.Validate_DataTable(ds.Tables[0]);
              
         }
         

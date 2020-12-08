@@ -69,37 +69,36 @@ namespace evoting.Utility
             //Get Email Content from  GetEmailContent method
             DataTable dtemailcontent = new DataTable();
             dtemailcontent = GetEmailContent(id,EmailerType,event_id);
-                 
-                mail.From = new MailAddress("donotreply@bigshareonline.com");
 
-                mail.To.Add(dtemailcontent.Rows[0]["Recipients"].ToString());
+                for (int i = 0; i < dtemailcontent.Rows.Count;)
+                {
+                MailAddress to = new MailAddress(dtemailcontent.Rows[i]["Recipients"].ToString());
+                MailAddress From = new MailAddress("donotreply@bigshareonline.com");
+                MailMessage message = new MailMessage(From,to);
 
-                mail.Subject = dtemailcontent.Rows[0]["Subject"].ToString();
+                message.Subject = dtemailcontent.Rows[i]["Subject"].ToString();
 
-                mail.Body = dtemailcontent.Rows[0]["body"].ToString();  ;
+                message.Body = dtemailcontent.Rows[i]["body"].ToString();
 
-                mail.IsBodyHtml = true;
- 
+                message.IsBodyHtml = true;
+               
                 try
 
                 {
-
-                    smt.getsmtpDetail().Send(mail);
-
-                    mail.Dispose();
-
+                    smt.getsmtpDetail().Send(message);
+                    i++;
                 }
-
                 catch (SmtpException ex)
                 {
-                    if(ex.StatusCode!=(System.Net.Mail.SmtpStatusCode)250)
+                    if (ex.StatusCode != (System.Net.Mail.SmtpStatusCode)250)
                     {
-                        GetEmailContent(Convert.ToInt32(dtemailcontent.Rows[0]["id"]),dtemailcontent.Rows[0]["emailer_type"].ToString(),0) ;   
+                        GetEmailContent(Convert.ToInt32(dtemailcontent.Rows[0]["id"]), dtemailcontent.Rows[0]["emailer_type"].ToString(), 0);
                     }
-                    
-                }
 
-            
+                }
+               
+            }
+             mail.Dispose();
         } 
         private DataTable  GetEmailContent(int id,string EmailerType,int aud_id,int row_id)   
         {
