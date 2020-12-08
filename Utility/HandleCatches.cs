@@ -76,7 +76,7 @@ namespace evoting.Utility
             }
             else if(ex is CustomException.InvalidFileRejected)
             {
-                return StatusCode(500, new { status = false, message = ex.Message });
+                return StatusCode(406, new { status = false, message = ex.Message });
             }
             else if (ex is CustomException.InvalidFileType)
             {
@@ -130,9 +130,9 @@ namespace evoting.Utility
                 case "Document ID doesn't exists":
                 throw new CustomException.InvalidDoCID();
                 case "File was not uploaded,please try again":
-                throw new CustomException.InvalidFileRejected();
+                throw new CustomException. InvalidFileNotUploaded();
                 case "File rejected due technical reason":
-                throw new CustomException.InvalidFileNotUploaded();
+                throw new CustomException.InvalidFileRejected();
                 case "Invalid dpcl":
                 throw new CustomException.InvalidDpclNotExists();
                 case "Invalid Vote":
