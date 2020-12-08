@@ -80,7 +80,7 @@ namespace evoting.Utility
 
             DataSet ds = new DataSet();
             ds =  AppDBCalls.GetDataSet("SP_CHK_Custodian_Input_Datatble", dictLogin).Result;
-            return Reformatter.Validate_Dataset(ds);
+            return  ds;
         }
 
 
