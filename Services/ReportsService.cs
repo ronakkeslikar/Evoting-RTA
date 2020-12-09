@@ -186,64 +186,65 @@ namespace evoting.Services
                     
                             else
                             {
-                                throw new CustomException.InvalidFileRejected();
+                                return null;//throw new CustomException.InvalidFileRejected();
                             } 
                         }
                     }
                 }
                 else
                 {
-                    throw new CustomException.InvalidFileRejected();
+                    return null;//throw new CustomException.InvalidFileRejected();
                 }
             }
              else
             {              
-        
-                string filenamewithdatetime;
-                //File name with time stamp and Event no 
-                filenamewithdatetime = System.DateTime.Now.ToString("yyyyMMdd-HHmmssfff") + "-Scrutinizer_Error.txt";
-                //Return Full file path to save to database
+                ManageErrorUploads _err = new ManageErrorUploads();
+                return _err.Manage_ROM_ErrorUploads(ds.Tables[1], FolderPaths.ProcessType.Scrutinizer_Reports, 0, event_id, Token);
+                // string filenamewithdatetime;
+                // //File name with time stamp and Event no 
+                // filenamewithdatetime = System.DateTime.Now.ToString("yyyyMMdd-HHmmssfff") + "-Scrutinizer_Error.txt";
+                // //Return Full file path to save to database
             
-                string default_path = FolderPaths.Scrutinizer.Scrutinizer_FileError() + "\\" + filenamewithdatetime ;
+                // string default_path = FolderPaths.Scrutinizer.Scrutinizer_FileError() + "\\" + filenamewithdatetime ;
 
-                //////////
-                //-Start-Error file created
-                if (!File.Exists(default_path))
-                {
-                    FileStream fs = File.Create(default_path);
-                    fs.Flush();
-                    fs.Close();
-                }
-                //-End-Error file created 
-                StringBuilder bs = new StringBuilder();
+                // //////////
+                // //-Start-Error file created
+                // if (!File.Exists(default_path))
+                // {
+                //     FileStream fs = File.Create(default_path);
+                //     fs.Flush();
+                //     fs.Close();
+                // }
+                // //-End-Error file created 
+                // StringBuilder bs = new StringBuilder();
 
-                foreach (DataRow row in ds.Tables[1].Rows)
-                {
-                    foreach (DataColumn column in ds.Tables[1].Columns)
-                    {
-                        bs.Append(column.ColumnName.Replace("Error_Num", "Error Number").Replace("Error_Line", ", Error Line").Replace("Error_Message"," Error Descritpion") + ": ").Append(row[column].ToString());
-                    }
-                    bs.AppendLine();
-                }
-                File.WriteAllText(default_path, bs.ToString());
-                /////////
+                // foreach (DataRow row in ds.Tables[1].Rows)
+                // {
+                //     foreach (DataColumn column in ds.Tables[1].Columns)
+                //     {
+                //         bs.Append(column.ColumnName.Replace("Error_Num", "Error Number").Replace("Error_Line", ", Error Line").Replace("Error_Message"," Error Descritpion") + ": ").Append(row[column].ToString());
+                //     }
+                //     bs.AppendLine();
+                // }
+                // File.WriteAllText(default_path, bs.ToString());
+                // /////////
 
-                //Saving file details to Database 
-                    DataSet ds1 = new DataSet();
+                // //Saving file details to Database 
+                //     DataSet ds1 = new DataSet();
 
-                if (default_path != null)
-                {
-                    Dictionary<string, object> dictfileDnld = new Dictionary<string, object>();               
-                    dictfileDnld.Add("@File_Name", filenamewithdatetime);
-                    dictfileDnld.Add("@File_Path", default_path);
-                    dictfileDnld.Add("@token", Token);
-                    dictfileDnld.Add("@event_id",event_id);
-                    dictfileDnld.Add("@flag",1);
+                // if (default_path != null)
+                // {
+                //     Dictionary<string, object> dictfileDnld = new Dictionary<string, object>();               
+                //     dictfileDnld.Add("@File_Name", filenamewithdatetime);
+                //     dictfileDnld.Add("@File_Path", default_path);
+                //     dictfileDnld.Add("@token", Token);
+                //     dictfileDnld.Add("@event_id",event_id);
+                //     dictfileDnld.Add("@flag",1);
 
-                    ds1 = await AppDBCalls.GetDataSet("Evote_SpExcelFile_Download", dictfileDnld);
+                //     ds1 = await AppDBCalls.GetDataSet("Evote_SpExcelFile_Download", dictfileDnld);
                     
-                }
-                return ds1.Tables[0];
+                // }
+                // return ds1.Tables[0];
             }            
             
         }
