@@ -20,12 +20,12 @@ namespace evoting.Utility
                 string default_path = default;
                 string error_log_file_name = System.DateTime.Now.ToString("yyyyMMdd-HHmmssfff") + "-Error.txt";
 
-                if (_processType == ProcessType.Custodian_ROMUpload)
+                if (_processType == ProcessType.Custodian_ROMUpload)//Custodian Vote Error CUST ROM
                 {
                     ds1 = Custodian_VerifyFileProvided(doc_id, event_id, token);//(fjc_ROMUpload.doc_id, fjc_ROMUpload.event_id, Token);
                     default_path = FolderPaths.Custodian.ROMFileError() + "\\" + error_log_file_name;
                 }
-                else if (_processType == ProcessType.Scrutinizer_Reports)
+                else if (_processType == ProcessType.Scrutinizer_Reports)//Scrutinizer Report Error  
                 {
                     //ds1 = Custodian_VerifyFileProvided(doc_id, event_id, token);//(fjc_ROMUpload.doc_id, fjc_ROMUpload.event_id, Token);
                     DataTable _dt = new DataTable();
@@ -34,6 +34,15 @@ namespace evoting.Utility
                     ds1.Tables.Add(_dt);
                     ds1.Tables.Add(dt1.Copy());
                     default_path = FolderPaths.Scrutinizer.Scrutinizer_FileError() + "\\" + error_log_file_name ;
+                }
+                else if ((_processType == ProcessType.Company_ROMUpload || _processType == ProcessType.RTA_ROMUpload))//Company/RTA ROM Error File once uploading second ROM  
+                {
+                    DataTable _dt = new DataTable();
+                    _dt.TableName = "Table0";
+                    _dt.Columns.Add("Error");
+                    ds1.Tables.Add(_dt);
+                    ds1.Tables.Add(dt1.Copy());
+                    default_path = FolderPaths.Company.ROMFileError() + "\\" + error_log_file_name;
                 }
 
                 if (ds1.Tables[0].Columns.Contains("Error"))
@@ -49,6 +58,14 @@ namespace evoting.Utility
                     {
                         DataTable dt = new DataTable();
                         dt=Update_ScrutinizerReport_failure(error_log_file_name, default_path, token, event_id);
+                         DataSet ds = new DataSet();
+                        ds.Tables.Add(dt.Copy());
+                       return ds.Tables[0];
+                    }
+                    else if ((_processType == ProcessType.Company_ROMUpload || _processType == ProcessType.RTA_ROMUpload))
+                    {
+                       DataTable dt = new DataTable();
+                        dt= SaveROMUploadErrorFile(error_log_file_name, default_path, token, event_id);
                          DataSet ds = new DataSet();
                         ds.Tables.Add(dt.Copy());
                        return ds.Tables[0];
@@ -96,7 +113,7 @@ namespace evoting.Utility
             {
                 foreach (DataColumn column in ds1.Tables[1].Columns)
                 {
-                    bs.Append(column.ColumnName.Replace("Error_Num", "Error Number").Replace("remark", ", Error Description") + ": ").Append(row[column].ToString());
+                    bs.Append(column.ColumnName.Replace("Error_Num", "Error Number").Replace("remark", ", Error Description") + ": ").Replace("ROM_Error", "Error Description : ").Append(row[column].ToString());
                 }
                 bs.AppendLine();
             }
@@ -125,8 +142,18 @@ namespace evoting.Utility
                     dictfileDnld.Add("@event_id",event_id);
                     dictfileDnld.Add("@flag",1);
 
-                    return AppDBCalls.GetDataSet("Evote_SpExcelFile_Download", dictfileDnld).Result.Tables[0];
-                
+                    return AppDBCalls.GetDataSet("Evote_SpExcelFile_Download", dictfileDnld).Result.Tables[0];                
+        }
+        private DataTable SaveROMUploadErrorFile(string error_log_file_name, string default_path, string Token, int event_id)
+        {
+            Dictionary<string, object> dictfileUpld = new Dictionary<string, object>();
+            dictfileUpld.Add("@File_Name", error_log_file_name);
+            dictfileUpld.Add("@File_Path", default_path);
+            dictfileUpld.Add("@token", Token);
+
+            DataSet ds = new DataSet();
+            return AppDBCalls.GetDataSet("Evote_spFileUpload", dictfileUpld).Result.Tables[0];           
+
         }
     }
 }
