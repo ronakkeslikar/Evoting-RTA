@@ -34,6 +34,10 @@ namespace evoting.Services
 //////////////////////////////////////////ROM File Upload ////////////////////////////////////////////////////
         public async Task<DataTable> ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token)
         {
+            DataTable dtUserType = new DataTable();
+            dtUserType = (DataTable)(new ManageFileUpload()).GetUserDetailsByTokenID(Token).Result;
+
+
             switch (fjc_ROMUpload.upload_type.ToLower())
                 {
                 //////////////////////////////ROM Intimation////////////////////////
@@ -49,13 +53,12 @@ namespace evoting.Services
                             } 
                             else
                             {
-                                throw new CustomException.InvalidFileRejected(); 
+                                return null;// throw new CustomException.InvalidFileRejected(); 
                             }
                         }
                         else
                         {
-                            throw new CustomException.InvalidFileNotUploaded(); 
-                            
+                                return null;//throw new CustomException.InvalidFileNotUploaded(); 
                         }
                         break;
                 //////////////////Normal ROM Upload ////////////////////////
@@ -68,46 +71,78 @@ namespace evoting.Services
                             bool isValid= val_ROM.Validate_File(dt2.Rows[0]["url"].ToString(),Token,fjc_ROMUpload.event_id); //("C:\\evoting\\RTA\\ROM\\2020-09-18\\20200918-112617505-CDSL_FileUpload_128_ROM_ANUH_PHARMA_LTD_13220201.txt");//(dt1.Rows[0]["url"].ToString()); 
                             if(isValid)
                             {
-                                return await InsertBulkFileUpload(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,dt2.Rows[0]["upload_id"].ToString());
-                            } 
+                            //return await InsertBulkFileUpload(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,dt2.Rows[0]["upload_id"].ToString());
+                            DataTable dt = new DataTable();
+
+                            dt = InsertBulkFileUpload(fjc_ROMUpload.event_id, fjc_ROMUpload.doc_id, Token, dt2.Rows[0]["upload_id"].ToString());
+                            //return await InsertBulkFileUpload(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,dt2.Rows[0]["upload_id"].ToString());
+                            if (dt.Columns.Contains("ROM_Error"))
+                            {
+                                ManageErrorUploads _err = new ManageErrorUploads();
+                                DataTable dtSecROMErr = new DataTable();
+
+                                //Below here return error datatble for second ROM upload file
+                                switch (dtUserType.Rows[0]["type"])
+                                {
+                                    case "Issuer Company":
+                                        dtSecROMErr = _err.Manage_ROM_ErrorUploads(dt, FolderPaths.ProcessType.Company_ROMUpload, 0, fjc_ROMUpload.event_id, Token);
+                                        break;
+                                    case "RTA":
+                                        dtSecROMErr = _err.Manage_ROM_ErrorUploads(dt, FolderPaths.ProcessType.RTA_ROMUpload, 0, fjc_ROMUpload.event_id, Token);
+                                        break;
+                                }                                        
+                                if (dtSecROMErr.Rows.Count > 0)
+                                {
+                                    DataTable dtget = new DataTable();
+                                    //Below here Register ROM for Error file for second ROM upload file
+                                    return dtget = await RegisterROM(fjc_ROMUpload.event_id, Convert.ToInt32(dtSecROMErr.Rows[0]["doc_id"]), Token, 0, "SecondROM");
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+                            }
                             else
                             {
-                                throw new CustomException.InvalidFileRejected(); 
+                                return null;
                             }
+                        } 
+                            else
+                            {
+                            return null;//throw new CustomException.InvalidFileRejected(); 
+                        }
                         }
                         else
                         {
-                            throw new CustomException.InvalidFileNotUploaded(); 
-                            
-                        }
+                        return null;//throw new CustomException.InvalidFileNotUploaded(); 
+
+                    }
                         break;
                           default:
                         throw new CustomException.InvalidActivity();
-
                 }            
-        }  
-  
-//////////////////////////////////////////Bulk Upload stored Procedure called here  ////////////////////////////////////////////////////     
-         private async Task<DataTable> InsertBulkFileUpload(int Event_No,int DocID, string Token,string upload_id)
-        {         
-                Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
-                dictUserDetail.Add("@DocumentID", DocID);   
-                dictUserDetail.Add("@event_no", Event_No);
-                dictUserDetail.Add("@token", Token);
-                dictUserDetail.Add("@upload_id", upload_id);
+        }
 
-            DataSet ds=  await AppDBCalls.GetDataSet("SP_IMPORTROMFILE", dictUserDetail);
-           return Reformatter.Validate_DataTable(ds.Tables[0]);   
-                
-        }   
+        //////////////////////////////////////////Bulk Upload stored Procedure called here  ////////////////////////////////////////////////////     
+        private DataTable InsertBulkFileUpload(int Event_No, int DocID, string Token, string upload_id)
+        {
+            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
+            dictUserDetail.Add("@DocumentID", DocID);
+            dictUserDetail.Add("@event_no", Event_No);
+            dictUserDetail.Add("@token", Token);
+            dictUserDetail.Add("@upload_id", upload_id);
 
-        private async Task<DataTable> RegisterROM(int Event_No,int DocID, string Token,int flag)   
+            return AppDBCalls.GetDataSet("SP_IMPORTROMFILE", dictUserDetail).Result.Tables[0];
+        }
+
+        private async Task<DataTable> RegisterROM(int Event_No,int DocID, string Token,int flag, string ROM_Error="")   
         {
              Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
                 dictUserDetail.Add("@doc_id", DocID);   
                 dictUserDetail.Add("@event_id", Event_No);
                 dictUserDetail.Add("@token", Token);
                 dictUserDetail.Add("@flag", flag);
+                dictUserDetail.Add("@ROM_Error", ROM_Error);
 
             DataSet ds=  await AppDBCalls.GetDataSet("Evote_Sp_ROM_Register", dictUserDetail);
           return Reformatter.Validate_DataTable(ds.Tables[0]);
