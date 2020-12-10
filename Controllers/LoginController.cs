@@ -27,8 +27,7 @@ namespace evoting.Controllers
             _loginService = loginService;
         }
 
-        [HttpPost]
-      
+        [HttpPost]      
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> LoginUser(FJC_LoginRequest fJC_Login)
