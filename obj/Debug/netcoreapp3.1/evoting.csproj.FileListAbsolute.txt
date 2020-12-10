@@ -436,3 +436,10 @@ C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.I
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 D:\WindowsApp\evoting-new\evoting\obj\Debug\netcoreapp3.1\evoting.csprojAssemblyReference.cache
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\System.Web.Cors.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\System.Web.Http.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.Owin.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.Owin.Cors.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Owin.dll
