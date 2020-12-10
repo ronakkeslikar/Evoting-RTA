@@ -113,7 +113,7 @@ namespace evoting.Utility
             {
                 foreach (DataColumn column in ds1.Tables[1].Columns)
                 {
-                    bs.Append(column.ColumnName.Replace("Error_Num", "Error Number").Replace("remark", ", Error Description") + ": ").Replace("ROM_Error", "Error Description : ").Append(row[column].ToString());
+                    bs.Append(column.ColumnName.Replace("Error_Num", "Error Number").Replace("remark", ", Error Description") + ": ").Append(row[column].ToString());
                 }
                 bs.AppendLine();
             }
