@@ -63,9 +63,20 @@ namespace evoting.Utility
         }
         public static object Response_ResolutionObject(string _response_message, ref DataSet _ds)
         {
+            if(_ds.Tables.Count == 2)
                return new { StatusCode = 200, message = _response_message, 
                 data = Return_DynamicType_RowElement(_ds.Tables[0]), 
-                resolution = Return_DynamicType_ListElement(_ds.Tables[1]) };              
+                resolution = Return_DynamicType_ListElement(_ds.Tables[1]) }; 
+            else
+            {
+                return new
+                {
+                    StatusCode = 400,
+                    message = _ds.Tables[2].Rows[0]["Remark"],
+                    data = Return_DynamicType_RowElement(_ds.Tables[0]),
+                    resolution = Return_DynamicType_ListElement(_ds.Tables[1])
+                };
+            }
         }
         public static object Response_InvestorObject(string _response_message, ref DataSet _ds)
         {
