@@ -84,7 +84,7 @@ namespace evoting.Controllers
                 var identity = (ClaimsIdentity)User.Identity;  
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
                 var result = await _GenerateEVENTService.GetEVENTDetail(event_id, Token);
-                return Ok(Reformatter.Response_ResolutionObject("Event-Details list generated successfully", ref result));
+                return Ok(Reformatter.Response_ResolutionObject("", ref result));
             }
             catch (Exception ex)
             {
