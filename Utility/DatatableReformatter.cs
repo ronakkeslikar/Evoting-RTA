@@ -57,7 +57,9 @@ namespace evoting.Utility
 
                     }
             else
-                return new { StatusCode = 200, message = "List has not elements", data = new Array[0] };
+                //return new { StatusCode = 200, message = "List has not elements", data = new Array[0] };
+              return new { StatusCode = 200, data = new Array[0] };
+
         }
         public static object Response_ResolutionObject(string _response_message, ref DataSet _ds)
         {
