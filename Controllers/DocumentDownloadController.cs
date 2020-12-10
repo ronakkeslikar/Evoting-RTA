@@ -37,6 +37,11 @@ namespace evoting.Controllers
                     {
                         case "agreement":
                         var result = await _documentDownloadService.AgreementGenerator(Token);
+                        Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+                        Response.Headers.Add("Content-Disposition", "attachment");
+                        Response.Headers.Add("filename", result.Rows[0]["file_name"].ToString());
+
+
                         return Ok(Reformatter.Response_Object("File Downloaded successfully", ref result));
                         break;
                         default:

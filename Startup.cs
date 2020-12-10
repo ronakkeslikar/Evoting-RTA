@@ -32,7 +32,7 @@ namespace evoting
         public void ConfigureServices(IServiceCollection services)
         {
             // Add recaptcha and pass recaptcha configuration section
-            services.AddRecaptcha(Configuration.GetSection("RecaptchaSettings"));
+            //services.AddRecaptcha(Configuration.GetSection("RecaptchaSettings"));
 
             // Or configure recaptcha via options
             services.AddRecaptcha(options =>
@@ -55,7 +55,6 @@ namespace evoting
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader()
-                       
                        ;
             }));
           

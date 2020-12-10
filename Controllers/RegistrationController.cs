@@ -13,6 +13,8 @@ using System.Net;
 using evoting.Domain.Models;
 using evoting.Utility;
 using System.Text.RegularExpressions;
+using reCAPTCHA.AspNetCore;
+using reCAPTCHA.AspNetCore.Attributes;
 
 namespace evoting.Controllers
 {
@@ -23,13 +25,23 @@ namespace evoting.Controllers
     public class RegistrationController : ControllerBase
     {
         private readonly IRegistrationService _registrationService;
+        private readonly IRecaptchaService _recaptcha;
+        private readonly double _minimumScore;
+        private readonly string _errorMessage;
 
         public RegistrationController(IRegistrationService registrationService)
         {
             _registrationService = registrationService; 
         }
-       
+        public RegistrationController(IRecaptchaService recaptcha)
+        {
+            _recaptcha = recaptcha;
+            _minimumScore = 0.5;
+            _errorMessage = "There was an error validating the google recaptcha response. Please try again, or contact no body";
+        }
+
         [HttpPost]
+        [ValidateRecaptcha]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> RegistrationSave(FJC_Registration fJC_Registration)

@@ -37,6 +37,7 @@
           "System.IdentityModel.Tokens.Jwt": "6.7.1",
           "iTextSharp": "5.5.13.1",
           "itextsharp.xmlworker": "5.5.13.1",
+          "reCAPTCHA.AspNetCore": "3.0.10",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -943,6 +944,17 @@
         },
         "compile": {
           "lib/net40/Owin.dll": {}
+        }
+      },
+      "reCAPTCHA.AspNetCore/3.0.10": {
+        "runtime": {
+          "lib/netcoreapp3.1/reCAPTCHA.AspNetCore.dll": {
+            "assemblyVersion": "3.0.10.0",
+            "fileVersion": "3.0.10.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/reCAPTCHA.AspNetCore.dll": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
@@ -3843,6 +3855,13 @@
       "sha512": "sha512-OseTFniKmyp76mEzOBwIKGBRS5eMoYNkMKaMXOpxx9jv88+b6mh1rSaw43vjBOItNhaLFG3d0a20PfHyibH5sw==",
       "path": "owin/1.0.0",
       "hashPath": "owin.1.0.0.nupkg.sha512"
+    },
+    "reCAPTCHA.AspNetCore/3.0.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MJ3MCMBWr4gd+JZBXyUyT+YOdnMTNlysRrWKne/B/4hSxrpqERxinenvup6hVkQAoPz0DXzzJDujROEQPwohow==",
+      "path": "recaptcha.aspnetcore/3.0.10",
+      "hashPath": "recaptcha.aspnetcore.3.0.10.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",

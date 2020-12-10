@@ -31,15 +31,15 @@ namespace evoting.Controllers
         {
             _loginService = loginService;
         }
-        public LoginController(IRecaptchaService recaptcha)
-        {
-            _recaptcha = recaptcha;
-            _minimumScore = 0.5;
-            _errorMessage = "There was an error validating the google recaptcha response. Please try again, or contact no body";
-        }
+        //public LoginController(IRecaptchaService recaptcha)
+        //{
+        //    _recaptcha = recaptcha;
+        //    _minimumScore = 0.5;
+        //    _errorMessage = "There was an error validating the google recaptcha response. Please try again, or contact no body";
+        //}
 
         [HttpPost]
-        [ValidateRecaptcha]
+        //[ValidateRecaptcha]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> LoginUser(FJC_LoginRequest fJC_Login)
