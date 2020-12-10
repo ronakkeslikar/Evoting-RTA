@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using System.Net;
 using evoting.Domain.Models;
 using evoting.Utility;
+using reCAPTCHA.AspNetCore.Attributes;
+using reCAPTCHA.AspNetCore;
 
 namespace evoting.Controllers
 {
@@ -21,13 +23,23 @@ namespace evoting.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILoginService _loginService;
+        private readonly IRecaptchaService _recaptcha;
+        private readonly double _minimumScore;
+        private readonly string _errorMessage;
 
         public LoginController(ILoginService loginService)
         {
             _loginService = loginService;
         }
+        public LoginController(IRecaptchaService recaptcha)
+        {
+            _recaptcha = recaptcha;
+            _minimumScore = 0.5;
+            _errorMessage = "There was an error validating the google recaptcha response. Please try again, or contact no body";
+        }
 
-        [HttpPost]      
+        [HttpPost]
+        [ValidateRecaptcha]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> LoginUser(FJC_LoginRequest fJC_Login)

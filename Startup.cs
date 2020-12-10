@@ -15,7 +15,7 @@ using evoting.Utility;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using System.Web.Http;
-
+using reCAPTCHA.AspNetCore;
 
 namespace evoting
 {
@@ -31,6 +31,15 @@ namespace evoting
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add recaptcha and pass recaptcha configuration section
+            services.AddRecaptcha(Configuration.GetSection("RecaptchaSettings"));
+
+            // Or configure recaptcha via options
+            services.AddRecaptcha(options =>
+            {
+                options.SecretKey = "6Le47QAaAAAAANVFbJZLk2BGLNjis5kRm6FLxaPO";
+                options.SiteKey = "6Le47QAaAAAAAJckZZuGh38r2KeJXMHO4JmW2MjW";
+            });
             JWT_SetupServices(services);
             //services.AddCors(options =>
             //{
