@@ -55,7 +55,7 @@ namespace evoting.Services
 
                             dt = BulkUpload_ROM_Intimation(fjc_ROMUpload.event_id, fjc_ROMUpload.doc_id, Token, dt1.Rows[0]["upload_id"].ToString());
                             //return await InsertBulkFileUpload(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,dt2.Rows[0]["upload_id"].ToString());
-                            if (dt.Columns.Contains("ErrorNum"))
+                            if (dt.Columns.Contains("Error_Num"))
                             {
                                 ManageErrorUploads _err = new ManageErrorUploads();
                                 DataTable dtSecROMErr = new DataTable();
@@ -111,7 +111,7 @@ namespace evoting.Services
 
                                 dt = InsertBulkFileUpload(fjc_ROMUpload.event_id, fjc_ROMUpload.doc_id, Token, dt2.Rows[0]["upload_id"].ToString());
                                 //return await InsertBulkFileUpload(fjc_ROMUpload.event_id ,fjc_ROMUpload.doc_id, Token,dt2.Rows[0]["upload_id"].ToString());
-                                if (dt.Columns.Contains("ErrorNum"))
+                                if (dt.Columns.Contains("Error_Num"))
                                 {
                                     ManageErrorUploads _err = new ManageErrorUploads();
                                     DataTable dtSecROMErr = new DataTable();
