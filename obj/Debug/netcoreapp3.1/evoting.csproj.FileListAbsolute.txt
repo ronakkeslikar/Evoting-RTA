@@ -443,3 +443,7 @@ C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.O
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Microsoft.Owin.Cors.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Owin.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.json
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.local.json
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\bin\Debug\netcoreapp3.1\reCAPTCHA.AspNetCore.dll
+C:\Users\Lenovo\Documents\GitHub\Evoting-RTA\obj\Debug\netcoreapp3.1\evoting.MvcApplicationPartsAssemblyInfo.cs
