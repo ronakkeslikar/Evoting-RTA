@@ -21,6 +21,7 @@ namespace evoting.Services
        
         Task<DataTable> Cutodian_ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token);
            Task<DataTable> GetCustodian_ROMUpload_Details(string Token);
+        Task<DataTable> Submit_Vote(FJC_Event_Update _event, string Token);
          
     }
 
@@ -33,6 +34,18 @@ namespace evoting.Services
             _context = context;
         }  
 
+        public async Task<DataTable> Submit_Vote(FJC_Event_Update _event, string Token)
+        {
+            DataTable dt1 = new DataTable();
+
+            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
+            dictUserDetail.Add("@event_id", _event.event_id);
+            dictUserDetail.Add("@token", Token);
+            dictUserDetail.Add("@Flag", 0);
+
+            DataSet ds = await AppDBCalls.GetDataSet("Custodian_VoteUpdate", dictUserDetail);
+            return Reformatter.Validate_DataTable(ds.Tables[0]);            
+        }
 //////////////////////////////////////////ROM File Upload ////////////////////////////////////////////////////
         public async Task<DataTable> Cutodian_ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token)
         {

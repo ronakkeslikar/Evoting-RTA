@@ -77,7 +77,7 @@ namespace evoting.Utility
                 }
                 else
                 {
-                    return Reformatter.Validate_DataTable(ds1.Tables[1]);
+                    return Reformatter.Validate_DataTable(ds1.Tables.Count > 1 ? ds1.Tables[1] : ds1.Tables[0]);
                 }
             }
             else

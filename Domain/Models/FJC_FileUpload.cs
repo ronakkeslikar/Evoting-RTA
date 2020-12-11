@@ -31,5 +31,10 @@ public class FJC_FileUpload
         public string upload_type { get; set; }
 
     }   
+    public class FJC_Event_Update
+    {
+        public int event_id { get; set; }
+
+    }
  
 }
