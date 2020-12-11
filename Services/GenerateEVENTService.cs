@@ -57,11 +57,13 @@ namespace evoting.Services
                 DataSet ds=new DataSet();
                 ds= await AppDBCalls.GetDataSet("Evote_Generate_Event", dictLogin);
                  //mailing contents are here 
+                  if(ds.Tables[0].Columns.Contains("Event_Id"))
+                {
                     SendMail sendmail=new SendMail();
                     string EmailerType="GenerateEventEmailer";
                     int event_id= Convert.ToInt32(ds.Tables[0].Rows[0]["Event_Id"]) ; 
                     sendmail.SendLetterMail(0,EmailerType,event_id); 
-
+                }
             return Reformatter.Validate_DataTable(ds.Tables[0]);               
         }
       
