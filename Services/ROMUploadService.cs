@@ -83,7 +83,13 @@ namespace evoting.Services
                             }
                             else
                             {
-                                return null;
+                                DataSet ds = new DataSet();
+                                DataTable _dt = new DataTable();
+                                _dt.TableName = "Table2";
+                                _dt.Columns.Add("Remark");
+                                ds.Tables.Add(_dt);
+                                _dt.Rows.Add("Process Completed");
+                                return ds.Tables[0];
                             }
                         } 
                             else
@@ -139,8 +145,15 @@ namespace evoting.Services
                                 }
                                 else
                                 {
-                                    return null;
-                                }
+                                DataSet ds = new DataSet();
+                                DataTable _dt = new DataTable();
+                                _dt.TableName = "Table1";
+                                _dt.Columns.Add("Remark");
+                                _dt.Rows.Add("Process Completed");
+
+                                ds.Tables.Add(_dt);
+                                return ds.Tables[0];
+                            }
                             } 
                             else
                             {
