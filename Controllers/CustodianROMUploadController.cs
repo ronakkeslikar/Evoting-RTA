@@ -84,7 +84,26 @@ namespace evoting.Controllers
                 var identity = (ClaimsIdentity)User.Identity;
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
                 var result = await _CustodianROMUploadService.Submit_Vote(_event, Token);
-                return Ok(Reformatter.Response_ArrayObject("File Details retrieved successfully", ref result));
+                return Ok(Reformatter.Response_Object("File updated successfully", ref result));
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+
+        }
+        [Authorize]
+        [HttpPost("modify")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ModifyROM(FJC_Event_Update _event)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
+                var result = await _CustodianROMUploadService.Modify_Vote(_event, Token);
+                return Ok(Reformatter.Response_Object("File updated successfully", ref result));
             }
             catch (Exception ex)
             {

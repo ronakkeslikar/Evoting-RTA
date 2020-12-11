@@ -35,7 +35,7 @@ namespace evoting.Services
         public async Task<DataTable> ROMUpload_Details(FJC_ROMUpload fjc_ROMUpload,string Token)
         {
             DataTable dtUserType = new DataTable();
-            dtUserType = (DataTable)(new ManageFileUpload()).GetUserDetailsByTokenID(Token).Result;
+            dtUserType = await (new ManageFileUpload()).GetUserDetailsByTokenID(Token);
 
 
             switch (fjc_ROMUpload.upload_type.ToLower())
@@ -166,8 +166,8 @@ namespace evoting.Services
             dictUserDetail.Add("@event_no", Event_No);
             dictUserDetail.Add("@token", Token);
             dictUserDetail.Add("@upload_id", upload_id);
-
-            return AppDBCalls.GetDataSet("SP_IMPORTROMFILE", dictUserDetail).Result.Tables[0];
+            DataSet ds =  AppDBCalls.GetDataSet("SP_IMPORTROMFILE", dictUserDetail).Result;
+            return ds.Tables[0];
         }
 
         private async Task<DataTable> RegisterROM(int Event_No,int DocID, string Token,int flag, string ROM_Error="")   
