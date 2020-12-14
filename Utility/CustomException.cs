@@ -272,6 +272,16 @@ namespace evoting.Utility
                     return "Vote already submitted";
                 }
             }
-        }      
+        }
+        public class ReCaptchaError: Exception
+        {
+            public override string Message
+            {
+                get 
+                {
+                    return "ReCaptcha Error; Please try again after sometime";
+                }
+            }
+        }
     }
 }

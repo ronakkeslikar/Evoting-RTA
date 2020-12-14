@@ -33,22 +33,23 @@ namespace evoting.Controllers
         {
             _registrationService = registrationService; 
         }
-        public RegistrationController(IRecaptchaService recaptcha)
-        {
-            _recaptcha = recaptcha;
-            _minimumScore = 0.5;
-            _errorMessage = "There was an error validating the google recaptcha response. Please try again, or contact no body";
-        }
+        //public RegistrationController(IRecaptchaService recaptcha)
+        //{
+        //    _recaptcha = recaptcha;
+        //    _minimumScore = 0.5;
+        //    _errorMessage = "There was an error validating the google recaptcha response. Please try again, or contact no body";
+        //}
 
         [HttpPost]
-        [ValidateRecaptcha]
+        //[ValidateRecaptcha]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> RegistrationSave(FJC_Registration fJC_Registration)
         { 
             try
-            {   
-                 if(fJC_Registration.reg_type_id == 1 || fJC_Registration.reg_type_id == 2 )
+            {
+                await ManageRecaptcha.ValidateUser(fJC_Registration.captcha);
+                if (fJC_Registration.reg_type_id == 1 || fJC_Registration.reg_type_id == 2 )
                 {
                   fJC_Registration.panid="XXXXX0000X";  
                 } 

@@ -90,6 +90,10 @@ namespace evoting.Utility
             {
                 return StatusCode(416, new { status = false, message = ex.Message });
             }
+            else if(ex is CustomException.ReCaptchaError)
+            {
+                return StatusCode(404, new { status = false, message = ex.Message });
+            }
             else
             {
                 return StatusCode(500, new { status = false, message = ex.Message });

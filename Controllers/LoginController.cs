@@ -39,13 +39,14 @@ namespace evoting.Controllers
         //}
 
         [HttpPost]
-        //[ValidateRecaptcha]
+        ///[ValidateRecaptcha]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]       
         public async Task<IActionResult> LoginUser(FJC_LoginRequest fJC_Login)
         {
             try
             {
+                await ManageRecaptcha.ValidateUser(fJC_Login.captcha);
                 var result = await _loginService.LoginDataUser(fJC_Login);
                 BSC_LoginResponse loginResponse =
                         new BSC_LoginResponse()
