@@ -30,10 +30,10 @@ namespace evoting.Services
             dictLogin.Add("@token", Token);
             dictLogin.Add("@event_id", fjc_intimation.event_id);
             dictLogin.Add("@event_name", fjc_intimation.event_name);
-            dictLogin.Add("@notice_date", (DateTimeHandler(fjc_intimation.notice_date)));
+            dictLogin.Add("@notice_date", (ManageDatetime.DateTimeHandler(fjc_intimation.notice_date)));
             dictLogin.Add("@rom_file", fjc_intimation.rom_file);
-            dictLogin.Add("@email_sent_date", (DateTimeHandler(fjc_intimation.email_sent_date)));
-            dictLogin.Add("@post_sent_date",(DateTimeHandler(fjc_intimation.post_sent_date)));
+            dictLogin.Add("@email_sent_date", (ManageDatetime.DateTimeHandler(fjc_intimation.email_sent_date)));
+            dictLogin.Add("@post_sent_date",(ManageDatetime.DateTimeHandler(fjc_intimation.post_sent_date)));
             dictLogin.Add("@flag", 0);
             DataSet ds = new DataSet();
 
@@ -55,17 +55,22 @@ namespace evoting.Services
         }
 
         ////////////////////handling Datetime ////////////
-        private object DateTimeHandler(string date_param)
-        {
-            if(date_param.Trim()==string.Empty)
-            {
-                return DBNull.Value;
-            }
-            else
-            {
-              return DateTime.Parse(date_param).ToString("yyyy-MM-dd HH:mm:ss:fff"); 
-            }
-        }
+        //private object DateTimeHandler(string date_param)
+        //{
+        //    if (date_param == null)
+        //    {
+        //        return DBNull.Value;
+
+        //    }
+        //    else if(date_param.Trim()==string.Empty)
+        //    {
+        //        return DBNull.Value;
+        //    }
+        //    else
+        //    {
+        //      return DateTime.Parse(date_param).ToString("yyyy-MM-dd HH:mm:ss:fff"); 
+        //    }
+        //}
 
     }
 }

@@ -29,9 +29,9 @@ namespace evoting.Services
           Dictionary<string, object> dictLogin = new Dictionary<string, object>(); 
             dictLogin.Add("@token", Token);
             dictLogin.Add("@event_id", fjc_RequestBill.event_id);            
-            dictLogin.Add("@invoice_date", (DateTimeHandler(fjc_RequestBill.invoice_date)));           
-            dictLogin.Add("@mailed_date", (DateTimeHandler(fjc_RequestBill.mailed_date)));
-            dictLogin.Add("@paid_date",(DateTimeHandler(fjc_RequestBill.paid_date)));
+            dictLogin.Add("@invoice_date", (ManageDatetime.DateTimeHandler(fjc_RequestBill.invoice_date)));           
+            dictLogin.Add("@mailed_date", (ManageDatetime.DateTimeHandler(fjc_RequestBill.mailed_date)));
+            dictLogin.Add("@paid_date",(ManageDatetime.DateTimeHandler(fjc_RequestBill.paid_date)));
             dictLogin.Add("@flag", 0);
             DataSet ds = new DataSet();
 
@@ -53,17 +53,17 @@ namespace evoting.Services
         }
         
         ////////////////////handling Datetime ////////////
-        private object DateTimeHandler(string date_param)
-        {
-            if(date_param.Trim()==string.Empty)
-            {
-                return DBNull.Value;
-            }
-            else
-            {
-              return DateTime.Parse(date_param).ToString("yyyy-MM-dd HH:mm:ss:fff"); 
-            }
-        }
+        //private object DateTimeHandler(string date_param)
+        //{
+        //    if(date_param.Trim()==string.Empty)
+        //    {
+        //        return DBNull.Value;
+        //    }
+        //    else
+        //    {
+        //      return DateTime.Parse(date_param).ToString("yyyy-MM-dd HH:mm:ss:fff"); 
+        //    }
+        //}
 
     }
 }
