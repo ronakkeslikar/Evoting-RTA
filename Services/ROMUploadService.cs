@@ -74,7 +74,7 @@ namespace evoting.Services
                                 {
                                     DataTable dtget = new DataTable();
                                     //Below here Register ROM for Error file for second ROM upload file
-                                    return dtget = await RegisterROM_Intimation(fjc_ROMUpload.event_id, Convert.ToInt32(dtSecROMErr.Rows[0]["doc_id"]), Token, 0, "SecondROM");
+                                    return dtget = await RegisterROM_Intimation(fjc_ROMUpload.event_id, Convert.ToInt32(dtSecROMErr.Rows[0]["doc_id"]), Token, 0, "SecondROM", dt1.Rows[0]["upload_id"].ToString());
                                 }
                                 else
                                 {
@@ -136,7 +136,7 @@ namespace evoting.Services
                                     {
                                         DataTable dtget = new DataTable();
                                         //Below here Register ROM for Error file for second ROM upload file
-                                        return dtget = await RegisterROM(fjc_ROMUpload.event_id, Convert.ToInt32(dtSecROMErr.Rows[0]["doc_id"]), Token, 0, "SecondROM");
+                                        return dtget = await RegisterROM(fjc_ROMUpload.event_id, Convert.ToInt32(dtSecROMErr.Rows[0]["doc_id"]), Token, 0, "SecondROM", dt2.Rows[0]["upload_id"].ToString());
                                     }
                                     else
                                     {
@@ -183,7 +183,7 @@ namespace evoting.Services
             return ds.Tables[0];
         }
 
-        private async Task<DataTable> RegisterROM(int Event_No,int DocID, string Token,int flag, string ROM_Error="")   
+        private async Task<DataTable> RegisterROM(int Event_No,int DocID, string Token,int flag, string ROM_Error="",string uploadid="")   
         {
              Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
                 dictUserDetail.Add("@doc_id", DocID);   
@@ -191,8 +191,10 @@ namespace evoting.Services
                 dictUserDetail.Add("@token", Token);
                 dictUserDetail.Add("@flag", flag);
                 dictUserDetail.Add("@ROM_Error", ROM_Error);
+                dictUserDetail.Add("@upload_id", uploadid);
 
-            DataSet ds=  await AppDBCalls.GetDataSet("Evote_Sp_ROM_Register", dictUserDetail);
+
+            DataSet ds =  await AppDBCalls.GetDataSet("Evote_Sp_ROM_Register", dictUserDetail);
           return Reformatter.Validate_DataTable(ds.Tables[0]);
         }       
 
@@ -202,7 +204,7 @@ namespace evoting.Services
            return await RegisterROM(0,0,Token,1);            
         }
          //////////////////////////////////////////////////ROM Intimation////////////////////////////////////////////////
-        private async Task<DataTable> RegisterROM_Intimation(int Event_No,int DocID, string Token,int flag, string ROM_Error = "")   
+        private async Task<DataTable> RegisterROM_Intimation(int Event_No,int DocID, string Token,int flag, string ROM_Error = "",string uploadid = "")   
         {
              Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();               
                 dictUserDetail.Add("@doc_id", DocID);   
@@ -210,6 +212,8 @@ namespace evoting.Services
                 dictUserDetail.Add("@token", Token);
                 dictUserDetail.Add("@flag", flag);
                 dictUserDetail.Add("@ROM_Error", ROM_Error);
+                dictUserDetail.Add("@uploadid", uploadid);
+
 
             DataSet ds =  await AppDBCalls.GetDataSet("Evote_Sp_ROM_Intimation_Register", dictUserDetail);
           return Reformatter.Validate_DataTable(ds.Tables[0]);
