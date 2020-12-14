@@ -26,6 +26,7 @@ namespace evoting.Domain.Models
         public char TypeOfUpdate { get; set; }
         public char TypeOfUser { get; set; }
 
-
+        [Required(ErrorMessage = "Enter captcha response")]
+        public string captcha { get; set; }
     }
 }

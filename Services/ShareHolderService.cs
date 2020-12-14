@@ -30,7 +30,8 @@ namespace evoting.Services
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();            
             dictLogin.Add("@event_id", fjc_SharedHolder_Restrict.event_id);
             dictLogin.Add("@dpcl",fjc_SharedHolder_Restrict.dpcl);
-            dictLogin.Add("@remark", fjc_SharedHolder_Restrict.remark); 
+            dictLogin.Add("@remark", fjc_SharedHolder_Restrict.remark);
+            dictLogin.Add("@pan", fjc_SharedHolder_Restrict.pan);
             dictLogin.Add("@flag", 2);             
             dictLogin.Add("@token", token);
             DataSet ds = new DataSet();
