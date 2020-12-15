@@ -66,7 +66,7 @@ namespace evoting.Domain.Models
           public int rta_id{get;set;}
 
         //[Required(ErrorMessage = "Enter captcha response")]
-        public string captcha { get; set; }
+        public string captcha { get; set; } = "default";
 
     }  
      

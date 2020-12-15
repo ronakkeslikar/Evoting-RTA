@@ -34,7 +34,8 @@ namespace evoting.Controllers
         public async Task<IActionResult> FeedbackSave(FJC_Feedback fjc_feedback)
         {
             try
-            { 
+            {
+                await ManageRecaptcha.ValidateUser(fjc_feedback.captcha);
                 var result=  await _feedbackService.Feedback_Details(fjc_feedback);
                 return Ok(Reformatter.Response_Object("Feedback Submitted successfully", ref result));  
             }

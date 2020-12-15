@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using evoting.Domain.Models;
 using evoting.Utility;
 using System.Data;
+using evoting.Services;
 
 namespace evoting.Domain.Models.Validate
 {
@@ -110,7 +111,7 @@ namespace evoting.Domain.Models.Validate
 
     public class Validate_ROM
     {
-        public bool Validate_File(string _fileName,string Token,int _event_id)
+        public bool Validate_File(string _fileName,string Token,int _event_id, string upload_id,string forIntimation="")
         {
             // List<string>ErrorFile = new List<string>();
             int LineNum = 1;
@@ -205,8 +206,18 @@ namespace evoting.Domain.Models.Validate
 
             if (_ErrorFile.Count > 0)
             {
-                WriteErrorFile(_ErrorFile, Token);
-                return false;
+                //WriteErrorFile(_ErrorFile, Token);
+                //return false;
+                int getreturnint = 0;
+                getreturnint = WriteErrorFile(_ErrorFile, Token, _fileName, _event_id, upload_id, forIntimation);
+                if (getreturnint == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -214,21 +225,22 @@ namespace evoting.Domain.Models.Validate
             }
 
         }
-        public void WriteErrorFile(List<CommonValidation.ErrorFile_list> _error,string Token)
+        public int WriteErrorFile(List<CommonValidation.ErrorFile_list> _error,string Token, string _fileName, int _event_id, string upload_id,string forIntimation)
         {
             //string default_path = @"D:\Evoting\ErrorFile\Error.txt"; 
             DataTable dtUserType = new DataTable();
             dtUserType = (DataTable)(new ManageFileUpload()).GetUserDetailsByTokenID(Token).Result;
             string default_path = string.Empty;
+            string error_log_file_name = System.DateTime.Now.ToString("yyyyMMdd-HHmmssfff") + "-Error.txt";
 
             switch (dtUserType.Rows[0]["type"])
             {
                 case "Issuer Company":
-                    default_path = FolderPaths.Company.ROMFileError() + "\\" + System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";
+                    default_path = FolderPaths.Company.ROMFileError() + "\\" + error_log_file_name;
 
                     break;
                 case "RTA":
-                    default_path = FolderPaths.RTA.ROMFileError() + "\\" + System.DateTime.Now.ToString("yyyyMMdd-hhmmssfff") + "-Error.txt";
+                    default_path = FolderPaths.RTA.ROMFileError() + "\\" + error_log_file_name;
                     break;            
 
             }
@@ -244,6 +256,17 @@ namespace evoting.Domain.Models.Validate
                 fs.Close();
             }
             //-End-Error file created
+            DataTable dt3 = new DataTable();
+            if(forIntimation=="Yes")
+            {
+                dt3 = UpdateIntimataionROM(_event_id, upload_id, error_log_file_name, default_path, Token, 0);
+            }
+            else
+            {
+                dt3 = UpdateRegisterROM(_event_id, upload_id, error_log_file_name, default_path, Token, 0);
+            }
+            //dt3 = UpdateRegisterROM(_event_id, upload_id, error_log_file_name, default_path, Token, 0);//int Event_No,int DocID, string Token,int flag
+
             StringBuilder bs = new StringBuilder();
             foreach (var item in _error)
             {
@@ -262,6 +285,40 @@ namespace evoting.Domain.Models.Validate
                 }
             }
             File.WriteAllText(default_path, bs.ToString());
+            if (dt3.Rows[0]["status_id"].ToString() == "4")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        private DataTable UpdateRegisterROM(int Event_No, string upload_id, string error_log_file_name, string default_path, string Token, int flag)
+        {
+            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
+            dictUserDetail.Add("@upload_id", Convert.ToInt32(upload_id));
+            dictUserDetail.Add("@error_log_file_name", error_log_file_name);
+            dictUserDetail.Add("@default_path", default_path);
+            dictUserDetail.Add("@event_id", Event_No);
+            dictUserDetail.Add("@token", Token);
+            dictUserDetail.Add("@flag", flag);
+
+            DataSet ds = Persistence.Contexts.AppDBCalls.GetDataSet("Evote_Sp_ROM_Register", dictUserDetail).Result;
+            return Reformatter.Validate_DataTable(ds.Tables[0]);
+        }
+        private DataTable UpdateIntimataionROM(int Event_No, string upload_id, string error_log_file_name, string default_path, string Token, int flag)
+        {
+            Dictionary<string, object> dictUserDetail = new Dictionary<string, object>();
+            dictUserDetail.Add("@uploadid", Convert.ToInt32(upload_id));
+            dictUserDetail.Add("@error_log_file_name", error_log_file_name);
+            dictUserDetail.Add("@default_path", default_path);
+            dictUserDetail.Add("@event_id", Event_No);
+            dictUserDetail.Add("@token", Token);
+            dictUserDetail.Add("@flag", flag);
+
+            return Persistence.Contexts.AppDBCalls.GetDataSet("Evote_Sp_ROM_Intimation_Register", dictUserDetail).Result.Tables[0];
+            //return Reformatter.Validate_DataTable(ds.Tables[0]);
         }
 
         private void createAndappendDateFolder(string v1, string v2, object checkPath)
