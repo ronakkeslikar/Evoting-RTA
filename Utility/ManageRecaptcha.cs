@@ -31,8 +31,8 @@ namespace evoting.Utility
             var captchaResponse = await ValidateRecaptcha(Request);
             if (!captchaResponse.success)
             {
-                return true;
-                //throw new CustomException.ReCaptchaError();                
+                //return true;
+                throw new CustomException.ReCaptchaError();                
             }
             else
             {
