@@ -13,5 +13,8 @@ namespace evoting.Domain.Models
         public string email { get; set; }
         public string contact_no { get; set; }
         public string feedback { get; set; }
+
+        [Required(ErrorMessage = "Enter captcha response")]
+        public string captcha { get; set; }
     }
 }

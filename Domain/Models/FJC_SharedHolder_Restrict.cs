@@ -13,7 +13,7 @@ namespace evoting.Domain.Models
     { 
      public int event_id {get;set;}      
      public string  dpcl {get;set;}
-        public string pan { get; set; }
+        public string pan_id { get; set; }
         public string remark{get;set;}   
 
     } 

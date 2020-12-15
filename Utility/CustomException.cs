@@ -259,7 +259,7 @@ namespace evoting.Utility
             {
                 get
                 {
-                    return "Invalid dpcl/dpcl does not exits";
+                    return "Invalid dpcl/pan does not exits";
                 }
             }
         } 
