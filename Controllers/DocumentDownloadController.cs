@@ -42,7 +42,7 @@ namespace evoting.Controllers
                         Response.Headers.Add("filename", result.Rows[0]["file_name"].ToString());
 
 
-                        return Ok(Reformatter.Response_Object("File Downloaded successfully", ref result));
+                        return Ok(Reformatter.Response_Object("Agreement must be executed on Stamp Paper of Rs. 600", ref result));
                         break;
                         default:
                         throw new CustomException.InvalidAttempt();
