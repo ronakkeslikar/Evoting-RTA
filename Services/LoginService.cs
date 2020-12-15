@@ -59,7 +59,7 @@ namespace evoting.Services
                         SendMail sendmail = new SendMail();
                         string EmailerType = "ChangePasswordEmailer";
                         int row_id = Convert.ToInt32(ds.Tables[0].Rows[0]["rowid"]);
-                        sendmail.SendLetterMail(0, EmailerType, row_id);
+                        sendmail.SendLetterMail(0, EmailerType, 0, row_id);
                     }
                 
                
