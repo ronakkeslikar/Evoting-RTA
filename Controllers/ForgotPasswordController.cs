@@ -34,7 +34,8 @@ namespace evoting.Controllers
             //TypeOfUser attribute
             //Scrutinizer - S, Investor - I, Company - C, Custodian - T, Corporate Shareholder - H, RTA - R
             try
-            {                
+            {
+                await ManageRecaptcha.ValidateUser(fJC_forgot.captcha);
                 var result = (DataTable)null;   
                 if((fJC_forgot.TypeOfUser == 'I' && fJC_forgot.TypeOfUpdate!='E'  ))
                 {

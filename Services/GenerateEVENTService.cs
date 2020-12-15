@@ -86,11 +86,11 @@ namespace evoting.Services
         {
             Dictionary<string, object> dictLogin = new Dictionary<string, object>();                
                 dictLogin.Add("@EVENT_ID", fJC_EVENT.event_id);           
-                dictLogin.Add("@VOTING_START_DATETIME", (DateTimeHandler(fJC_EVENT.voting_start_datetime)));
-                dictLogin.Add("@VOTING_END_DATETIME", (DateTimeHandler(fJC_EVENT.voting_end_datetime)));
-                dictLogin.Add("@MEETING_DATETIME", (DateTimeHandler(fJC_EVENT.meeting_datetime)));
-                dictLogin.Add("@LAST_DATE_NOTICE", (DateTimeHandler(fJC_EVENT.last_date_notice)));
-                dictLogin.Add("@VOTING_RESULT_DATE", (DateTimeHandler(fJC_EVENT.voting_result_date)));
+                dictLogin.Add("@VOTING_START_DATETIME", (ManageDatetime.DateTimeHandler(fJC_EVENT.voting_start_datetime)));
+                dictLogin.Add("@VOTING_END_DATETIME", (ManageDatetime.DateTimeHandler(fJC_EVENT.voting_end_datetime)));
+                dictLogin.Add("@MEETING_DATETIME", (ManageDatetime.DateTimeHandler(fJC_EVENT.meeting_datetime)));
+                dictLogin.Add("@LAST_DATE_NOTICE", (ManageDatetime.DateTimeHandler(fJC_EVENT.last_date_notice)));
+                dictLogin.Add("@VOTING_RESULT_DATE", (ManageDatetime.DateTimeHandler(fJC_EVENT.voting_result_date)));
                 dictLogin.Add("@UPLOAD_LOGO", fJC_EVENT.upload_logo);             
                 dictLogin.Add("@UPLOAD_RESOLUTION_FILE", fJC_EVENT.upload_resolution_file);
                 dictLogin.Add("@UPLOAD_NOTICE", fJC_EVENT.upload_notice); 
@@ -109,13 +109,13 @@ namespace evoting.Services
             dictLogin.Add("@TYPE_EVOTING", fJC_CompanyUpdate_Event.type_evoting);
             dictLogin.Add("@TOTAL_NOF_SHARE", fJC_CompanyUpdate_Event.total_nof_share);
             dictLogin.Add("@VOTING_RIGHTS", fJC_CompanyUpdate_Event.voting_rights);
-            dictLogin.Add("@CUT_OF_DATE", (DateTimeHandler(fJC_CompanyUpdate_Event.cut_of_date)));
+            dictLogin.Add("@CUT_OF_DATE", (ManageDatetime.DateTimeHandler(fJC_CompanyUpdate_Event.cut_of_date)));
             dictLogin.Add("@SCRUTINIZER", fJC_CompanyUpdate_Event.scrutinizer);
-            dictLogin.Add("@VOTING_START_DATETIME", (DateTimeHandler(fJC_CompanyUpdate_Event.voting_start_datetime)));
-            dictLogin.Add("@VOTING_END_DATETIME", (DateTimeHandler(fJC_CompanyUpdate_Event.voting_end_datetime)));
-            dictLogin.Add("@MEETING_DATETIME", (DateTimeHandler(fJC_CompanyUpdate_Event.meeting_datetime)));
-            dictLogin.Add("@LAST_DATE_NOTICE", (DateTimeHandler(fJC_CompanyUpdate_Event.last_date_notice)));
-            dictLogin.Add("@VOTING_RESULT_DATE", (DateTimeHandler(fJC_CompanyUpdate_Event.voting_result_date)));
+            dictLogin.Add("@VOTING_START_DATETIME", (ManageDatetime.DateTimeHandler(fJC_CompanyUpdate_Event.voting_start_datetime)));
+            dictLogin.Add("@VOTING_END_DATETIME", (ManageDatetime.DateTimeHandler(fJC_CompanyUpdate_Event.voting_end_datetime)));
+            dictLogin.Add("@MEETING_DATETIME", (ManageDatetime.DateTimeHandler(fJC_CompanyUpdate_Event.meeting_datetime)));
+            dictLogin.Add("@LAST_DATE_NOTICE", (ManageDatetime.DateTimeHandler(fJC_CompanyUpdate_Event.last_date_notice)));
+            dictLogin.Add("@VOTING_RESULT_DATE", (ManageDatetime.DateTimeHandler(fJC_CompanyUpdate_Event.voting_result_date)));
             dictLogin.Add("@UPLOAD_LOGO", fJC_CompanyUpdate_Event.upload_logo);
             dictLogin.Add("@UPLOAD_RESOLUTION_FILE", fJC_CompanyUpdate_Event.upload_resolution_file);
             dictLogin.Add("@UPLOAD_NOTICE", fJC_CompanyUpdate_Event.upload_notice);
@@ -123,17 +123,17 @@ namespace evoting.Services
             dictLogin.Add("@token", Token);
             return dictLogin;
         }
-        private object DateTimeHandler(string date_param)
-        {
-            if(date_param.Trim()==string.Empty)
-            {
-                return DBNull.Value;
-            }
-            else
-            {
-              return DateTime.Parse(date_param).ToString("yyyy-MM-dd HH:mm:ss:fff"); //HH:mm:ss:fff
-            }
-        }
+        //private object DateTimeHandler(string date_param)
+        //{
+        //    if(date_param.Trim()==string.Empty)
+        //    {
+        //        return DBNull.Value;
+        //    }
+        //    else
+        //    {
+        //      return DateTime.Parse(date_param).ToString("yyyy-MM-dd HH:mm:ss:fff"); //HH:mm:ss:fff
+        //    }
+        //}
 
 
         private SqlParameter PassResolutionArray(FJC_Resolutions_Data[] fJC_Resolutions_s )

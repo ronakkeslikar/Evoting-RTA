@@ -44,8 +44,15 @@ namespace evoting.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;  
                 var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity);
-                var result = await _fileUploadService.FileUpload_Details(_fjc_fileupload, Token);
-                return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
+                if (_fjc_fileupload.files == null)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    var result = await _fileUploadService.FileUpload_Details(_fjc_fileupload, Token);
+                    return Ok(Reformatter.Response_Object("File Uploaded successfully", ref result));
+                }
             }
             catch (Exception ex)
             {

@@ -16,5 +16,7 @@ namespace evoting.Domain.Models
 
         [Required(ErrorMessage ="Enter Password")]        
         public string encrypt_Password { get; set; }
+        [Required(ErrorMessage = "Enter captcha response")]
+        public string captcha { get; set; }
     }
 }
