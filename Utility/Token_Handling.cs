@@ -52,7 +52,7 @@ namespace evoting.Utility
             var permClaims = new List<Claim>();
             permClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             permClaims.Add(new Claim("ChecksumID", loginResponse.Token));
-            
+            permClaims.Add(new Claim("Email", loginResponse.EmailID));
 
             //Create Security Token object by giving required parameters    
             var token = new JwtSecurityToken(issuer, //Issure    

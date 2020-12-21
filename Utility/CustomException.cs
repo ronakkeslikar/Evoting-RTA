@@ -279,7 +279,7 @@ namespace evoting.Utility
             {
                 get 
                 {
-                    return "ReCaptcha Error; Please try again after sometime";
+                    return "ReCaptcha Error: Please refresh the page and solve again";
                 }
             }
         }

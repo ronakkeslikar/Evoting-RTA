@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using System.Web.Http;
 using reCAPTCHA.AspNetCore;
+using evoting.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace evoting
 {
@@ -96,6 +98,15 @@ namespace evoting
             services.AddScoped<INoticeService, NoticeService>();
             services.AddScoped<IRequestBillService, RequestBillService>();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(name: "MustWorkForBigshareOnline", configurePolicy: policy =>
+                {
+                    policy.AddRequirements(new Requirement(domainName: "bigshareonline.com"));
+                });
+            });
+
+            services.AddSingleton<IAuthorizationHandler, Handler>();
 
 
 

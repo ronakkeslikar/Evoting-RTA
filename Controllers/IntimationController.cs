@@ -17,50 +17,52 @@ namespace evoting.Controllers
     [ApiController]
     public class IntimationController : ControllerBase
     {
-            private readonly IIntimationService _intimationService;
+        private readonly IIntimationService _intimationService;
 
-            public IntimationController(IIntimationService intimationService)
-            {
-                _intimationService = intimationService;
-            }
+        public IntimationController(IIntimationService intimationService)
+        {
+            _intimationService = intimationService;
+        }
 
-            [Authorize]
-            [HttpPost("intimation")]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]
-            public async Task<IActionResult> IntimationSave(FJC_Intimation fjc_intimation)
+        [Authorize]
+        [HttpPost("intimation")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(policy: "MustWorkForBigshareOnline")]
+        public async Task<IActionResult> IntimationSave(FJC_Intimation fjc_intimation)
+        {
+            try
             {
-                try
-                {
-                    var identity = (ClaimsIdentity)User.Identity;  
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
-                    var result = await _intimationService.Intimation_data(fjc_intimation, Token);                    
-                    return Ok(Reformatter.Response_Object("Intimation Record Saved Successfully", ref result));
-                   
-                }
-                catch (Exception ex)
-                {
-                    return (new HandleCatches()).ManageExceptions(ex);
-                }
-            }
+                var identity = (ClaimsIdentity)User.Identity;
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
+                var result = await _intimationService.Intimation_data(fjc_intimation, Token);
+                return Ok(Reformatter.Response_Object("Intimation Record Saved Successfully", ref result));
 
-            [Authorize]
-            [HttpGet("intimation")]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]
-            public async Task<IActionResult> Vote_InvestorGetSaved(string type)
-            {
-                try
-                {
-                    var identity = (ClaimsIdentity)User.Identity;  
-                    var Token = Token_Handling.Get_Token_FromHeader(Request.Headers,identity); 
-                    var result = await _intimationService.Intimation_Getdata(Token, type);
-                    return Ok(Reformatter.Response_ArrayObject("Intimation Record retrieved Successfully", ref result));    
-                }
-                catch (Exception ex)
-                {
-                    return (new HandleCatches()).ManageExceptions(ex);
-                }
             }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("intimation")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(policy: "MustWorkForBigshareOnline")]
+        public async Task<IActionResult> Vote_InvestorGetSaved(string type)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var Token = Token_Handling.Get_Token_FromHeader(Request.Headers, identity);
+                var result = await _intimationService.Intimation_Getdata(Token, type);
+                return Ok(Reformatter.Response_ArrayObject("Intimation Record retrieved Successfully", ref result));
+            }
+            catch (Exception ex)
+            {
+                return (new HandleCatches()).ManageExceptions(ex);
+            }
+        }
     }
 }
